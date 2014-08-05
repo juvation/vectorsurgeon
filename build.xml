@@ -1,0 +1,176 @@
+<project
+	name="Prophet VS Editor/Librarian"
+	default="build"
+	basedir="."
+	>
+
+	<property name="build.dir"  value="build"/>
+	<property name="classes.dir"  value="${build.dir}/classes"/>
+	<property name="java.src.dir"  value="src"/>
+
+	<path
+		id="project.classpath"
+		>
+		<fileset
+			dir="lib"
+			>
+			<include
+				name="**/*.jar"
+			/>
+			<include
+				name="**/*.zip"
+			/>
+		</fileset>
+		<pathelement
+			location="${classes.dir}"
+		/>
+	</path>
+
+	<property
+		name="project.classpath.property"
+		refid="project.classpath"
+	/>
+	
+	<target
+		name="init"
+		>
+		<mkdir
+			dir="${build.dir}"
+		/>
+		<mkdir
+			dir="${classes.dir}"
+		/>
+	</target>
+
+	<target
+		name="build"
+		depends="init"
+		>
+		<antcall
+			target="compile"
+		/>
+		<antcall
+			target="jar"
+		/>
+		<antcall
+			target="deploy"
+		/>
+	</target>
+	
+	<target
+		name="clean"
+		>
+		<delete
+			dir="${classes.dir}"
+		/>
+		<delete
+			file="vs.jar"
+		/>
+	</target>
+
+	<target
+		name="libext"
+		>
+	</target>
+
+ 	<target
+		name="compile"
+		>
+	 	<javac
+			srcdir="${java.src.dir}"
+			destdir="${classes.dir}"
+			debug="on"
+			source="1.5"
+			target="jsr14"
+			deprecation="on"
+			>
+ 			<classpath
+				refid="project.classpath"
+			/>
+		</javac>
+	</target>
+
+	<target
+		name="jar"
+		>
+		<copy
+			file="config/prophetvs_ui.xml"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="config/transforms.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_banner.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_off.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_on.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<jar
+			destfile="vs.jar"
+			basedir="${classes.dir}"
+		/>
+	</target>
+
+	<target
+		name="deploy"
+		>
+		<copy
+			file="vs.jar"
+			todir="mac/VectorSurgeon.app/Contents/Resources/Java/"
+			verbose="true"
+		/>
+		<copy
+			file="vs.jar"
+			todir="mac/VSControlMapper.app/Contents/Resources/Java/"
+			verbose="true"
+		/>
+		<copy
+			file="vs.jar"
+			todir="windows"
+			verbose="true"
+		/>
+	</target>
+
+	<target name="javadoc">
+		<mkdir
+			dir="javadoc"
+		/>
+		<javadoc
+			destdir="javadoc"
+			author="true"
+			version="true"
+			use="true"
+			windowtitle="VS Editor JavaDoc"
+			>
+ 			<classpath
+				refid="project.classpath"
+			/>
+			<packageset
+				dir="${java.src.dir}"
+				defaultexcludes="yes"
+				>
+				<include
+					name="com/prophetvs/**"
+				/>
+			</packageset>
+
+			<doctitle><![CDATA[<h1><font face="Arial"><b>Prophet VS Editor JavaDoc</b></font></h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2008 Jason Proctor</i>]]></bottom>
+			<tag name="todo" scope="all" description="To do:" />
+		</javadoc>
+  </target>
+</project>
+

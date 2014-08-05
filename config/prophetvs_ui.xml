@@ -1,0 +1,1354 @@
+<machine
+	name="Prophet VS"
+	class="com.prophetvs.patcher.Adapter"
+	>
+	<declare
+		name="envelope_loop_names"
+		value="Off,0--&gt;3,1--&gt;3,2--&gt;3,0&lt;-&gt;3,1&lt;-&gt;3,2&lt;-&gt;3"
+	/>
+	<declare
+		name="envelope_loop_iterations"
+		value="Continuous,1,2,3,4,5,6,7"
+	/>
+	<declare
+		name="lfo_shape_names"
+		value="Triangle,Square,Sawtooth,Ramp,Random,Value5"
+	/>
+	<declare
+		name="oscillator_wave_names"
+		value="0 User 1,1 User 2,2 User 3,3 User 4,4 User 5,5 User 6,6 User 7,7 User 8,8 User 9,9 User 10,10 User 11,11 User 12,12 User 13,13 User 14,14 User 15,15 User 16,16 User 17,17 User 18,18 User 19,19 User 20,20 User 21,21 User 22,22 User 23,23 User 24,24 User 25,25 User 26,26 User 27,27 User 28,28 User 29,29 User 30,30 User 31,31 User 32,32 Sine,33 Saw,34 Square,35 Bell 1,36 Bell 2,37 Mellow Bell 1,38 Bell 3,39 Bell 4,40 Reed 1,41 Reed 2,42 Reed 3,43 Reed 4,44 Bell 5,45 HP Saw,46 Hi BP Saw,47 Hi BP Square,48 Voice,49 Accordion,50 Mellow Bell 2,51 Lifeless Saw,52 Bright Wave 1,53 Bright Wave 2,54 Bright Wave 3,55 Medium Wave 1,56 Inharmonic Bell 1,57 Medium Wave 2,58 Bell 6,59 Mellow Bell 3,60 Bell 7,61 Bright Wave 4,62 Bright Wave 5,63 Mellow Bell 4,64 Bell 8,65 Church Organ,66 Bright Wave 6,67 Mellow Wave 1,68 Mellow Wave 2,69 Bright Wave 7,70 Clarinet,71 Mellow Wave 3,72 Mellow Wave 4,73 Sax,74 Mellow Wave 5,75 Cheesy Wave 1,76 Cheesy Wave 2,77 Cheesy Wave 3,78 Cheesy Wave 4,79 Cheesy Wave 5,80 Cheesy Wave 6,81 Harmonica 1,82 Harmonica 2,83 Mellow Wave 5,84 Nasal 1,85 Nasal 2,86 Bright Wave 8,87 Bright wave 9,88 Bright Wave 10,89 Mellow Bell 5,90 Mellow Bell 6,91 Inharmonic Bell 2,92 Nasal 3,93 Bright Wave 11,94 Mellow Bell 7,95 Mellow Wave 6,96 Super Mellow 1,97 Mellow Wave 7,98 Cheesy Wave 7,99 Sparkle Pad,100 Bell 9,101 Nasal 4,102 Nasal 5,103 Cheesy Wave 8,104 Cheesy Wave 9,105 Cheesy Wave 10,106 Cheesy Wave 11,107 Cheesy Wave 12,108 Cheesy Wave 13,109 Bright Wave 12,110 Bright Wave 13,111 Cheesy Wave 13,112 Cheesy Wave 14,113 Spectrum,114 Mellow Bell 8,115 Cheesy Wave 15,116 Super Mellow 2,117 Super Mellow 3,118 Planetarium,119 5th reed,120 Octave Wave,121 5th Triangle + Harmonics,122 5th Pulse + Harmonics,123 5th Square + Harmonics,124 Mellow Wave 8,125 Inharmonic Bell 3,126 Silence,127 White Noise"
+	/>
+
+	<!-- oscillators page -->
+
+	<page
+		name="Oscillators"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<verticalbox
+					name="Oscillator A"
+					>
+					<horizontalcenter>
+						<popup
+							label="Wave"
+							parameter="WaveNumberA"
+							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+					<horizontalbox>
+						<slider
+							label="Coarse"
+							parameter="CoarseFrequencyA"
+							min="0"
+							max="24"
+							majortick="1"
+						/>
+						<slider
+							label="Fine"
+							parameter="FineFrequencyA"
+							min="0"
+							max="99"
+							majortick="10"
+						/>
+						<verticalcenter>
+							<verticalbox>
+								<title
+									label="Modulation"
+								/>
+								<checkbox
+									label="LFO 1"
+									parameter="LFO1FreqAMod"
+								/>
+								<checkbox
+									label="LFO 2"
+									parameter="LFO2FreqAMod"
+								/>
+								<checkbox
+									label="Pressure"
+									parameter="PressureFreqAMod"
+								/>
+							</verticalbox>
+						</verticalcenter>
+					</horizontalbox>
+				</verticalbox>
+				<verticalbox
+					name="Oscillator B"
+					>
+					<horizontalcenter>
+						<popup
+							label="Wave"
+							parameter="WaveNumberB"
+							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+					<horizontalbox>
+						<slider
+							label="Coarse"
+							parameter="CoarseFrequencyB"
+							min="0"
+							max="24"
+							majortick="1"
+						/>
+						<slider
+							label="Fine"
+							parameter="FineFrequencyB"
+							min="0"
+							max="99"
+							majortick="10"
+						/>
+						<verticalcenter>
+							<verticalbox>
+								<title
+									label="Modulation"
+								/>
+								<checkbox
+									label="LFO 1"
+									parameter="LFO1FreqBMod"
+								/>
+								<checkbox
+									label="LFO 2"
+									parameter="LFO2FreqBMod"
+								/>
+								<checkbox
+									label="Pressure"
+									parameter="PressureFreqBMod"
+								/>
+							</verticalbox>
+						</verticalcenter>
+					</horizontalbox>
+				</verticalbox>
+				<verticalbox
+					name="Oscillator C"
+					>
+					<horizontalcenter>
+						<popup
+							label="Wave"
+							parameter="WaveNumberC"
+							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+					<horizontalbox>
+						<slider
+							label="Coarse"
+							parameter="CoarseFrequencyC"
+							min="0"
+							max="24"
+							majortick="1"
+						/>
+						<slider
+							label="Fine"
+							parameter="FineFrequencyC"
+							min="0"
+							max="99"
+							majortick="10"
+						/>
+						<verticalcenter>
+							<verticalbox>
+								<title
+									label="Modulation"
+								/>
+								<checkbox
+									label="LFO 1"
+									parameter="LFO1FreqCMod"
+								/>
+								<checkbox
+									label="LFO 2"
+									parameter="LFO2FreqCMod"
+								/>
+								<checkbox
+									label="Pressure"
+									parameter="PressureFreqCMod"
+								/>
+							</verticalbox>
+						</verticalcenter>
+					</horizontalbox>
+				</verticalbox>
+				<verticalbox
+					name="Oscillator D"
+					>
+					<horizontalcenter>
+						<popup
+							label="Wave"
+							parameter="WaveNumberD"
+							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+					<horizontalbox>
+						<slider
+							label="Coarse"
+							parameter="CoarseFrequencyD"
+							min="0"
+							max="24"
+							majortick="1"
+						/>
+						<slider
+							label="Fine"
+							parameter="FineFrequencyD"
+							min="0"
+							max="99"
+							majortick="10"
+						/>
+						<verticalcenter>
+							<verticalbox>
+								<title
+									label="Modulation"
+								/>
+								<checkbox
+									label="LFO 1"
+									parameter="LFO1FreqDMod"
+								/>
+								<checkbox
+									label="LFO 2"
+									parameter="LFO2FreqDMod"
+								/>
+								<checkbox
+									label="Pressure"
+									parameter="PressureFreqDMod"
+								/>
+							</verticalbox>
+						</verticalcenter>
+					</horizontalbox>
+				</verticalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+
+	<!-- mix envelope page -->
+	
+	<page
+		name="Mix Envelope"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Mix Envelope"
+					>
+					<custom
+						class="com.prophetvs.editor.MixEnvelopeControl"
+						label="Initial"
+						size="150"
+						xparametername="MixEnvXLevel0"
+						yparametername="MixEnvYLevel0"
+					/>
+					<!--
+					<slider
+						label="Initial X"
+						parameter="MixEnvXLevel0"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Initial Y"
+						parameter="MixEnvYLevel0"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Attack"
+						parameter="MixEnvRate1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<custom
+						class="com.prophetvs.editor.MixEnvelopeControl"
+						label="Post-Attack"
+						size="150"
+						xparametername="MixEnvXLevel1"
+						yparametername="MixEnvYLevel1"
+					/>
+					<!--
+					<slider
+						label="Post-Attack X"
+						parameter="MixEnvXLevel1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Attack Y"
+						parameter="MixEnvYLevel1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Hold"
+						parameter="MixEnvRate2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<custom
+						class="com.prophetvs.editor.MixEnvelopeControl"
+						label="Post-Hold"
+						size="150"
+						xparametername="MixEnvXLevel2"
+						yparametername="MixEnvYLevel2"
+					/>
+					<!--
+					<slider
+						label="Post-Hold X"
+						parameter="MixEnvXLevel2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Hold Y"
+						parameter="MixEnvYLevel2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Decay"
+						parameter="MixEnvRate3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<custom
+						class="com.prophetvs.editor.MixEnvelopeControl"
+						label="Sustain"
+						size="150"
+						xparametername="MixEnvXLevel3"
+						yparametername="MixEnvYLevel3"
+					/>
+					<!--
+					<slider
+						label="Sustain X"
+						parameter="MixEnvXLevel3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Sustain Y"
+						parameter="MixEnvYLevel3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Release"
+						parameter="MixEnvRate4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Pedal Release"
+						parameter="MixEnvRate4A"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<custom
+						class="com.prophetvs.editor.MixEnvelopeControl"
+						label="Post-Release"
+						size="150"
+						xparametername="MixEnvXLevel4"
+						yparametername="MixEnvYLevel4"
+					/>
+					<!--
+					<slider
+						label="Post-Release X"
+						parameter="MixEnvXLevel4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Release Y"
+						parameter="MixEnvYLevel4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Loop"
+								parameter="MixEnvLoop"
+								valueref="envelope_loop_names"
+							/>
+							<popup
+								label="Repeats"
+								parameter="MixEnvRepeat"
+								valueref="envelope_loop_iterations"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
+	<!-- filter page -->
+
+	<page
+		name="Filter"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Filter"
+					>
+					<slider
+						label="Cutoff"
+						parameter="FilterCutoff"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<title
+								label="Modulation"
+							/>
+							<checkbox
+								label="LFO 1"
+								parameter="LFO1FilterCutoffMod"
+							/>
+							<checkbox
+								label="LFO 2"
+								parameter="LFO2FilterCutoffMod"
+							/>
+							<checkbox
+								label="Pressure"
+								parameter="PressureFilterCutoffMod"
+							/>
+							<checkbox
+								label="Keyboard"
+								parameter="KeyboardFilterCutoffMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<slider
+						label="Resonance"
+						parameter="FilterResonance"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Env Amount"
+						parameter="FilterEnvAmount"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+				</horizontalbox>
+			</horizontalcenter>
+			
+			<!-- combine the filter and filter envelope pages -->
+			
+	<!--
+		</horizontalbox>
+		
+	</page>
+	-->
+	
+	<!-- filter envelope page -->
+
+	<!--
+	<page
+		name="Filter Envelope"
+		>
+		<horizontalbox>
+	-->
+			<horizontalcenter>
+				<horizontalbox
+					name="Filter Envelope"
+					>
+					<custom
+						class="com.prophetvs.editor.FilterEnvelopeControl"
+						width="400"
+						height="200"
+						rateparameter1="FilterEnvRate1"
+						rateparameter2="FilterEnvRate2"
+						rateparameter3="FilterEnvRate3"
+						rateparameter4="FilterEnvRate4"
+						levelparameter0="FilterEnvLevel0"
+						levelparameter1="FilterEnvLevel1"
+						levelparameter2="FilterEnvLevel2"
+						levelparameter3="FilterEnvLevel3"
+						levelparameter4="FilterEnvLevel4"
+						label="Filter Envelope"
+					/>
+					<!--
+					<slider
+						label="Initial Level"
+						parameter="FilterEnvLevel0"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Attack"
+						parameter="FilterEnvRate1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Attack Level"
+						parameter="FilterEnvLevel1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Hold"
+						parameter="FilterEnvRate2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Hold Level"
+						parameter="FilterEnvLevel2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Decay"
+						parameter="FilterEnvRate3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Sustain"
+						parameter="FilterEnvLevel3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Release"
+						parameter="FilterEnvRate4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Pedal Release"
+						parameter="FilterEnvRate4A"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<!--
+					<slider
+						label="Post-Release Level"
+						parameter="FilterEnvLevel4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Loop"
+								parameter="FilterEnvLoop"
+								valueref="envelope_loop_names"
+							/>
+							<popup
+								label="Repeats"
+								parameter="FilterEnvRepeat"
+								valueref="envelope_loop_iterations"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+				<horizontalbox
+					name="Filter Envelope Mod"
+					>
+					<slider
+						label="Amount"
+						parameter="FilterEnvModAmount"
+						min="-99"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Osc Frequency"
+								parameter="FilterEnvFreqMod"
+							/>
+							<checkbox
+								label="Pan"
+								parameter="FilterEnvPanMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
+	<!-- LFOs page -->
+
+	<page
+		name="LFOs"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="LFO 1"
+					>
+					<slider
+						label="Rate"
+						parameter="LFO1Rate"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Amount"
+						parameter="LFO1ModAmount"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<popup
+							label="Shape"
+							parameter="LFO1Shape"
+							valueref="lfo_shape_names"
+						/>
+					</verticalcenter>
+					<verticalbox>
+						<checkbox
+							label="Osc A Frequency"
+							parameter="LFO1FreqAMod"
+						/>
+						<checkbox
+							label="Osc B Frequency"
+							parameter="LFO1FreqBMod"
+						/>
+						<checkbox
+							label="Osc C Frequency"
+							parameter="LFO1FreqCMod"
+						/>
+						<checkbox
+							label="Osc D Frequency"
+							parameter="LFO1FreqDMod"
+						/>
+						<checkbox
+							label="Filter Cutoff"
+							parameter="LFO1FilterCutoffMod"
+						/>
+						<checkbox
+							label="Osc Mix A&lt;-&gt;C"
+							parameter="LFO1MixACMod"
+						/>
+						<checkbox
+							label="Osc Mix B&lt;-&gt;D"
+							parameter="LFO1MixBDMod"
+						/>
+						<checkbox
+							label="LFO 2 Rate"
+							parameter="LFO1LFO2RateMod"
+						/>
+						<checkbox
+							label="LFO 2 Amount"
+							parameter="LFO1LFO2AmountMod"
+						/>
+						<checkbox
+							label="Pan"
+							parameter="LFO1PanMod"
+						/>
+					</verticalbox>
+				</horizontalbox>
+				<horizontalbox
+					name="LFO 2"
+					>
+					<slider
+						label="Rate"
+						parameter="LFO2Rate"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Amount"
+						parameter="LFO2ModAmount"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<popup
+							label="Shape"
+							parameter="LFO2Shape"
+							valueref="lfo_shape_names"
+						/>
+					</verticalcenter>
+					<verticalbox>
+						<checkbox
+							label="Osc A Frequency"
+							parameter="LFO2FreqAMod"
+						/>
+						<checkbox
+							label="Osc B Frequency"
+							parameter="LFO2FreqBMod"
+						/>
+						<checkbox
+							label="Osc C Frequency"
+							parameter="LFO2FreqCMod"
+						/>
+						<checkbox
+							label="Osc D Frequency"
+							parameter="LFO2FreqDMod"
+						/>
+						<checkbox
+							label="Filter Cutoff"
+							parameter="LFO2FilterCutoffMod"
+						/>
+						<checkbox
+							label="Osc Mix A&lt;-&gt;C"
+							parameter="LFO2MixACMod"
+						/>
+						<checkbox
+							label="Osc Mix B&lt;-&gt;D"
+							parameter="LFO2MixBDMod"
+						/>
+						<checkbox
+							label="LFO 1 Rate"
+							parameter="LFO2LFO1RateMod"
+						/>
+						<checkbox
+							label="LFO 1 Amount"
+							parameter="LFO2LFO1AmountMod"
+						/>
+						<checkbox
+							label="Pan"
+							parameter="LFO2PanMod"
+						/>
+					</verticalbox>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+
+	<!-- other modulation page -->
+	
+	<page
+		name="Modulation"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Pressure"
+					>
+					<slider
+						label="Amount"
+						parameter="PressureModAmount"
+						min="-99"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Osc A Frequency"
+								parameter="PressureFreqAMod"
+							/>
+							<checkbox
+								label="Osc B Frequency"
+								parameter="PressureFreqBMod"
+							/>
+							<checkbox
+								label="Osc C Frequency"
+								parameter="PressureFreqCMod"
+							/>
+							<checkbox
+								label="Osc D Frequency"
+								parameter="PressureFreqDMod"
+							/>
+							<checkbox
+								label="Filter Cutoff"
+								parameter="PressureFilterCutoffMod"
+							/>
+							<checkbox
+								label="Osc Mix A&lt;-&gt;C"
+								parameter="PressureMixACMod"
+							/>
+							<checkbox
+								label="Osc Mix B&lt;-&gt;D"
+								parameter="PressureMixBDMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="LFO 1 Rate"
+								parameter="PressureLFO1RateMod"
+							/>
+							<checkbox
+								label="LFO 1 Amount"
+								parameter="PressureLFO1AmountMod"
+							/>
+							<checkbox
+								label="LFO 2 Rate"
+								parameter="PressureLFO2RateMod"
+							/>
+							<checkbox
+								label="LFO 2 Amount"
+								parameter="PressureLFO2AmountMod"
+							/>
+							<checkbox
+								label="Amp Envelope"
+								parameter="PressureAmpEnvMod"
+							/>
+							<checkbox
+								label="Pan"
+								parameter="PressurePanMod"
+							/>
+							<checkbox
+								label="Chorus Rate"
+								parameter="PressureChorusRateMod"
+							/>
+							<checkbox
+								label="Chorus Depth"
+								parameter="PressureChorusDepthMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+				<horizontalbox
+					name="Velocity"
+					>
+					<slider
+						label="Amount"
+						parameter="VelocityModAmount"
+						min="-99"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Filter Envelope"
+								parameter="VelocityFilterEnvMod"
+							/>
+							<checkbox
+								label="Osc Mix A&lt;-&gt;C"
+								parameter="VelocityMixACMod"
+							/>
+							<checkbox
+								label="Osc Mix B&lt;-&gt;D"
+								parameter="VelocityMixBDMod"
+							/>
+							<checkbox
+								label="Amp Envelope"
+								parameter="VelocityAmpEnvMod"
+							/>
+							<checkbox
+								label="Pan"
+								parameter="VelocityPanMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+				<horizontalbox
+					name="Keyboard"
+					>
+					<slider
+						label="Amount"
+						parameter="KeyboardModAmount"
+						min="-99"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Filter Cutoff"
+								parameter="KeyboardFilterCutoffMod"
+							/>
+							<checkbox
+								label="Osc Mix A&lt;-&gt;C"
+								parameter="KeyboardMixACMod"
+							/>
+							<checkbox
+								label="Osc Mix B&lt;-&gt;D"
+								parameter="KeyboardMixBDMod"
+							/>
+							<checkbox
+								label="Pan"
+								parameter="KeyboardPanMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+				<horizontalbox
+					name="Filter Envelope"
+					>
+					<slider
+						label="Amount"
+						parameter="FilterEnvModAmount"
+						min="-99"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Osc Frequency"
+								parameter="FilterEnvFreqMod"
+							/>
+							<checkbox
+								label="Pan"
+								parameter="FilterEnvPanMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+				<horizontalbox
+					name="Mod Wheel"
+					>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="LFO 1 Amount"
+								parameter="ModWheelLFO1AmountMod"
+							/>
+							<checkbox
+								label="LFO 2 Amount"
+								parameter="ModWheelLFO2AmountMod"
+							/>
+							<checkbox
+								label="Chorus Rate"
+								parameter="ModWheelChorusDepthMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
+	<!-- pan page -->
+	
+	<page
+		name="Voice Pan"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Pan"
+					>
+					<slider
+						label="Voice 1"
+						parameter="Voice1Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 2"
+						parameter="Voice2Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 3"
+						parameter="Voice3Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 4"
+						parameter="Voice4Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 5"
+						parameter="Voice5Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 6"
+						parameter="Voice6Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 7"
+						parameter="Voice7Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<slider
+						label="Voice 8"
+						parameter="Voice8Pan"
+						min="-63"
+						max="63"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<title
+								label="Modulation"
+							/>
+							<checkbox
+								label="LFO 1"
+								parameter="LFO1PanMod"
+							/>
+							<checkbox
+								label="LFO 2"
+								parameter="LFO2PanMod"
+							/>
+							<checkbox
+								label="Pressure"
+								parameter="PressurePanMod"
+							/>
+							<checkbox
+								label="Velocity"
+								parameter="VelocityPanMod"
+							/>
+							<checkbox
+								label="Keyboard"
+								parameter="KeyboardPanMod"
+							/>
+							<checkbox
+								label="Filter Envelope"
+								parameter="FilterEnvPanMod"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
+	<!-- output page -->
+
+	<page
+		name="Amplifier Envelope"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Amplifier Envelope"
+					>
+					<custom
+						class="com.prophetvs.editor.AmpEnvelopeControl"
+						width="600"
+						height="200"
+						rateparameter1="AmpEnvRate1"
+						rateparameter2="AmpEnvRate2"
+						rateparameter3="AmpEnvRate3"
+						rateparameter4="AmpEnvRate4"
+						levelparameter0="AmpEnvLevel0"
+						levelparameter1="AmpEnvLevel1"
+						levelparameter2="AmpEnvLevel2"
+						levelparameter3="AmpEnvLevel3"
+						label="Amplifier Envelope"
+					/>
+					<!--
+					<slider
+						label="Initial Level"
+						parameter="AmpEnvLevel0"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Attack"
+						parameter="AmpEnvRate1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Attack Level"
+						parameter="AmpEnvLevel1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Hold"
+						parameter="AmpEnvRate2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Hold Level"
+						parameter="AmpEnvLevel2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Decay"
+						parameter="AmpEnvRate3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Sustain"
+						parameter="AmpEnvLevel3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Release"
+						parameter="AmpEnvRate4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Pedal Release"
+						parameter="AmpEnvRate4A"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Loop"
+								parameter="AmpEnvLoop"
+								valueref="envelope_loop_names"
+							/>
+							<popup
+								label="Repeats"
+								parameter="AmpEnvRepeat"
+								valueref="envelope_loop_iterations"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
+	<!-- voice control page -->
+	
+	<page
+		name="Voice Control"
+		>
+		<verticalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Keyboard Mode"
+					>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Mode"
+								parameter="KeyboardMode"
+								value="Single,Split,Double"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<slider
+						label="Split Point"
+						parameter="SplitPoint"
+						min="0"
+						max="127"
+						majortick="10"
+					/>
+					<slider
+						label="Link Program"
+						parameter="LinkProgram"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Double Detune"
+						parameter="DoubleModeDetune"
+						min="0"
+						max="31"
+						majortick="4"
+					/>
+					<slider
+						label="Double Delay"
+						parameter="DoubleModeDelay"
+						min="0"
+						max="127"
+						majortick="10"
+					/>
+				</horizontalbox>
+				<horizontalbox
+					name="Voice Control"
+					>
+					<slider
+						label="Unison/Detune"
+						parameter="UnisonDetune"
+						min="0"
+						max="7"
+						majortick="1"
+					/>
+					<slider
+						label="Glide"
+						parameter="Glide"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Volume"
+						parameter="ProgramVolume"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+				</horizontalbox>
+				<horizontalbox
+					name="Chorus"
+					>
+					<verticalcenter>
+						<verticalbox>
+							<!-- there's no way of handling the Prophet's chorus bits separately -->
+							<popup
+								label="Chorus"
+								parameter="ChorusRightLeft"
+								value="Off,Right,Left,Left+Right"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<slider
+						label="Rate"
+						parameter="ChorusRate"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Depth"
+						parameter="ChorusDepth"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+				</horizontalbox>
+			</horizontalcenter>
+			<horizontalcenter>
+				<horizontalbox>
+					<title
+						label="Patch Name"
+					/>
+					<textfield
+						parameter="$PatchName"
+						length="8"
+					/>
+				</horizontalbox>
+			</horizontalcenter>
+		</verticalbox>
+	</page>
+	
+	<!-- arpeggiator page -->
+	
+	<page
+		name="Arpeggiator"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Arpeggiator"
+					>
+					<slider
+						label="Rate"
+						parameter="ArpRate"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Mode"
+								parameter="ArpMode"
+								value="Normal,Auto-Latch,Extend,Value3"
+							/>
+							<popup
+								label="Scan"
+								parameter="ArpScan"
+								value="Up,Down,Up/Down,Assign,Reverse,Random,Value6,Value7"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Octaves"
+								parameter="ArpOctaves"
+								value="1,2,3,4"
+							/>
+							<popup
+								label="Repeats"
+								parameter="ArpRepeats"
+								value="1,2,3,4"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Split"
+								parameter="ArpSplit"
+								value="Off,Left,Right,Dual"
+							/>
+							<popup
+								label="Voicing"
+								parameter="ArpVoicing"
+								value="Mono,Poly"
+							/>
+						</verticalbox>
+					</verticalcenter>
+					<verticalcenter>
+						<verticalbox>
+							<checkbox
+								label="Velocity"
+								parameter="ArpVelocity"
+							/>
+							<checkbox
+								label="Layer"
+								parameter="ArpLayer"
+							/>
+							<checkbox
+								label="Rest"
+								parameter="ArpRest"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+</machine>
+
