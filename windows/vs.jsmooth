@@ -14,7 +14,7 @@
 <jarLocation>vs.jar</jarLocation>
 <mainClassName>com.prophetvs.editor.ControlWindow</mainClassName>
 <maximumMemoryHeap>-1</maximumMemoryHeap>
-<maximumVersion>1.7</maximumVersion>
+<maximumVersion>1.8</maximumVersion>
 <minimumVersion>1.5</minimumVersion>
 <skeletonName>Windowed Wrapper</skeletonName>
 <skeletonProperties>
