@@ -162,10 +162,12 @@
 	
 	<div p-view="onmidimessage" p-view-flags="" class="p-invisible">
 		<p-local-storage key="midi_input_id" name="midi_input_id">
+
+			<!-- check the message came from the correct input -->
 			<p-if true="$params.event.target.id; == $midi_input_id;">
 				<p-local-storage key="midi_output_id" name="midi_output_id">
 					<p-midi-message key="params.message">
-						<!-- note? -->
+						<!-- note or program change? -->
 						<p-if true="$message.status_hex; == 0x80 || $message.status_hex; == 0x90 || $message.status_hex; == 0xc0">
 							<!-- send to the VS -->
 							<p-action
@@ -173,22 +175,30 @@
 								action-params="status: $message.status;; data_0: $message.data_0;; data_1: $message.data_1;;"
 								></p-action>
 						</p-if>
+						
 						<!-- control change? -->
 						<p-if true="$message.status_hex; == 0xb0">
 							<p-local-storage key="control_mapping_$message.data_0;" name="vs_parameter">
 								<p-if notempty="$vs_parameter;">
 									<!-- scale the value to 256 -->
 									<p-set name="value" expression="$message.data_1; * 2">
+
 										<!-- send VS parameter select LSB -->
-										<p-action
-											action="send-midi $midi_output_id;"
-											action-params="status: 0xb0; data_0: 0x62; data_1: $vs_parameter;;"
-											></p-action>
+										<p-set name="param_lsb" expression="$vs_parameter; & 0xff">
+											<p-action
+												action="send-midi $midi_output_id;"
+												action-params="status: 0xb0; data_0: 0x62; data_1: $param_lsb;;"
+												></p-action>
+										</p-set>
+
 										<!-- send VS parameter select MSB -->
-										<p-action
-											action="send-midi $midi_output_id;"
-											action-params="status: 0xb0; data_0: 0x63; data_1: 0x0;"
-											></p-action>
+										<p-set name="param_msb" expression="$vs_parameter; >> 8 & 0xff">
+											<p-action
+												action="send-midi $midi_output_id;"
+												action-params="status: 0xb0; data_0: 0x63; data_1: $param_msb;;"
+												></p-action>
+										</p-set>
+
 										<!-- send VS data slider LSB (bit 0 shifted, sigh) -->
 										<p-set name="param_value_lsb" expression="$value; & 1 << 6">
 											<!-- send VS parameter value LSB -->
@@ -197,6 +207,7 @@
 												action-params="status: 0xb0; data_0: 0x26; data_1: $param_value_lsb;;"
 												></p-action>
 										</p-set>
+
 										<!-- send VS data slider MSB (bits 7:1 shifted, sigh) -->
 										<p-set name="param_value_msb" expression="$value; >> 1 & 127">
 											<!-- send VS parameter value MSB -->
@@ -212,6 +223,7 @@
 					</p-midi-message>
 				</p-local-storage>
 			</p-if>
+			
 			<p-if false="$params.event.target.id; == $midi_input_id;">
 				<!-- <p-log value="filtering input from $params.event.target.id;"></p-log> -->
 			</p-if>
