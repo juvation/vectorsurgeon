@@ -179,12 +179,15 @@
 						<!-- control change? -->
 						<p-if true="$message.status_hex; == 0xb0">
 							<p-local-storage key="control_mapping_$message.data_0;" name="vs_parameter">
+								<p-if empty="$vs_parameter;">
+									<p-log value="unmapped controller $message.data_0; received"></p-log>
+								</p-if>
 								<p-if notempty="$vs_parameter;">
 									<!-- scale the value to 256 -->
 									<p-set name="value" expression="$message.data_1; * 2">
 
 										<!-- send VS parameter select LSB -->
-										<p-set name="param_lsb" expression="$vs_parameter; & 0xff">
+										<p-set name="param_lsb" expression="$vs_parameter; & 255">
 											<p-action
 												action="send-midi $midi_output_id;"
 												action-params="status: 0xb0; data_0: 0x62; data_1: $param_lsb;;"
@@ -192,7 +195,7 @@
 										</p-set>
 
 										<!-- send VS parameter select MSB -->
-										<p-set name="param_msb" expression="$vs_parameter; >> 8 & 0xff">
+										<p-set name="param_msb" expression="$vs_parameter; >> 8 & 255">
 											<p-action
 												action="send-midi $midi_output_id;"
 												action-params="status: 0xb0; data_0: 0x63; data_1: $param_msb;;"
