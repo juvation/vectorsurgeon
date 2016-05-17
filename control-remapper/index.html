@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width">
+<title>Control Code Remapper</title>
+
+<!-- styles -->
+
+<link href="positron/positron.css" type="text/css" rel="stylesheet"></link>
+
+<!-- scripts -->
+
+<script src="positron/prefixfree.min.js" type="text/javascript"></script>
+<script src="positron/prefixfree.dynamic-dom.min.js" type="text/javascript"></script>
+<script src="monohm.js" type="text/javascript"></script>
+<script src="positron/positron.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+	<p-midi>
+		<p-if true="$midi.available; == true">
+			<div p-view="config" p-view-flags="">
+				<p-midi-inputs>
+					<p-if true="$inputs.length; == 0">No MIDI inputs available</p-if>
+					<p-if true="$inputs.length; > 0">
+						<p-local-storage key="midi_input_id" name="midi_input_id">
+							<p-if empty="$midi_input_id;">
+								<p-list key="inputs" name="input" offset="0" limit="1">
+									<p-action
+										action="set-local-storage"
+											action-params="midi_input_id: $input.id;;"
+									/>
+								</p-list>
+							</p-if>
+						</p-local-storage>
+						<label for="midi_input">MIDI Input:</label>
+						<p-select
+							name="midi_input"
+							p-action="(change) set-local-storage"
+								p-action-fire-param-keys="midi_input_id: value;"
+							>
+							<p-local-storage key="midi_input_id" name="midi_input_id">
+								<p-select-option value="$midi_input_id;">
+									<p-list key="inputs" name="input">
+										<p-option
+											value="$input.id;">$input.name;</p-option>
+									</p-list>
+								</p-select-option>
+							</p-local-storage>
+						</p-select>
+						<!-- can't put p-actions on p-options BUG -->
+						<div class="p-invisible">
+							<p-list key="inputs" name="input">
+								<div
+									p-action="(midi-message $input.id;/) run-view onmidimessage"
+										p-action-fire-param-keys="message: event.data;"
+									></div>
+							</p-list>
+						</div>
+					</p-if>
+				</p-midi-inputs>
+				<p-midi-outputs>
+					<p-if true="$outputs.length; == 0">No MIDI outputs available</p-if>
+					<p-if true="$outputs.length; > 0">
+						<p-local-storage key="midi_output_id" name="midi_output_id">
+							<p-if empty="$midi_output_id;">
+								<p-list key="outputs" name="output" offset="0" limit="1">
+									<p-action
+										action="set-local-storage"
+											action-params="midi_output_id: $output.id;;"
+									/>
+								</p-list>
+							</p-if>
+						</p-local-storage>
+						<label for="midi_output">MIDI Output:</label>
+						<p-select
+							name="midi_output"
+							p-action="(change) set-local-storage"
+								p-action-fire-param-keys="midi_output_id: value;"
+							>
+							<p-local-storage key="midi_output_id" name="midi_output_id">
+								<p-select-option value="$midi_output_id;">
+									<p-list key="outputs" name="output">
+										<p-option
+											value="$output.id;">$output.name;</p-option>
+									</p-list>
+								</p-select-option>
+							</p-local-storage>
+						</p-select>
+					</p-if>
+				</p-midi-inputs>
+			</div>
+		</p-if>
+		<p-if true="$midi.available; == false">MIDI is not available</p-if>
+	</p-midi>
+	
+	<div p-view="addmapping" p-view-flags="">
+		<form
+			p-action="(submit) dispatch-form"
+			p-action-1="(p-dispatch-form) run-view: addmapping"
+			>
+			<label for="cc_parameter">MIDI CC:</label>
+			<input
+				name="cc_parameter"
+				type="number"
+				min="0"
+				max="127"
+				value=""
+				required="true"
+			/>
+			<label for="vs_parameter">VS Parameter:</label>
+			<p-select
+				name="vs_parameter"
+				>
+				<p-list key="config.vs_parameter_names" name="vs_parameter_name">
+					<p-option value="$vs_parameter_name.meta.index;">$vs_parameter_name;</p-option>
+				</p-list>
+			</p-select>
+			<button
+				type="submit"
+				value="submit"
+				>Add Mapping</button>
+		</form>
+	</div>
+
+	<div p-view="addmapping" p-view-flags="" class="p-invisible">
+		<p-action
+			action="set-local-storage"
+			action-params="control_mapping_$params.cc_parameter;: $params.vs_parameter;"
+		/>
+		<p-action
+			action="refresh-view mappings"
+		/>
+	</div>
+	
+	<div p-view="mappings" p-view-flags="">
+		<p-numbers start="0" stop="127">
+			<p-list key="numbers" name="number">
+				<p-local-storage key="control_mapping_$number;" name="vs_parameter">
+					<p-if empty="$vs_parameter;">
+						<!-- <div>no mapping for MIDI CC $number;</div> -->
+					</p-if>
+					<p-if notempty="$vs_parameter;">
+						<div>MIDI CC $number; mapped to 
+							<p-list key="config.vs_parameter_names" name="vs_parameter_name" offset="$vs_parameter;" limit="1">
+								$vs_parameter_name;
+							</p-list>
+							<button
+								p-action="set-local-storage"
+									p-action-params="control_mapping_$number;: ''"
+								p-action-1="(p-set-local-storage) refreshview: mappings"
+								>Delete</button>
+						</div>
+					</p-if>
+				</p-local-storage>
+			</p-list>
+		</p-numbers>
+	</div>
+	
+	<div p-view="onmidimessage" p-view-flags="" class="p-invisible">
+		<p-local-storage key="midi_input_id" name="midi_input_id">
+			<p-if true="$params.event.target.id; == $midi_input_id;">
+				<p-local-storage key="midi_output_id" name="midi_output_id">
+					<p-midi-message key="params.message">
+						<!-- note? -->
+						<p-if true="$message.status_hex; == 0x80 || $message.status_hex; == 0x90 || $message.status_hex; == 0xc0">
+							<!-- send to the VS -->
+							<p-action
+								action="send-midi $midi_output_id;"
+								action-params="status: $message.status;; data_0: $message.data_0;; data_1: $message.data_1;;"
+								></p-action>
+						</p-if>
+						<!-- control change? -->
+						<p-if true="$message.status_hex; == 0xb0">
+							<p-local-storage key="control_mapping_$message.data_0;" name="vs_parameter">
+								<p-if notempty="$vs_parameter;">
+									<!-- scale the value to 256 -->
+									<p-set name="value" expression="$message.data_1; * 2">
+										<!-- send VS parameter select LSB -->
+										<p-action
+											action="send-midi $midi_output_id;"
+											action-params="status: 0xb0; data_0: 0x62; data_1: $vs_parameter;;"
+											></p-action>
+										<!-- send VS parameter select MSB -->
+										<p-action
+											action="send-midi $midi_output_id;"
+											action-params="status: 0xb0; data_0: 0x63; data_1: 0x0;"
+											></p-action>
+										<!-- send VS data slider LSB (bit 0 shifted, sigh) -->
+										<p-set name="param_value_lsb" expression="$value; & 1 << 6">
+											<!-- send VS parameter value LSB -->
+											<p-action
+												action="send-midi $midi_output_id;"
+												action-params="status: 0xb0; data_0: 0x26; data_1: $param_value_lsb;;"
+												></p-action>
+										</p-set>
+										<!-- send VS data slider MSB (bits 7:1 shifted, sigh) -->
+										<p-set name="param_value_msb" expression="$value; >> 1 & 127">
+											<!-- send VS parameter value MSB -->
+											<p-action
+												action="send-midi $midi_output_id;"
+												action-params="status: 0xb0; data_0: 0x06; data_1: $param_value_msb;;"
+												></p-action>
+										</p-set>
+									</p-set>
+								</p-if>
+							</p-local-storage>
+						</p-if>
+					</p-midi-message>
+				</p-local-storage>
+			</p-if>
+			<p-if false="$params.event.target.id; == $midi_input_id;">
+				<!-- <p-log value="filtering input from $params.event.target.id;"></p-log> -->
+			</p-if>
+		</p-local-storage>
+	</div>
+</body>
+
+</html>
