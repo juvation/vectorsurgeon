@@ -56,4 +56,18 @@ Application.prototype.onMIDIMessage = function (inEvent)
 
 // control byte handlers
 
-Application.prototype.control = function (inMessage)
+Application.prototype.osccoarsetune = function (inMessage)
+{
+	console.log ("Application.osccoarsetune()");
+}
+
+Application.prototype.oscfinetune = function (inMessage)
+{
+	console.log ("Application.oscfinetune()");
+}
+
+Application.prototype.adsrmode = function (inMessage)
+{
+	console.log ("Application.adsrmode()");
+}
+
