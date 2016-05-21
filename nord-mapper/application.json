@@ -4,6 +4,54 @@
 		"vs-send-parameter" : "VsSendParameterAction"
 	},
 
+	"midi_message_handlers" :
+	{
+		"0x80" : "thru",
+		"0x90" : "thru",
+		"0xa0" : "thru",
+		"0xb0" : "control",
+		"0xc0" : "thru",
+		"0xd0" : "thru",
+		"0xe0" : "thru",
+		"0xf0" : "sysex"
+	},
+
+	"comment" : "in order that they appear in the NORD manual",
+	
+	"midi_controller_handler_names" :
+	[
+		"LFO 1 Rate",
+		"LFO 2 Rate",
+		"Amp Env Decay",
+		"Amp Env Sustain",
+		"Filter Env Attack",
+		"Filter Resonance",
+		"Amp Env Release",
+		"Amp Env Attack",
+		"Filter Cutoff" 
+	},
+		
+	"midi_controller_handlers" :
+	{
+		"19" : 17,
+		"20" : lfo 1 waveform,
+		"22" : lfo 1 amount,
+		"23" : 18,
+		"25" : lfo 2 amount,
+		"73" : amp env attack,
+		"36" : amp env decay,
+		"37" : amp env sustain,
+		"72" : amp env release,
+		"38" : filter env attack,
+		"39" : filter env decay,
+		"40" : filter env sustain,
+		"41" : filter env release,
+		"74" : filter cutoff,
+		"42" : filter resonance,
+		"45" : filter velocity -> ADSR mode,
+		
+	},
+	
 	"vs_parameter_names":
 	[
 		"WaveNumberA",

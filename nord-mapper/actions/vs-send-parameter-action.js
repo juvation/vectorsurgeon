@@ -8,6 +8,36 @@ var	VsSendParameterAction = function ()
 }
 monohm.inherits (VsSendParameterAction, positron.action.Action);
 
+// STATIC
+
+VsSendParameterAction.send = function (inOutputPortID, inParameter, inValue)
+{
+	// send parameter LSB
+	var	message = [0xb0, 0x62, inParameter & 0xff];
+	console.log (message);
+	gApplication.sendMIDI (outputPortID, message);
+
+	// send parameter MSB
+	message [1] = 0x63;
+	message [2] = (inParameter >> 8) & 0xff;
+	console.log (message);
+	gApplication.sendMIDI (outputPortID, message);
+
+	// send value LSB
+	message [1] = 0x26;
+	message [2] = (inValue & 0x01) << 6;
+	console.log (message);
+	gApplication.sendMIDI (outputPortID, message);
+
+	// send value MSB
+	message [1] = 0x06;
+	message [2] = (inValue >> 1) & 0x7f;
+	console.log (message);
+	gApplication.sendMIDI (outputPortID, message);
+}
+
+// ACTION
+
 VsSendParameterAction.prototype.fire = function (inEvent)
 {
 	positron.action.Action.prototype.fire.call (this, inEvent);
@@ -35,28 +65,7 @@ VsSendParameterAction.prototype.fire = function (inEvent)
 		}
 		else
 		{
-			// send parameter LSB
-			var	message = [0xb0, 0x62, parameter & 0xff];
-			console.log (message);
-			gApplication.sendMIDI (outputPortID, message);
-
-			// send parameter MSB
-			message [1] = 0x63;
-			message [2] = (parameter >> 8) & 0xff;
-			console.log (message);
-			gApplication.sendMIDI (outputPortID, message);
-			
-			// send value LSB
-			message [1] = 0x26;
-			message [2] = (value & 0x01) << 6;
-			console.log (message);
-			gApplication.sendMIDI (outputPortID, message);
-
-			// send value MSB
-			message [1] = 0x06;
-			message [2] = (value >> 1) & 0x7f;
-			console.log (message);
-			gApplication.sendMIDI (outputPortID, message);
+			VsSendParameterAction.send (outputPortID, parameter, message);
 		}
 	}
 	else

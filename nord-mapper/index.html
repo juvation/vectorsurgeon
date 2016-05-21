@@ -51,12 +51,11 @@
 								</p-select-option>
 							</p-local-storage>
 						</p-select>
-						<!-- can't put p-actions on p-options BUG -->
+						<!-- can't put p-actions on <p-option> BUG -->
 						<div class="p-invisible">
 							<p-list key="inputs" name="input">
 								<div
-									p-action="(midi-message $input.id;/) run-view onmidimessage"
-										p-action-fire-param-keys="message: event.data;"
+									p-action="(midi-message $input.id;/) call onmidimessage"
 									></div>
 							</p-list>
 						</div>
