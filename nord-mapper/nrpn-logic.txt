@@ -1,0 +1,9 @@
+
+so, regular NRPNs arrive
+
+Parameter MSB - Controller 99 (0x63)
+Parameter LSB - Controller 98 (0x62)
+
+Value MSB - Controller 6
+Value LSB - Controller 38 (0x26) (optional)
+

@@ -185,40 +185,44 @@
 								<p-if notempty="$vs_parameter;">
 									<!-- scale the value to 256 -->
 									<p-set name="value" expression="$message.data_1; * 2">
+										<p-action
+											action="vs-send-parameter $midi_output_id;/$vs_parameter;/$value;"
+										/>
+										<p-comment>
+											<!-- send VS parameter select LSB -->
+											<p-set name="param_lsb" expression="$vs_parameter; & 255">
+												<p-action
+													action="send-midi $midi_output_id;"
+													action-params="status: 0xb0; data_0: 0x62; data_1: $param_lsb;;"
+													></p-action>
+											</p-set>
 
-										<!-- send VS parameter select LSB -->
-										<p-set name="param_lsb" expression="$vs_parameter; & 255">
-											<p-action
-												action="send-midi $midi_output_id;"
-												action-params="status: 0xb0; data_0: 0x62; data_1: $param_lsb;;"
-												></p-action>
-										</p-set>
+											<!-- send VS parameter select MSB -->
+											<p-set name="param_msb" expression="$vs_parameter; >> 8 & 255">
+												<p-action
+													action="send-midi $midi_output_id;"
+													action-params="status: 0xb0; data_0: 0x63; data_1: $param_msb;;"
+													></p-action>
+											</p-set>
 
-										<!-- send VS parameter select MSB -->
-										<p-set name="param_msb" expression="$vs_parameter; >> 8 & 255">
-											<p-action
-												action="send-midi $midi_output_id;"
-												action-params="status: 0xb0; data_0: 0x63; data_1: $param_msb;;"
-												></p-action>
-										</p-set>
+											<!-- send VS data slider LSB (bit 0 shifted, sigh) -->
+											<p-set name="param_value_lsb" expression="$value; & 1 << 6">
+												<!-- send VS parameter value LSB -->
+												<p-action
+													action="send-midi $midi_output_id;"
+													action-params="status: 0xb0; data_0: 0x26; data_1: $param_value_lsb;;"
+													></p-action>
+											</p-set>
 
-										<!-- send VS data slider LSB (bit 0 shifted, sigh) -->
-										<p-set name="param_value_lsb" expression="$value; & 1 << 6">
-											<!-- send VS parameter value LSB -->
-											<p-action
-												action="send-midi $midi_output_id;"
-												action-params="status: 0xb0; data_0: 0x26; data_1: $param_value_lsb;;"
-												></p-action>
-										</p-set>
-
-										<!-- send VS data slider MSB (bits 7:1 shifted, sigh) -->
-										<p-set name="param_value_msb" expression="$value; >> 1 & 127">
-											<!-- send VS parameter value MSB -->
-											<p-action
-												action="send-midi $midi_output_id;"
-												action-params="status: 0xb0; data_0: 0x06; data_1: $param_value_msb;;"
-												></p-action>
-										</p-set>
+											<!-- send VS data slider MSB (bits 7:1 shifted, sigh) -->
+											<p-set name="param_value_msb" expression="$value; >> 1 & 127">
+												<!-- send VS parameter value MSB -->
+												<p-action
+													action="send-midi $midi_output_id;"
+													action-params="status: 0xb0; data_0: 0x06; data_1: $param_value_msb;;"
+													></p-action>
+											</p-set>
+										</p-comment>
 									</p-set>
 								</p-if>
 							</p-local-storage>

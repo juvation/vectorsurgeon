@@ -1,0 +1,46 @@
+{
+	"vs_macro_controls" :
+	{
+		"74" :
+		{
+			"name" : "filter cutoff",
+			"type" : "direct",
+			"parameter" : 0x0c
+		},
+		"75" :
+		{
+			"name" : "filter resonance",
+			"type" : "direct",
+			"parameter" : 0x0d
+		},
+		"38" :
+		{
+			"name" : "coarse frequency spread",
+			"type" : "list",
+			"parameters" :
+			[
+				[
+					{
+						"parameter": 0x0c,
+						"value" : 0
+					},
+					{
+						"parameter" : 0x0d,
+						"value" : 0
+					}
+				],
+				[
+					{
+						"parameter": 0x0c,
+						"value" : 127
+					},
+					{
+						"parameter" : 0x0d,
+						"value" : 127
+					}
+				]
+			]
+		}
+	}
+}
+

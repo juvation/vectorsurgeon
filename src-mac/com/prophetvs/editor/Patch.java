@@ -497,8 +497,9 @@ public class Patch
 		// might suggest, and this affects the value scaling when we transmit it
 		// over MIDI - hence the extra constructor param
 		public
-		ParameterSpec (int inParameterNumber, int inOffset, int inSize, int inRange)
+		ParameterSpec (String inName, int inParameterNumber, int inOffset, int inSize, int inRange)
 		{
+			this.name = inName;
 			this.parameterNumber  = inParameterNumber;
 			this.offset = inOffset;
 			this.size = inSize;
@@ -526,10 +527,13 @@ public class Patch
 
 		// this is for when the range *does* match the bit size
 		public
-		ParameterSpec (int inParameterNumber, int inOffset, int inSize)
+		ParameterSpec (String inName, int inParameterNumber, int inOffset, int inSize)
 		{
-			this (inParameterNumber, inOffset, inSize, 1 << inSize);
+			this (inName, inParameterNumber, inOffset, inSize, 1 << inSize);
 		}
+		
+		public String
+		name = null;
 		
 		public int
 		max = 0;

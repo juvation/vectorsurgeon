@@ -415,6 +415,7 @@ public class ControlWindow
 
 		JPanel	bannerPanel = new JPanel ();
 		bannerPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		bannerPanel.setBackground (Color.BLACK);
 		getContentPane ().add (bannerPanel);
 
 		ImageIcon	bannerIcon = new ImageIcon (getResource ("vs_banner.gif"));
@@ -425,6 +426,7 @@ public class ControlWindow
 
 		JPanel	buttonPanel = new JPanel ();
 		buttonPanel.setLayout (new BoxLayout (buttonPanel, BoxLayout.X_AXIS));
+		buttonPanel.setBackground (Color.BLACK);
 		getContentPane ().add (buttonPanel);
 
 		createButtonWithLabel ("Open File...", "OPEN", buttonPanel);
@@ -445,6 +447,7 @@ public class ControlWindow
 		
 		JPanel	blurbPanel = new JPanel ();
 		blurbPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		blurbPanel.setBackground (Color.BLACK);
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
@@ -853,6 +856,7 @@ public class ControlWindow
 
 		JPanel	buttonIconPanel = new JPanel ();
 		buttonIconPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		buttonIconPanel.setBackground (Color.BLACK);
 		buttonPanel.add (buttonIconPanel);
 
 		JButton	button = new JButton (this.offIcon);
@@ -867,6 +871,7 @@ public class ControlWindow
 
 		JPanel	buttonLabelPanel = new JPanel ();
 		buttonLabelPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		buttonLabelPanel.setBackground (Color.BLACK);
 		buttonPanel.add (buttonLabelPanel);
 
 		JLabel	buttonLabel = new JLabel (inLabel);
@@ -961,6 +966,7 @@ public class ControlWindow
 		
 		JPanel	panel = new JPanel ();
 		panel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		panel.setBackground (Color.BLACK);
 		
 		// MIDI INPUT DEVICE
 		

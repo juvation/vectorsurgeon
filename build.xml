@@ -81,7 +81,6 @@
 			destdir="${classes.dir}"
 			debug="on"
 			source="1.5"
-			target="jsr14"
 			deprecation="on"
 			>
  			<classpath
