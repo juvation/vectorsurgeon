@@ -14,26 +14,22 @@ VsSendParameterAction.send = function (inOutputPortID, inParameter, inValue)
 {
 	// send parameter LSB
 	var	message = [0xb0, 0x62, inParameter & 0xff];
-	console.log (message);
-	gApplication.sendMIDI (outputPortID, message);
+	gApplication.sendMIDI (inOutputPortID, message);
 
 	// send parameter MSB
 	message [1] = 0x63;
 	message [2] = (inParameter >> 8) & 0xff;
-	console.log (message);
-	gApplication.sendMIDI (outputPortID, message);
+	gApplication.sendMIDI (inOutputPortID, message);
 
 	// send value LSB
 	message [1] = 0x26;
 	message [2] = (inValue & 0x01) << 6;
-	console.log (message);
-	gApplication.sendMIDI (outputPortID, message);
+	gApplication.sendMIDI (inOutputPortID, message);
 
 	// send value MSB
 	message [1] = 0x06;
 	message [2] = (inValue >> 1) & 0x7f;
-	console.log (message);
-	gApplication.sendMIDI (outputPortID, message);
+	gApplication.sendMIDI (inOutputPortID, message);
 }
 
 // ACTION

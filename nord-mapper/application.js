@@ -11,7 +11,7 @@ Application.prototype.start = function ()
 	positron.Application.prototype.start.call (this);
 }
 
-Application.prototype.onMIDIMessage = function (inEvent)
+Application.prototype.onmidimessage = function (inEvent)
 {
 	var	status = inEvent.data [0] & 0xf0;
 	
@@ -23,7 +23,7 @@ Application.prototype.onMIDIMessage = function (inEvent)
 		if (typeof handler == "number")
 		{
 			// map to the VS parameter and scale 7 bits to 8
-			VsSendParameterAction.send (localStorage.midi_output_port, handler, inEvent.data [2] * 2);
+			VsSendParameterAction.send (localStorage.midi_output_id, handler, inEvent.data [2] * 2);
 		}
 		else
 		if (typeof handler == "string")
@@ -50,7 +50,7 @@ Application.prototype.onMIDIMessage = function (inEvent)
 	else
 	{
 		// copy everything else through
-		gApplication.sendMIDIMessage (localStorage.midi_output_port, inMessage);
+		gApplication.sendMIDI (localStorage.midi_output_id, inEvent.data);
 	}
 }
 
