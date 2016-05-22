@@ -24,7 +24,6 @@ Application.prototype.onmidimessage = function (inEvent)
 		
 			if (typeof handler == "number")
 			{
-				// map to the VS parameter and scale 7 bits to 8
 				VsSendParameterAction.send (localStorage.midi_output_id, handler, inEvent.data [2] * 2);
 			}
 			else
@@ -131,9 +130,57 @@ Application.prototype.lfo2wave = function (inMessage)
 	VsSendParameterAction.send (localStorage.midi_output_id, 0x10, vsLFOWave);
 }
 
+Application.CoarseFrequencyMapping =
+[
+	0,
+	123,
+	255
+];
+
+// for this we set all 4 oscillators to a given spread
+// we have 256 possible values
+// and take the value of each oscillator's 0-12-24 tune
+// from its 2 bits out of the 8
 Application.prototype.osccoarsetune = function (inMessage)
 {
-	console.log ("Application.osccoarsetune()");
+	// console.log ("Application.osccoarsetune()");
+	
+	// the oddest thing is that the semitone knob on the NL2
+	// sends 0-120 not 0-127
+	// so scale that first
+	var	value = Math.round ((inMessage [2] / 121) * 256);
+
+	var	a = value & 0x3;
+	a *= 2;
+	a /= 3;
+	a = Math.floor (a);
+	
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x04, Application.CoarseFrequencyMapping [a]);
+
+	var	b = (value >> 2) & 0x3;
+	b *= 2;
+	b /= 3;
+	b = Math.floor (a);
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x05, Application.CoarseFrequencyMapping [b]);
+
+	var	c = (value >> 4) & 0x3;
+	c *= 2;
+	c /= 3;
+	c = Math.floor (a);
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x06, Application.CoarseFrequencyMapping [c]);
+
+	var	d = (value >> 6) & 0x3;
+	d *= 2;
+	d /= 3;
+	d = Math.floor (a);
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x07, Application.CoarseFrequencyMapping [d]);
 }
 
 Application.prototype.oscfinetune = function (inMessage)
