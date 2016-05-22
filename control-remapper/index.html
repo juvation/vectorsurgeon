@@ -144,15 +144,20 @@
 						<!-- <div>no mapping for MIDI CC $number;</div> -->
 					</p-if>
 					<p-if notempty="$vs_parameter;">
-						<div>MIDI CC $number; mapped to 
-							<p-list key="config.vs_parameter_names" name="vs_parameter_name" offset="$vs_parameter;" limit="1">
-								$vs_parameter_name;
-							</p-list>
-							<button
-								p-action="set-local-storage"
-									p-action-params="control_mapping_$number;: ''"
-								p-action-1="(p-set-local-storage) refreshview: mappings"
-								>Delete</button>
+						<div>
+							<p-number-format number="$number;" type="prefixedhex">
+								MIDI CC $number; ($format;) mapped to 
+								<p-list key="config.vs_parameter_names" name="vs_parameter_name" offset="$vs_parameter;" limit="1">
+									<p-number-format number="$vs_parameter;" type="prefixedhex">
+										$vs_parameter_name; ($vs_parameter;) ($format;)
+									</p-number-format>
+								</p-list>
+								<button
+									p-action="set-local-storage"
+										p-action-params="control_mapping_$number;: ''"
+									p-action-1="(p-set-local-storage) refreshview: mappings"
+									>Delete</button>
+							</p-number-format>
 						</div>
 					</p-if>
 				</p-local-storage>

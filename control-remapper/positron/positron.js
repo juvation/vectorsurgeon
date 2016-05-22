@@ -2286,7 +2286,7 @@ positron.Util.evaluateArithmeticExpression = function (inString)
 				}
 				else
 				{
-					term = parseFloat (number);
+					term = positron.Util.parseNumeric (number);
 				}
 				
 				if (isNaN (term))
@@ -2323,6 +2323,9 @@ positron.Util.evaluateArithmeticExpression = function (inString)
 							break;
 						case '|':
 							sum |= term;
+							break;
+						case '^':
+							sum ^= term;
 							break;
 						default:
 							console.error ("unrecognised operand: " + operand);
@@ -2401,15 +2404,10 @@ positron.Util.evaluateExpression = function (inExpression)
 	// console.log ("evaluateExpression() on " + inExpression);
 	
 	var	success = false;
-	var	first = null;
-	var	second = null;
+	var	first = positron.Util.parseNumeric (inExpression [0]);
+	var	second = positron.Util.parseNumeric (inExpression [2]);
 	
-	if (positron.Util.isNumericTerm (inExpression [0]) && positron.Util.isNumericTerm (inExpression [2]))
-	{
-		first = parseFloat (inExpression [0]);
-		second = parseFloat (inExpression [2]);
-	}
-	else
+	if (isNaN (first) || isNaN (second))
 	{
 		first = inExpression [0];
 		second = inExpression [2];
@@ -2666,62 +2664,18 @@ positron.Util.isJSONPRequest = function (inRequest)
 	return monohm.Network.isJSONPRequest (inRequest);
 }
 
-positron.Util.isNumericTerm = function (inTerm)
+positron.Util.parseNumeric = function (inTerm)
 {
-	var	numeric = inTerm.length > 0;
-	var	hadE = false;
-	var	hadPlusMinus = false;
-	var	hadDecimal = false;
+	var	number = parseFloat (inTerm);
 	
-	for (var i = 0; i < inTerm.length; i++)
+	if (isNaN (number) || (number == 0))
 	{
-		var	ch = inTerm.charAt (i);
-		
-		if (ch >= "0" && ch <= "9")
-		{
-			// ok
-		}
-		else
-		if (ch == ".")
-		{
-			if (hadDecimal)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadDecimal = true;			
-		}
-		else
-		if (ch == "E" || ch == "e")
-		{
-			if (hadE)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadE = true;
-		}
-		else
-		if (ch == "+" || ch == "-")
-		{
-			if (hadPlusMinus)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadPlusMinus = true;
-		}
-		else
-		{
-			numeric = false;
-			break;
-		}
+		// parseInt() handles 0xff etc
+		// which parseFloat() thinks is zero
+		number = parseInt (inTerm);
 	}
-	
-	return numeric;
+
+	return number;
 }
 
 positron.Util.jsonp = function (inRequest)
@@ -10380,10 +10334,6 @@ positron.tag.MoveTag.prototype.onWalkComplete = function (inTreeWalker)
 *
 **/
 
-/*
-  this Tag does basic string substitution
-*/
-
 monohm.provide ("positron.tag.NumberFormatTag");
 monohm.require ("positron.DelegateHashMap");
 monohm.require ("positron.tag");
@@ -10441,6 +10391,16 @@ positron.tag.NumberFormatTag.prototype.process = function (inElement, inContext,
   if (type == "round")
   {
     newValue = Math.round (number);
+  }
+  else
+  if (type == "hex")
+  {
+    newValue = number.toString (16);
+  }
+  else
+  if (type == "prefixedhex")
+  {
+    newValue = "0x" + number.toString (16);
   }
   else
   {
