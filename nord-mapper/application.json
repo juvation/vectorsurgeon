@@ -36,13 +36,16 @@
 		"Filter Env Release",
 		"Filter Cutoff",
 		"Filter Resonance",
+		"Filter Envelope Amount",
 		"Filter Velocity -> ADSR mode!" 
 	],
-		
+	
+	"comment" : "no hex numbers in JSON! sigh",
+	
 	"midi_controller_handlers" :
 	{
 		"19" : 17,
-		"20" : 15,
+		"20" : "lfo1wave",
 		"22" : 96,
 		"23" : 18,
 		"25" : 97,
@@ -51,13 +54,14 @@
 		"73" : 19,
 		"36" : 21,
 		"37" : 27,
-		"72" : 21,
+		"72" : 22,
 		"38" : 30,
 		"39" : 32,
 		"40" : 38,
 		"41" : 33,
 		"74" : 12,
 		"42" : 13,
+		"43" : 14,
 		"45" : "adsrmode"
 	},
 	

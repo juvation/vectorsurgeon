@@ -66,8 +66,31 @@ Application.prototype.oscfinetune = function (inMessage)
 	console.log ("Application.oscfinetune()");
 }
 
+// set ADSR mode on the Prophet's amp and filter envelopes
 Application.prototype.adsrmode = function (inMessage)
 {
 	console.log ("Application.adsrmode()");
+	
+	// set amp envelope levels 0 to minimum
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x18, 0);
+
+	// set amp envelope levels 1-2 to maximum
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x19, 255);
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x1a, 255);
+	
+	// set amp rate 2 to zero
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x14, 0);
+	
+	// set filter envelope levels 0 to minimum
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x23, 0);
+
+	// set filter envelope levels 1-2-4 to maximum
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x24, 255);
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x25, 255);
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x27, 0);
+	
+	// set filter rate 2 to zero
+	VsSendParameterAction.send (localStorage.midi_output_id, 0x1f, 0);
+	
 }
 
