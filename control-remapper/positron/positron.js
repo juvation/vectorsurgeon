@@ -15999,9 +15999,34 @@ function Application_requestMIDI (inCallback)
 				},
 				function (inErrorMessage)
 				{
-					console.error ("requestMIDIAccess() failed");
+					console.error ("requestMIDIAccess(sysex) failed");
 					console.error (inErrorMessage);
-					inCallback (false);
+
+					try
+					{
+						// second try, don't request sysex
+						navigator.requestMIDIAccess ().then
+						(
+							function (inAccess)
+							{
+								self.midiAccess = inAccess;
+								self.setupMIDI (inAccess);
+								inCallback (true);
+							},
+							function (inErrorMessage)
+							{
+								console.error ("requestMIDIAccess(no sysex) failed");
+								console.error (inErrorMessage);
+
+								inCallback (false);
+							}
+						);
+					}
+					catch (inError2)
+					{
+						console.error (inError2);
+						inCallback (false);
+					}
 				}
 			);
 		}
