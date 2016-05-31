@@ -21,6 +21,8 @@ Application.prototype.onmidimessage = function (inEvent)
 		{
 			var	controller = inEvent.data [1];
 			var	handler = this.config.midi_controller_handlers [controller.toString ()];
+
+			console.log ("handler = " + handler);
 		
 			if (typeof handler == "number")
 			{
@@ -137,6 +139,15 @@ Application.CoarseFrequencyMapping =
 	255
 ];
 
+// used to prevent unnecessary chatter during coarse tweaking
+Application.prototype.oscillatorCoarseTunings = 
+[
+	-1,
+	-1,
+	-1,
+	-1
+];
+
 // for this we set all 4 oscillators to a given spread
 // we have 256 possible values
 // and take the value of each oscillator's 0-12-24 tune
@@ -150,41 +161,72 @@ Application.prototype.osccoarsetune = function (inMessage)
 	// so scale that first
 	var	value = Math.round ((inMessage [2] / 121) * 256);
 
-	var	a = value & 0x3;
-	a *= 2;
-	a /= 3;
-	a = Math.floor (a);
+	// and then scale to the range of permutations for the oscs
+	// assuming values 0,12,24
+	// no dissonance here! :-)
+	// which is 3^4 = 81
+
+	value = Math.floor (value / 3.16);
+
+	var	a = value % 3;
 	
-	VsSendParameterAction.send 
-		(localStorage.midi_output_id, 0x04, Application.CoarseFrequencyMapping [a]);
+	if (a != this.oscillatorCoarseTunings [0])
+	{
+		this.oscillatorCoarseTunings [0] = a;
 
-	var	b = (value >> 2) & 0x3;
-	b *= 2;
-	b /= 3;
-	b = Math.floor (a);
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x04, Application.CoarseFrequencyMapping [a]);
+ 	}
+ 
+	var	b = Math.floor ((value / 3) % 3);
 
-	VsSendParameterAction.send 
-		(localStorage.midi_output_id, 0x05, Application.CoarseFrequencyMapping [b]);
+	if (b != this.oscillatorCoarseTunings [1])
+	{
+		this.oscillatorCoarseTunings [1] = b;
 
-	var	c = (value >> 4) & 0x3;
-	c *= 2;
-	c /= 3;
-	c = Math.floor (a);
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x05, Application.CoarseFrequencyMapping [b]);
+	}
 
-	VsSendParameterAction.send 
-		(localStorage.midi_output_id, 0x06, Application.CoarseFrequencyMapping [c]);
+	var	c = Math.floor ((value / 9) % 3);
 
-	var	d = (value >> 6) & 0x3;
-	d *= 2;
-	d /= 3;
-	d = Math.floor (a);
+	if (c != this.oscillatorCoarseTunings [2])
+	{
+		this.oscillatorCoarseTunings [2] = c;
 
-	VsSendParameterAction.send 
-		(localStorage.midi_output_id, 0x07, Application.CoarseFrequencyMapping [d]);
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x06, Application.CoarseFrequencyMapping [c]);
+	}
+
+	var	d = Math.floor ((value / 27) % 3);
+
+	if (d != this.oscillatorCoarseTunings [3])
+	{
+		this.oscillatorCoarseTunings [3] = d;
+
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x07, Application.CoarseFrequencyMapping [d]);
+	}
 }
 
 Application.prototype.oscfinetune = function (inMessage)
 {
 	console.log ("Application.oscfinetune()");
+}
+
+Application.prototype.oscwavearandom = function (inMessage)
+{
+	console.log ("Application.oscwavearandom()");
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x00, Math.floor (Math.random () * 256));
+}
+
+Application.prototype.oscwavebrandom = function (inMessage)
+{
+	console.log ("Application.oscwavebrandom()");
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x01, Math.floor (Math.random () * 256));
 }
 

@@ -20,24 +20,28 @@
 	
 	"midi_controller_handler_names" :
 	[
-		"LFO 1 Rate",
-		"LFO 1 Amount",
-		"LFO 2 Rate",
-		"LFO 2 Amount",
-		"Osc Coarse Tune Spread",
-		"Osc Fine Tune Spread",
-		"Amp Env Attack",
-		"Amp Env Decay",
-		"Amp Env Sustain",
-		"Amp Env Release",
-		"Filter Env Attack",
-		"Filter Env Decay",
-		"Filter Env Sustain",
-		"Filter Env Release",
-		"Filter Cutoff",
-		"Filter Resonance",
-		"Filter Envelope Amount",
-		"Filter Velocity -> ADSR mode!" 
+		"19 LFO 1 Rate",
+		"20 LFO 1 Amount",
+		"22 LFO 2 Rate",
+		"23 LFO 2 Amount",
+		"30 Osc A Wave Random",
+		"31 Osc B Wave Random",
+		"78 Osc Coarse Tune Spread",
+		"33 Osc Fine Tune Spread",
+		"73 Amp Env Attack",
+		"36 Amp Env Decay",
+		"37 Amp Env Sustain",
+		"72 Amp Env Release",
+		"38 Filter Env Attack",
+		"39 Filter Env Decay",
+		"40 Filter Env Sustain",
+		"41 Filter Env Release",
+		"74 Filter Cutoff",
+		"42 Filter Resonance",
+		"54 Filter Envelope Amount",
+		"45 Filter Velocity -> ADSR mode!",
+		"70 Osc Wave C",
+		"79 Osc Wave D"
 	],
 	
 	"comment" : "no hex numbers in JSON! sigh",
@@ -49,6 +53,8 @@
 		"22" : 96,
 		"23" : 18,
 		"25" : 97,
+		"30" : "oscwavearandom",
+		"31" : "oscwavebrandom",
 		"78" : "osccoarsetune",
 		"33" : "oscfinetune",
 		"73" : 19,
@@ -62,7 +68,9 @@
 		"74" : 12,
 		"42" : 13,
 		"43" : 14,
-		"45" : "adsrmode"
+		"45" : "adsrmode",
+		"70" : 2,
+		"79" : 3
 	},
 	
 	"vs_parameter_names":
