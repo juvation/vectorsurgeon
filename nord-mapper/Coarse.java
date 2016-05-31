@@ -1,8 +1,18 @@
 
 // in order to CALCULATE this rather than looking it up
 
+// so there are 4 oscs and 3 options per osc
 
-public class Permutations
+// which is 1.5 bits per osc
+// 4 * 1.5 = 6
+// 2^6 = 64
+// but i thought we had 81 permutations
+
+// so looking at the numbers 0..80
+// oscillator A is (index % 3) * 12
+// oscillator B is ((index / 3) % 3) * 12?
+
+public class Coarse
 {
 	public static void
 	main (String[] inArgs)
@@ -11,7 +21,6 @@ public class Permutations
 		int[]	parameters = {4, 5, 6, 7};
 		int[]	values = {0, 12, 24};
 		int[]	indexes = {0, 0, 0, 0};
-		int	cores = 4;
 		
 		boolean	found = false;
 		
@@ -37,6 +46,24 @@ public class Permutations
 		}
 		while (found);
 		
+		// if we have 0..80
+		// what are the osc settings?
+		for (int i = 0; i < 81; i++)
+		{
+			int	a = i % 0x3;
+			int	b = (i / 3) % 0x3;
+			int	c = (i / 9) % 0x3;
+			int	d = (i / 27) % 0x3;
+
+			System.out.print (i + " {");
+			System.out.print (values [a] + ",");
+			System.out.print (values [b] + ",");
+			System.out.print (values [c] + ",");
+			System.out.print (values [d]);
+			System.out.println ("}");
+		}
+		
+		/*
 		// so the other way is to generate from a master index
 		// 0-127
 		// which we expand to 0-255 to get an integral number of bits per field
@@ -63,6 +90,7 @@ public class Permutations
 			System.out.print (values [d]);
 			System.out.println ("}");
 		}
+		*/
 	}
 	
 	private static void
