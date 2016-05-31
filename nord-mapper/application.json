@@ -55,6 +55,8 @@
 		"25" : 97,
 		"30" : "oscwavearandom",
 		"31" : "oscwavebrandom",
+		"34" : "oscwavecrandom",
+		"35" : "oscwavedrandom",
 		"78" : "osccoarsetune",
 		"33" : "oscfinetune",
 		"73" : 19,

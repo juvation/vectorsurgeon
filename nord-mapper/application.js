@@ -22,7 +22,7 @@ Application.prototype.onmidimessage = function (inEvent)
 			var	controller = inEvent.data [1];
 			var	handler = this.config.midi_controller_handlers [controller.toString ()];
 
-			console.log ("handler = " + handler);
+			// console.log ("handler = " + handler);
 		
 			if (typeof handler == "number")
 			{
@@ -228,5 +228,21 @@ Application.prototype.oscwavebrandom = function (inMessage)
 
 	VsSendParameterAction.send 
 		(localStorage.midi_output_id, 0x01, Math.floor (Math.random () * 256));
+}
+
+Application.prototype.oscwavecrandom = function (inMessage)
+{
+	console.log ("Application.oscwavecrandom()");
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x02, Math.floor (Math.random () * 256));
+}
+
+Application.prototype.oscwavedrandom = function (inMessage)
+{
+	console.log ("Application.oscwavedrandom()");
+
+	VsSendParameterAction.send 
+		(localStorage.midi_output_id, 0x03, Math.floor (Math.random () * 256));
 }
 
