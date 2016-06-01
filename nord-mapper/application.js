@@ -209,9 +209,74 @@ Application.prototype.osccoarsetune = function (inMessage)
 	}
 }
 
+Application.FineFrequencyMapping =
+[
+	0,
+	2,
+	4,
+	8
+];
+
+// used to prevent unnecessary chatter during fine tweaking
+Application.prototype.oscillatorFineTunings = 
+[
+	-1,
+	-1,
+	-1,
+	-1
+];
+
 Application.prototype.oscfinetune = function (inMessage)
 {
-	console.log ("Application.oscfinetune()");
+	console.log ("Application.oscfinetune(" + inMessage [2] + ")");
+
+	// the oddest thing is that the semitone knob on the NL2
+	// sends 0-120 not 0-127
+	// so scale that first
+	var	value = inMessage [2]; // Math.round ((inMessage [2] / 121) * 256);
+
+	// scale 0..127 to 0..255 to make subsequent bitfielding easier!
+	value *= 2;
+
+	var	a = value % 4;
+	
+	if (a != this.oscillatorFineTunings [0])
+	{
+		this.oscillatorFineTunings [0] = a;
+
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x08, Application.FineFrequencyMapping [a]);
+ 	}
+ 
+	var	b = Math.floor ((value / 4) % 4);
+
+	if (b != this.oscillatorFineTunings [1])
+	{
+		this.oscillatorFineTunings [1] = b;
+
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x09, Application.FineFrequencyMapping [b]);
+	}
+
+	var	c = Math.floor ((value / 16) % 4);
+
+	if (c != this.oscillatorFineTunings [2])
+	{
+		this.oscillatorFineTunings [2] = c;
+
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x0a, Application.FineFrequencyMapping [c]);
+	}
+
+	var	d = Math.floor ((value / 64) % 4);
+
+	if (d != this.oscillatorFineTunings [3])
+	{
+		this.oscillatorFineTunings [3] = d;
+
+		VsSendParameterAction.send 
+			(localStorage.midi_output_id, 0x0b, Application.FineFrequencyMapping [d]);
+	}
 }
 
 Application.prototype.oscwavearandom = function (inMessage)
