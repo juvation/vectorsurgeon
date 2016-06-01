@@ -233,10 +233,10 @@ Application.prototype.oscfinetune = function (inMessage)
 	// the oddest thing is that the semitone knob on the NL2
 	// sends 0-120 not 0-127
 	// so scale that first
-	var	value = inMessage [2]; // Math.round ((inMessage [2] / 121) * 256);
+	// var	value = Math.round ((inMessage [2] / 121) * 256);
 
 	// scale 0..127 to 0..255 to make subsequent bitfielding easier!
-	value *= 2;
+	var	value = inMessage [2] * 2;
 
 	var	a = value % 4;
 	
