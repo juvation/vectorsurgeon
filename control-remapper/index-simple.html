@@ -2,7 +2,9 @@
 
 <html>
 <head>
-<title>Positron Runview</title>
+
+<meta name="viewport" content="width=device-width">
+<title>Control Code Remapper</title>
 
 <!-- styles -->
 
@@ -18,13 +20,77 @@
 </head>
 
 <body>
-	<p-select name="chug">
-		<p-numbers start="0" stop="20">
-			<p-list key="numbers" name="number">
-				<p-option value="$number;">$number;</p-option>
-			</p-list>
-		</p-numbers>
-	</p-select>
+	<div p-view="config" p-view-flags="">
+		<p-split string="one two three four" name="inputs">
+			<p-if true="$inputs.length; == 0">No MIDI inputs available</p-if>
+			<p-if true="$inputs.length; > 0">
+				<p-local-storage key="midi_input_id" name="midi_input_id">
+					<p-if empty="$midi_input_id;">
+						<p-list key="inputs" name="input" offset="0" limit="1">
+							<p-action
+								action="set-local-storage"
+									action-params="midi_input_id: $input;;"
+							/>
+						</p-list>
+					</p-if>
+				</p-local-storage>
+				<label for="midi_input">MIDI Input:</label>
+				<p-select
+					name="midi_input"
+					p-action="(change) set-local-storage"
+						p-action-fire-param-keys="midi_input_id: value;"
+					>
+					<p-local-storage key="midi_input_id" name="midi_input_id">
+						<p-select-option value="$midi_input_id;">
+							<p-list key="inputs" name="input">
+								<p-option
+									value="$input.id;">$input;</p-option>
+							</p-list>
+						</p-select-option>
+					</p-local-storage>
+				</p-select>
+				<!-- can't put p-actions on p-options BUG -->
+				<div class="p-invisible">
+					<p-list key="inputs" name="input">
+						<div
+							p-action="(midi-message $input.id;/) run-view onmidimessage"
+								p-action-fire-param-keys="message: event.data;"
+							></div>
+					</p-list>
+				</div>
+			</p-if>
+		</p-midi-inputs>
+		<p-midi-outputs>
+			<p-if true="$outputs.length; == 0">No MIDI outputs available</p-if>
+			<p-if true="$outputs.length; > 0">
+				<p-local-storage key="midi_output_id" name="midi_output_id">
+					<p-if empty="$midi_output_id;">
+						<p-list key="outputs" name="output" offset="0" limit="1">
+							<p-action
+								action="set-local-storage"
+									action-params="midi_output_id: $output.id;;"
+							/>
+						</p-list>
+					</p-if>
+				</p-local-storage>
+				<label for="midi_output">MIDI Output:</label>
+				<p-select
+					name="midi_output"
+					p-action="(change) set-local-storage"
+						p-action-fire-param-keys="midi_output_id: value;"
+					>
+					<p-local-storage key="midi_output_id" name="midi_output_id">
+						<p-select-option value="$midi_output_id;">
+							<p-list key="outputs" name="output">
+								<p-option
+									value="$output.id;">$output.name;</p-option>
+							</p-list>
+						</p-select-option>
+					</p-local-storage>
+				</p-select>
+			</p-if>
+		</p-split>
+	</div>
 </body>
 
 </html>
