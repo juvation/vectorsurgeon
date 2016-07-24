@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width">
+<title>VS Meta Editor</title>
+
+<!-- styles -->
+
+<link href="positron/positron.css" type="text/css" rel="stylesheet"></link>
+
+<style type="text/css">
+
+.slider
+{
+	width: 20px;
+	height: 100px;
+	-webkit-appearance: slider-vertical;
+}
+
+</style>
+
+<!-- scripts -->
+
+<script src="positron/prefixfree.min.js" type="text/javascript"></script>
+<script src="positron/prefixfree.dynamic-dom.min.js" type="text/javascript"></script>
+<script src="monohm.js" type="text/javascript"></script>
+<script src="positron/positron.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+	<p-midi>
+		<p-if true="$midi.available; == true">
+			<div p-view="config" p-view-flags="">
+				<p-midi-inputs>
+					<p-if true="$inputs.length; == 0">No MIDI inputs available</p-if>
+					<p-if true="$inputs.length; > 0">
+						<p-local-storage key="midi_input_id" name="midi_input_id">
+							<p-if empty="$midi_input_id;">
+								<p-list key="inputs" name="input" offset="0" limit="1">
+									<p-action
+										action="set-local-storage"
+											action-params="midi_input_id: $input.id;;"
+									/>
+								</p-list>
+							</p-if>
+						</p-local-storage>
+						<label for="midi_input">MIDI Input:</label>
+						<p-select
+							name="midi_input"
+							p-action="(change) set-local-storage"
+								p-action-fire-param-keys="midi_input_id: value;"
+							>
+							<p-local-storage key="midi_input_id" name="midi_input_id">
+								<p-select-option value="$midi_input_id;">
+									<p-list key="inputs" name="input">
+										<p-option
+											value="$input.id;">$input.name;</p-option>
+									</p-list>
+								</p-select-option>
+							</p-local-storage>
+						</p-select>
+						<!-- can't put p-actions on p-options BUG -->
+						<div class="p-invisible">
+							<p-list key="inputs" name="input">
+								<div
+									p-action="(midi-message $input.id;/) run-view onmidimessage"
+										p-action-fire-param-keys="message: event.data;"
+									></div>
+							</p-list>
+						</div>
+					</p-if>
+				</p-midi-inputs>
+				<p-midi-outputs>
+					<p-if true="$outputs.length; == 0">No MIDI outputs available</p-if>
+					<p-if true="$outputs.length; > 0">
+						<p-local-storage key="midi_output_id" name="midi_output_id">
+							<p-if empty="$midi_output_id;">
+								<p-list key="outputs" name="output" offset="0" limit="1">
+									<p-action
+										action="set-local-storage"
+											action-params="midi_output_id: $output.id;;"
+									/>
+								</p-list>
+							</p-if>
+						</p-local-storage>
+						<label for="midi_output">MIDI Output:</label>
+						<p-select
+							name="midi_output"
+							p-action="(change) set-local-storage"
+								p-action-fire-param-keys="midi_output_id: value;"
+							>
+							<p-local-storage key="midi_output_id" name="midi_output_id">
+								<p-select-option value="$midi_output_id;">
+									<p-list key="outputs" name="output">
+										<p-option
+											value="$output.id;">$output.name;</p-option>
+									</p-list>
+								</p-select-option>
+							</p-local-storage>
+						</p-select>
+					</p-if>
+				</p-midi-outputs>
+			</div>
+		</p-if>
+		<p-if true="$midi.available; == false">MIDI is not available</p-if>
+	</p-midi>
+	
+	<hr/>
+	
+	<div id="oscillators">
+		<label for="WaveNumberA">WA:</label>
+		<p-select
+			name="WaveNumberA"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: WaveNumberA;"
+			>
+			<p-list key="config.vs_wave_names" name="wave_name">
+				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+			</p-list>
+		</p-select>
+		<label for="WaveNumberB">WB:</label>
+		<p-select
+			name="WaveNumberB"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: WaveNumberB;"
+			>
+			<p-list key="config.vs_wave_names" name="wave_name">
+				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+			</p-list>
+		</p-select>
+		<label for="WaveNumberC">WC:</label>
+		<p-select
+			name="WaveNumberC"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: WaveNumberC;"
+			>
+			<p-list key="config.vs_wave_names" name="wave_name">
+				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+			</p-list>
+		</p-select>
+		<label for="WaveNumberD">WD:</label>
+		<p-select
+			name="WaveNumberD"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: WaveNumberD;"
+			>
+			<p-list key="config.vs_wave_names" name="wave_name">
+				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+			</p-list>
+		</p-select>
+	</div>
+
+	<hr/>
+
+	<div id="filter">
+		<div>FILTER</div>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterCutoff;"
+			>Fcut</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterResonance;"
+			>Fres</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvAmount;"
+			>Fenv</input>
+	</div>
+
+	<hr/>
+
+	<div id="filter_env">
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvLevel0;"
+			>FL0</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvRate1;"
+			>FAt</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvLevel1;"
+			>FL1</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvRate2;"
+			>FHo</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvLevel2;"
+			>FL2</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvRate3;"
+			>FDe</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvLevel3;"
+			>FSu</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvRate4;"
+			>FRe</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: FilterEnvLevel4;"
+			>FL4</input>
+	</div>
+
+	<hr/>
+
+	<div id="amp_env">
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvLevel0;"
+			>AL0</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvRate1;"
+			>AAt</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvLevel1;"
+			>AL1</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvRate2;"
+			>AHo</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvLevel2;"
+			>AL2</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvRate3;"
+			>ADe</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvLevel3;"
+			>ASu</input>
+		<input type="range" min="0" max="255" class="slider"
+			p-action="(change) runview oncontrolchange"
+				p-action-params="parameter_name: AmpEnvRate4;"
+			>ARe</input>
+	</div>
+
+	<hr/>
+	
+	<!-- called when a UI control is changed -->
+	<div p-view="oncontrolchange" p-view-flags="" class="p-invisible">
+		<p-get key="config.vs_parameter_map.$params.parameter_name;" name="parameter">
+			<p-local-storage key="midi_output_id" name="midi_output_id">
+				<p-action action="vs-send-parameter $midi_output_id;/$parameter.number;/$params.value;"></p-action>
+			</p-local-storage>
+		</p-get>
+	</div>
+
+	<!-- called when a MIDI message is received -->
+	<div p-view="onmidimessage" p-view-flags="" class="p-invisible">
+		<p-local-storage key="midi_input_id" name="midi_input_id">
+
+			<!-- check the message came from the correct input -->
+			<p-if true="$params.event.target.id; == $midi_input_id;">
+				<p-local-storage key="midi_output_id" name="midi_output_id">
+					<p-midi-message key="params.message">
+						<!-- note or program change? -->
+						<p-if true="$message.status_hex; == 0x80 || $message.status_hex; == 0x90 || $message.status_hex; == 0xc0">
+							<!-- send to the VS -->
+							<p-action
+								action="send-midi $midi_output_id;"
+								action-params="status: $message.status;; data_0: $message.data_0;; data_1: $message.data_1;;"
+								></p-action>
+						</p-if>
+					</p-midi-message>
+				</p-local-storage>
+			</p-if>
+			
+			<p-if false="$params.event.target.id; == $midi_input_id;">
+				<!-- <p-log value="filtering input from $params.event.target.id;"></p-log> -->
+			</p-if>
+		</p-local-storage>
+	</div>
+</body>
+
+</html>
