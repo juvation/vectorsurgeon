@@ -9,8 +9,471 @@
 		"input" : "InputTrigger"
 	},
 
+	"template_lists" : 
+	{
+		"amp_envelope" :
+		[
+			{
+				"name" : "Organ",
+				"template" : "amp_organ"
+			},
+			{
+				"name" : "Piano",
+				"template" : "amp_piano"
+			}
+		],
+		"filter_envelope" :
+		[
+			{
+				"name" : "Organ",
+				"template" : "filter_organ"
+			},
+			{
+				"name" : "Piano",
+				"template" : "filter_piano"
+			}
+		]
+	},
+
+	"templates" :
+	{
+		"amp_organ" :
+		[
+			{
+				"name" : "AmpEnvLevel0",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvRate1",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvLevel1",
+				"value" : 255
+			},
+			{
+				"name" : "AmpEnvRate2",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvLevel2",
+				"value" : 255
+			},
+			{
+				"name" : "AmpEnvRate3",
+				"value" : 100
+			},
+			{
+				"name" : "AmpEnvLevel3",
+				"value" : 255
+			},
+			{
+				"name" : "AmpEnvRate4",
+				"value" : 50
+			}
+		],
+		"amp_piano" :
+		[
+			{
+				"name" : "AmpEnvLevel0",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvRate1",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvLevel1",
+				"value" : 255
+			},
+			{
+				"name" : "AmpEnvRate2",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvLevel2",
+				"value" : 255
+			},
+			{
+				"name" : "AmpEnvRate3",
+				"value" : 100
+			},
+			{
+				"name" : "AmpEnvLevel3",
+				"value" : 0
+			},
+			{
+				"name" : "AmpEnvRate4",
+				"value" : 50
+			}
+		],
+		"filter_organ" :
+		[
+			{
+				"name" : "FilterEnvLevel0",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvRate1",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvLevel1",
+				"value" : 255
+			},
+			{
+				"name" : "FilterEnvRate2",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvLevel2",
+				"value" : 255
+			},
+			{
+				"name" : "FilterEnvRate3",
+				"value" : 100
+			},
+			{
+				"name" : "FilterEnvLevel3",
+				"value" : 255
+			},
+			{
+				"name" : "FilterEnvRate4",
+				"value" : 50
+			},
+			{
+				"name" : "FilterEnvLevel4",
+				"value" : 0
+			}
+		],
+		"filter_piano" :
+		[
+			{
+				"name" : "FilterEnvLevel0",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvRate1",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvLevel1",
+				"value" : 255
+			},
+			{
+				"name" : "FilterEnvRate2",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvLevel2",
+				"value" : 255
+			},
+			{
+				"name" : "FilterEnvRate3",
+				"value" : 100
+			},
+			{
+				"name" : "FilterEnvLevel3",
+				"value" : 0
+			},
+			{
+				"name" : "FilterEnvRate4",
+				"value" : 50
+			},
+			{
+				"name" : "FilterEnvLevel4",
+				"value" : 0
+			}
+		]
+	},
+	
 	"vs_parameter_map" :
 	{
+		"WaveNumberA" :
+		{
+			"min" : 0,
+			"max" : 127,
+			"range" : 128,
+			"number" : 0,
+			"offset" : 0,
+			"size" : 7
+		},
+		"WaveNumberB" :
+		{
+			"min" : 0,
+			"max" : 127,
+			"range" : 128,
+			"number" : 1,
+			"offset" : 7,
+			"size" : 7
+		},
+		"WaveNumberC" :
+		{
+			"min" : 0,
+			"max" : 127,
+			"range" : 128,
+			"number" : 2,
+			"offset" : 14,
+			"size" : 7
+		},
+		"WaveNumberD" :
+		{
+			"min" : 0,
+			"max" : 127,
+			"range" : 128,
+			"number" : 3,
+			"offset" : 21,
+			"size" : 7
+		},
+		"CoarseFrequencyA" :
+		{
+			"min" : 0,
+			"max" : 24,
+			"range" : 25,
+			"number" : 4,
+			"offset" : 28,
+			"size" : 5
+		},
+		"CoarseFrequencyB" :
+		{
+			"min" : 0,
+			"max" : 24,
+			"range" : 25,
+			"number" : 5,
+			"offset" : 33,
+			"size" : 5
+		},
+		"CoarseFrequencyC" :
+		{
+			"min" : 0,
+			"max" : 24,
+			"range" : 25,
+			"number" : 6,
+			"offset" : 38,
+			"size" : 5
+		},
+		"CoarseFrequencyD" :
+		{
+			"min" : 0,
+			"max" : 24,
+			"range" : 25,
+			"number" : 7,
+			"offset" : 43,
+			"size" : 5
+		},
+		"FineFrequencyA" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 8,
+			"offset" : 48,
+			"size" : 7
+		},
+		"FineFrequencyB" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 9,
+			"offset" : 55,
+			"size" : 7
+		},
+		"FineFrequencyC" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 10,
+			"offset" : 62,
+			"size" : 7
+		},
+		"FineFrequencyD" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 11,
+			"offset" : 69,
+			"size" : 7
+		},
+		
+		
+		"AmpEnvRate1" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 19,
+			"offset" : 117,
+			"size" : 7
+		},
+		"AmpEnvRate2" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 20,
+			"offset" : 124,
+			"size" : 7
+		},
+		"AmpEnvRate3" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 21,
+			"offset" : 131,
+			"size" : 7
+		},
+		"AmpEnvRate4" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 22,
+			"offset" : 138,
+			"size" : 7
+		},
+		"AmpEnvRate4A" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 23,
+			"offset" : 145,
+			"size" : 7
+		},
+
+		"AmpEnvLevel0" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 24,
+			"offset" : 152,
+			"size" : 7
+		},
+		"AmpEnvLevel1" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 25,
+			"offset" : 159,
+			"size" : 7
+		},
+		"AmpEnvLevel2" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 26,
+			"offset" : 166,
+			"size" : 7
+		},
+		"AmpEnvLevel3" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 27,
+			"offset" : 173,
+			"size" : 7
+		},
+
+		"FilterEnvRate1" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 30,
+			"offset" : 186,
+			"size" : 7
+		},
+		"FilterEnvRate2" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 31,
+			"offset" : 193,
+			"size" : 7
+		},
+		"FilterEnvRate3" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 32,
+			"offset" : 200,
+			"size" : 7
+		},
+		"FilterEnvRate4" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 33,
+			"offset" : 207,
+			"size" : 7
+		},
+		"FilterEnvRate4A" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 34,
+			"offset" : 214,
+			"size" : 7
+		},
+
+		"FilterEnvLevel0" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 35,
+			"offset" : 221,
+			"size" : 7
+		},
+		"FilterEnvLevel1" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 36,
+			"offset" : 228,
+			"size" : 7
+		},
+		"FilterEnvLevel2" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 37,
+			"offset" : 235,
+			"size" : 7
+		},
+		"FilterEnvLevel3" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 38,
+			"offset" : 242,
+			"size" : 7
+		},
+		"FilterEnvLevel4" :
+		{
+			"min" : 0,
+			"max" : 99,
+			"range" : 100,
+			"number" : 39,
+			"offset" : 249,
+			"size" : 7
+		},
+
 		"LFO1Rate" :
 		{
 			"min" : 0,
@@ -55,33 +518,6 @@
 			"number" : 264,
 			"offset" : 599,
 			"size" : 1
-		},
-		"WaveNumberB" :
-		{
-			"min" : 0,
-			"max" : 127,
-			"range" : 128,
-			"number" : 1,
-			"offset" : 7,
-			"size" : 7
-		},
-		"WaveNumberC" :
-		{
-			"min" : 0,
-			"max" : 127,
-			"range" : 128,
-			"number" : 2,
-			"offset" : 14,
-			"size" : 7
-		},
-		"WaveNumberD" :
-		{
-			"min" : 0,
-			"max" : 127,
-			"range" : 128,
-			"number" : 3,
-			"offset" : 21,
-			"size" : 7
 		},
 		"PressureFreqCMod" :
 		{
@@ -209,24 +645,6 @@
 			"offset" : 318,
 			"size" : 7
 		},
-		"CoarseFrequencyD" :
-		{
-			"min" : 0,
-			"max" : 24,
-			"range" : 25,
-			"number" : 7,
-			"offset" : 43,
-			"size" : 5
-		},
-		"CoarseFrequencyC" :
-		{
-			"min" : 0,
-			"max" : 24,
-			"range" : 25,
-			"number" : 6,
-			"offset" : 38,
-			"size" : 5
-		},
 		"ArpRate" :
 		{
 			"min" : 0,
@@ -235,24 +653,6 @@
 			"number" : 86,
 			"offset" : 530,
 			"size" : 7
-		},
-		"CoarseFrequencyB" :
-		{
-			"min" : 0,
-			"max" : 24,
-			"range" : 25,
-			"number" : 5,
-			"offset" : 33,
-			"size" : 5
-		},
-		"CoarseFrequencyA" :
-		{
-			"min" : 0,
-			"max" : 24,
-			"range" : 25,
-			"number" : 4,
-			"offset" : 28,
-			"size" : 5
 		},
 		"PressureAmpEnvMod" :
 		{
@@ -281,15 +681,6 @@
 			"offset" : 604,
 			"size" : 1
 		},
-		"FilterEnvLevel4" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 39,
-			"offset" : 249,
-			"size" : 7
-		},
 		"FilterResonance" :
 		{
 			"min" : 0,
@@ -297,42 +688,6 @@
 			"range" : 100,
 			"number" : 13,
 			"offset" : 83,
-			"size" : 7
-		},
-		"FilterEnvLevel3" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 38,
-			"offset" : 242,
-			"size" : 7
-		},
-		"FilterEnvLevel2" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 37,
-			"offset" : 235,
-			"size" : 7
-		},
-		"FilterEnvLevel1" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 36,
-			"offset" : 228,
-			"size" : 7
-		},
-		"FilterEnvLevel0" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 35,
-			"offset" : 221,
 			"size" : 7
 		},
 		"ArpRest" :
@@ -379,15 +734,6 @@
 			"number" : 308,
 			"offset" : 633,
 			"size" : 1
-		},
-		"FilterEnvRate4A" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 34,
-			"offset" : 214,
-			"size" : 7
 		},
 		"LFO2MixACMod" :
 		{
@@ -524,15 +870,6 @@
 			"offset" : 610,
 			"size" : 1
 		},
-		"FineFrequencyA" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 8,
-			"offset" : 48,
-			"size" : 7
-		},
 		"ArpVelocity" :
 		{
 			"min" : 0,
@@ -658,42 +995,6 @@
 			"number" : 291,
 			"offset" : 629,
 			"size" : 1
-		},
-		"FineFrequencyD" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 11,
-			"offset" : 69,
-			"size" : 7
-		},
-		"FineFrequencyC" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 10,
-			"offset" : 62,
-			"size" : 7
-		},
-		"FineFrequencyB" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 9,
-			"offset" : 55,
-			"size" : 7
-		},
-		"WaveNumberA" :
-		{
-			"min" : 0,
-			"max" : 127,
-			"range" : 128,
-			"number" : 0,
-			"offset" : 0,
-			"size" : 7
 		},
 		"Name4" :
 		{
@@ -911,42 +1212,6 @@
 			"offset" : 367,
 			"size" : 3
 		},
-		"AmpEnvRate4A" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 23,
-			"offset" : 145,
-			"size" : 7
-		},
-		"FilterEnvRate3" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 32,
-			"offset" : 200,
-			"size" : 7
-		},
-		"FilterEnvRate4" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 33,
-			"offset" : 207,
-			"size" : 7
-		},
-		"FilterEnvRate1" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 30,
-			"offset" : 186,
-			"size" : 7
-		},
 		"ProgramVolume" :
 		{
 			"min" : 0,
@@ -954,15 +1219,6 @@
 			"range" : 100,
 			"number" : 69,
 			"offset" : 427,
-			"size" : 7
-		},
-		"FilterEnvRate2" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 31,
-			"offset" : 193,
 			"size" : 7
 		},
 		"PressureLFO2AmountMod" :
@@ -1091,15 +1347,6 @@
 			"offset" : 542,
 			"size" : 2
 		},
-		"AmpEnvRate3" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 21,
-			"offset" : 131,
-			"size" : 7
-		},
 		"DoubleModeDelay" :
 		{
 			"min" : 0,
@@ -1107,15 +1354,6 @@
 			"range" : 128,
 			"number" : 63,
 			"offset" : 394,
-			"size" : 7
-		},
-		"AmpEnvRate4" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 22,
-			"offset" : 138,
 			"size" : 7
 		},
 		"PressureChorusRateMod" :
@@ -1135,24 +1373,6 @@
 			"number" : 261,
 			"offset" : 602,
 			"size" : 1
-		},
-		"AmpEnvRate1" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 19,
-			"offset" : 117,
-			"size" : 7
-		},
-		"AmpEnvRate2" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 20,
-			"offset" : 124,
-			"size" : 7
 		},
 		"PressureChorusDepthMod" :
 		{
@@ -1298,15 +1518,6 @@
 			"offset" : 552,
 			"size" : 7
 		},
-		"AmpEnvLevel3" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 27,
-			"offset" : 173,
-			"size" : 7
-		},
 		"FilterEnvFreqMod" :
 		{
 			"min" : 0,
@@ -1315,33 +1526,6 @@
 			"number" : 336,
 			"offset" : 643,
 			"size" : 1
-		},
-		"AmpEnvLevel0" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 24,
-			"offset" : 152,
-			"size" : 7
-		},
-		"AmpEnvLevel1" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 25,
-			"offset" : 159,
-			"size" : 7
-		},
-		"AmpEnvLevel2" :
-		{
-			"min" : 0,
-			"max" : 99,
-			"range" : 100,
-			"number" : 26,
-			"offset" : 166,
-			"size" : 7
 		},
 		"KeyboardModAmount" :
 		{

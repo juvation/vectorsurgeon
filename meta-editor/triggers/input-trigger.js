@@ -20,8 +20,6 @@ InputTrigger.prototype.register = function (inAction)
 		"input",
 		function (inEvent)
 		{
-			console.log (inEvent);
-			
 			var	value = null;
 			var	target = inEvent.target;
 			var	tag = target.tagName;

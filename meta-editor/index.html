@@ -181,40 +181,52 @@
 
 	<hr/>
 
+	<div id="filter_env_templates">
+		<label for="filter_template">Filter Envelope Template:</label>
+		<p-select name="filter_template"
+			p-action="(change) runview onenvelopetemplatechange"
+			>
+			<p-option value="">-</p-option>
+			<p-list key="config.template_lists.filter_envelope" name="template">
+				<p-option value="$template.template;">$template.name;</p-option>
+			</p-list>
+		</p-select>
+	</div>
+	
 	<div id="filter_env">
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvLevel0" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel0;"
 			>FL0</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvRate1" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate1;"
 			>FAt</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvLevel1" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel1;"
 			>FL1</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvRate2" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate2;"
 			>FHo</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvLevel2" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel2;"
 			>FL2</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvRate3" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate3;"
 			>FDe</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvLevel3" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel3;"
 			>FSu</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvRate4" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate4;"
 			>FRe</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="FilterEnvLevel4" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel4;"
 			>FL4</input>
@@ -222,42 +234,73 @@
 
 	<hr/>
 
+	<div id="amp_env_templates">
+		<label for="amp_template">Amplitude Envelope Template:</label>
+		<p-select name="amp_template"
+			p-action="(change) runview onenvelopetemplatechange"
+			>
+			<p-option value="">-</p-option>
+			<p-list key="config.template_lists.amp_envelope" name="template">
+				<p-option value="$template.template;">$template.name;</p-option>
+			</p-list>
+		</p-select>
+	</div>
+	
 	<div id="amp_env">
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvLevel0" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel0;"
 			>AL0</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvRate1" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate1;"
 			>AAt</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvLevel1" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel1;"
 			>AL1</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvRate2" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate2;"
 			>AHo</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvLevel2" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel2;"
 			>AL2</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvRate3" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate3;"
 			>ADe</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvLevel3" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel3;"
 			>ASu</input>
-		<input type="range" min="0" max="255" class="slider"
+		<input id="AmpEnvRate4" type="range" min="0" max="255" class="slider"
 			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate4;"
 			>ARe</input>
 	</div>
 
 	<hr/>
+	
+	<!-- called when a envelope template is changed -->
+	<div p-view="onenvelopetemplatechange" p-view-flags="" class="p-invisible">
+		<p-get key="config.templates.$params.value;" name="parameters">
+			<p-list key="parameters" name="parameter">
+				<p-action
+					action="set-value #$parameter.name;"
+					action-params="value: $parameter.value;"
+					>
+				</p-action>
+				<!-- unfortunately, setting value doesn't trigger the change events, so... -->
+				<p-action
+					action="run-view oncontrolchange"
+					action-params="parameter_name: $parameter.name;; value: $parameter.value;;"
+					>
+				</p-action>
+			</p-list>
+		</p-get>
+	</div>
 	
 	<!-- called when a UI control is changed -->
 	<div p-view="oncontrolchange" p-view-flags="" class="p-invisible">
