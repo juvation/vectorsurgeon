@@ -8517,12 +8517,16 @@ monohm.inherits (positron.tag.ActionTag, positron.tag.Tag);
 
 positron.tag.ActionTag.prototype.process = function (inElement, inContext, inTreeWalker)
 {
+	// if createAction() completes synchronously
+	// then it will set this and we walk our subtree here
 	var	sync = false;
 	
 	var	actionString = inElement.getAttribute ("action");
 	
 	if (actionString && actionString.length)
 	{
+		var	self = this;
+		
 		positron.ActionFactory.createAction
 		(
 			inElement,
@@ -8538,6 +8542,15 @@ positron.tag.ActionTag.prototype.process = function (inElement, inContext, inTre
 				if (inAction)
 				{
 					inAction.fire (null, inContext);
+				}
+				
+				if (sync)
+				{
+					// process() runs our subtree below
+				}
+				else
+				{
+					self.walkChildren (inElement, inContext, inTreeWalker);
 				}
 			}
 		);

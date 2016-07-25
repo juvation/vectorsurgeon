@@ -26,12 +26,12 @@ VsSendParameterAction.prototype.fire = function (inEvent)
 		else
 		if (isNaN (parameter))
 		{
-			console.error ("non-numeric parameter number argument");
+			console.error ("non-numeric parameter number argument: " + this.actionArgs [1]);
 		}
 		else
 		if (isNaN (value))
 		{
-			console.error ("non-numeric parameter value argument");
+			console.error ("non-numeric parameter value argument: " + this.actionArgs [2]);
 		}
 		else
 		{

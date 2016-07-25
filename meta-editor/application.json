@@ -4,6 +4,11 @@
 		"vs-send-parameter" : "VsSendParameterAction"
 	},
 
+	"triggers" :
+	{
+		"input" : "InputTrigger"
+	},
+
 	"vs_parameter_map" :
 	{
 		"LFO1Rate" :

@@ -118,7 +118,9 @@
 				p-action-params="parameter_name: WaveNumberA;"
 			>
 			<p-list key="config.vs_wave_names" name="wave_name">
-				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+				<p-set name="value" expression="$wave_name.meta.index; * 2">
+					<p-option value="$value;">$wave_name;</p-option>
+				</p-set>
 			</p-list>
 		</p-select>
 		<label for="WaveNumberB">WB:</label>
@@ -128,7 +130,9 @@
 				p-action-params="parameter_name: WaveNumberB;"
 			>
 			<p-list key="config.vs_wave_names" name="wave_name">
-				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+				<p-set name="value" expression="$wave_name.meta.index; * 2">
+					<p-option value="$value;">$wave_name;</p-option>
+				</p-set>
 			</p-list>
 		</p-select>
 		<label for="WaveNumberC">WC:</label>
@@ -138,7 +142,9 @@
 				p-action-params="parameter_name: WaveNumberC;"
 			>
 			<p-list key="config.vs_wave_names" name="wave_name">
-				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+				<p-set name="value" expression="$wave_name.meta.index; * 2">
+					<p-option value="$value;">$wave_name;</p-option>
+				</p-set>
 			</p-list>
 		</p-select>
 		<label for="WaveNumberD">WD:</label>
@@ -148,7 +154,9 @@
 				p-action-params="parameter_name: WaveNumberD;"
 			>
 			<p-list key="config.vs_wave_names" name="wave_name">
-				<p-option value="$wave_name.meta.index;">$wave_name;</p-option>
+				<p-set name="value" expression="$wave_name.meta.index; * 2">
+					<p-option value="$value;">$wave_name;</p-option>
+				</p-set>
 			</p-list>
 		</p-select>
 	</div>
@@ -158,15 +166,15 @@
 	<div id="filter">
 		<div>FILTER</div>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterCutoff;"
 			>Fcut</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterResonance;"
 			>Fres</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvAmount;"
 			>Fenv</input>
 	</div>
@@ -175,39 +183,39 @@
 
 	<div id="filter_env">
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel0;"
 			>FL0</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate1;"
 			>FAt</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel1;"
 			>FL1</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate2;"
 			>FHo</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel2;"
 			>FL2</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate3;"
 			>FDe</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel3;"
 			>FSu</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvRate4;"
 			>FRe</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: FilterEnvLevel4;"
 			>FL4</input>
 	</div>
@@ -216,35 +224,35 @@
 
 	<div id="amp_env">
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel0;"
 			>AL0</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate1;"
 			>AAt</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel1;"
 			>AL1</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate2;"
 			>AHo</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel2;"
 			>AL2</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate3;"
 			>ADe</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvLevel3;"
 			>ASu</input>
 		<input type="range" min="0" max="255" class="slider"
-			p-action="(change) runview oncontrolchange"
+			p-action="(input) runview oncontrolchange"
 				p-action-params="parameter_name: AmpEnvRate4;"
 			>ARe</input>
 	</div>
