@@ -14,6 +14,8 @@ VsSendParameterAction.prototype.fire = function (inEvent)
 
 	if (this.actionArgs.length >= 3)
 	{
+		console.log ("VsSendParameterAction.fire(" + this.actionArgString + ")");
+	
 		// note that port IDs are *strings*
 		var	outputPortID = this.actionArgs [0];
 		var	parameter = parseInt (this.actionArgs [1]);

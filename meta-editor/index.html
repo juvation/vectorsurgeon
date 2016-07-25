@@ -285,28 +285,27 @@
 	
 	<!-- called when a envelope template is changed -->
 	<div p-view="onenvelopetemplatechange" p-view-flags="" class="p-invisible">
-		<p-get key="config.templates.$params.value;" name="parameters">
-			<p-list key="parameters" name="parameter">
-				<p-action
-					action="set-value #$parameter.name;"
-					action-params="value: $parameter.value;"
-					>
-				</p-action>
-				<!-- unfortunately, setting value doesn't trigger the change events, so... -->
-				<p-action
-					action="run-view oncontrolchange"
-					action-params="parameter_name: $parameter.name;; value: $parameter.value;;"
-					>
-				</p-action>
-			</p-list>
-		</p-get>
+		<p-local-storage key="midi_output_id" name="midi_output_id">
+			<p-get key="config.templates.$params.value;" name="parameters">
+				<p-list key="parameters" name="parameter">
+					<p-action
+						action="set-value #$parameter.name;"
+						action-params="value: $parameter.value;"
+						>
+					</p-action>
+					<p-get key="config.vs_parameter_map.$parameter.name;" name="parameterspec">
+						<p-action action="vs-send-parameter $midi_output_id;/$parameterspec.number;/$parameter.value;"></p-action>
+					</p-get>
+				</p-list>
+			</p-get>
+		</p-local-storage>
 	</div>
 	
 	<!-- called when a UI control is changed -->
 	<div p-view="oncontrolchange" p-view-flags="" class="p-invisible">
-		<p-get key="config.vs_parameter_map.$params.parameter_name;" name="parameter">
+		<p-get key="config.vs_parameter_map.$params.parameter_name;" name="parameterspec">
 			<p-local-storage key="midi_output_id" name="midi_output_id">
-				<p-action action="vs-send-parameter $midi_output_id;/$parameter.number;/$params.value;"></p-action>
+				<p-action action="vs-send-parameter $midi_output_id;/$parameterspec.number;/$params.value;"></p-action>
 			</p-local-storage>
 		</p-get>
 	</div>
