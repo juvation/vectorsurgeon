@@ -1,0 +1,268 @@
+
+=================== FREESOUND ATTRIBUTION FORM =======================
+
+This form below lists all the samples in this pack with their descriptions and tags.
+You can use this form to attribute samples to users when you use them.
+
+=========================== CUT HERE =================================
+
+File:
+	Name: "01resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45745
+	Date of upload: 2007-12-29 10:14:29
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "02resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45746
+	Date of upload: 2007-12-29 10:14:30
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "03resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45747
+	Date of upload: 2007-12-29 10:14:30
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "04resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45749
+	Date of upload: 2007-12-29 10:14:31
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "05resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45750
+	Date of upload: 2007-12-29 10:14:32
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "06resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45752
+	Date of upload: 2007-12-29 10:14:35
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "07resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45753
+	Date of upload: 2007-12-29 10:14:41
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "08resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45754
+	Date of upload: 2007-12-29 10:14:42
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "09resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45755
+	Date of upload: 2007-12-29 10:14:43
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "10resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45756
+	Date of upload: 2007-12-29 10:14:44
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "11resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45757
+	Date of upload: 2007-12-29 10:14:45
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "12resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45758
+	Date of upload: 2007-12-29 10:14:46
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
+File:
+	Name: "13resosaw.wav"
+	Url: http://www.freesound.org/samplesViewSingle.php?id=45759
+	Date of upload: 2007-12-29 10:14:47
+	
+Designer / Creator / Uploader:
+	Name: "altemark"
+	Url: http://www.freesound.org/usersViewSingle.php?id=19852
+	
+Description:
+	By "altemark" : The Future Retro 777 is an analog bassline machine with a nice integrated sequencer. A nice 3 pole lowpass filter, switchable to 8 pole is backed up by a non-resonant highpass filter in the end of the audio chain. 
+
+A large palette of sounds is possible thanks to the simple but useful routing possibilities with two oscillators, two suboscillators, a noise oscillator, both frequency and filter modulation and so on. 
+
+This pack features single cycle waveforms, both raw oscillators, different cutoff and resonance settings as well more complex modulated sounds.
+
+Tags:
+	acid bassline fr-777 futureretro resonance resonant saw sawtooth 
+======================================================================
+
