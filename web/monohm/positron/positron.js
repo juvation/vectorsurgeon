@@ -21,6 +21,648 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
+
+monohm.Config.set ("positron", 
+{
+	"attributePrefix" : "p-",
+	"cssClassPrefix" : "p-",
+	"eventPrefix" : "p-",
+	"tagPrefix" : "p-",
+	"urlParameterPrefix" : "p-",
+	
+	"pageClassName" : "positron.Page",
+	"viewClassName" : "positron.View",
+	"windowClassName" : "positron.Window",
+	
+	"displayClass" :
+	{
+		"p-fullsize": "width > 1100",
+		"p-tablet" : "width < 1100 and width > 500",
+		"p-handheld": "width < 500"
+	},
+
+	"crossDomainStrategy" :
+	{
+		"safari" : "jsonp",
+		"chrome" : "jsonp",
+		"firefox" : "cors",
+		"default" : "jsonp"
+	},
+	
+	"attributeOrder" :
+	[
+		"p-view",
+		"p-action",
+		"p-localise"
+	],
+
+	"deferredTriggers" :
+	{
+		"animationframe" : true,
+		"circle" : true,
+		"defer" : true,
+		"delay" : true,
+		"heading" : true,
+		"interval" : true,
+		"location" : true,
+		"resize" : true,
+		"websocketmessage" : true
+	},
+	
+	"localisation" :
+	{
+		"enabled" : false
+	},
+
+	"analytics" :
+	{
+		"appID" : 1000,
+		"className" : "positron.DummyAnalytics",
+		"captureURL" : "http://capture.mono.hm/analytics/capture",
+		"batchSize" : 5
+	},
+	
+	"databases" :
+	{
+	},
+	
+	"actions" :
+	{
+		"addclass" : "positron.action.AddClassAction",
+		"add-class" : "positron.action.AddClassAction",
+		"addtolist" : "positron.action.AddToListAction",
+		"add-to-list" : "positron.action.AddToListAction",
+		"addtomap" : "positron.action.AddToMapAction",
+		"add-to-map" : "positron.action.AddToMapAction",
+		"ajaxform" : "positron.action.AjaxFormAction",
+		"ajax-form" : "positron.action.AjaxFormAction",
+		"ajaxget" : "positron.action.AjaxAction",
+		"ajax-get" : "positron.action.AjaxAction",
+		"ajaxpost" : "positron.action.AjaxAction",
+		"ajax-post" : "positron.action.AjaxAction",
+		"alert" : "positron.action.AlertAction",
+		"appendvalue" : "positron.action.AppendValueAction",
+		"append-value" : "positron.action.AppendValueAction",
+		"call" : "positron.action.CallAction",
+		"clearlist" : "positron.action.ClearListAction",
+		"clear-list" : "positron.action.ClearListAction",
+		"clearmap" : "positron.action.ClearMapAction",
+		"clear-map" : "positron.action.ClearMapAction",
+		"closewebsocket" : "positron.action.CloseWebSocketAction",
+		"close-web-socket" : "positron.action.CloseWebSocketAction",
+		"confirm" : "positron.action.ConfirmAction",
+		"delay" : "positron.action.DelayAction",
+		"deletesqlrecord" : "positron.action.DeleteSQLRecordAction",
+		"delete-sql-record" : "positron.action.DeleteSQLRecordAction",
+		"dispatchevent" : "positron.action.DispatchEventAction",
+		"dispatch-event" : "positron.action.DispatchEventAction",
+		"dispatchform" : "positron.action.DispatchFormAction",
+		"dispatch-form" : "positron.action.DispatchFormAction",
+		"facebook-authorise" : "positron.action.FacebookAuthoriseAction",
+		"facebook-deauthorise" : "positron.action.FacebookDeauthoriseAction",
+		"flushcache" : "positron.action.FlushCacheAction",
+		"flush-cache" : "positron.action.FlushCacheAction",
+		"google-authorise" : "positron.action.GoogleAuthoriseAction",
+		"google-deauthorise" : "positron.action.GoogleDeauthoriseAction",
+		"gotourl" : "positron.action.GotoURLAction",
+		"goto-url" : "positron.action.GotoURLAction",
+		"go-to-url" : "positron.action.GotoURLAction",
+		"hideview" : "positron.action.HideViewAction",
+		"hide-view" : "positron.action.HideViewAction",
+		"insertsqlrecord" : "positron.action.InsertSQLRecordAction",
+		"insert-sql-record" : "positron.action.InsertSQLRecordAction",
+		"log" : "positron.action.LogAction",
+		"openwindow" : "positron.action.OpenWindowAction",
+		"open-window" : "positron.action.OpenWindowAction",
+		"playsound" : "positron.action.PlaySoundAction",
+		"play-sound" : "positron.action.PlaySoundAction",
+		"prompt" : "positron.action.PromptAction",
+		"refreshview" : "positron.action.RefreshViewAction",
+		"refresh-view" : "positron.action.RefreshViewAction",
+		"removeattribute" : "positron.action.RemoveAttributeAction",
+		"remove-attribute" : "positron.action.RemoveAttributeAction",
+		"removeclass" : "positron.action.RemoveClassAction",
+		"remove-class" : "positron.action.RemoveClassAction",
+		"removeelement" : "positron.action.RemoveElementAction",
+		"remove-element" : "positron.action.RemoveElementAction",
+		"removefromlist" : "positron.action.RemoveFromListAction",
+		"remove-from-list" : "positron.action.RemoveFromListAction",
+		"removefrommap" : "positron.action.RemoveFromMapAction",
+		"remove-from-map" : "positron.action.RemoveFromMapAction",
+		"runview" : "positron.action.RunViewAction",
+		"run-view" : "positron.action.RunViewAction",
+		"scroll" : "positron.action.ScrollAction",
+		"selectclass" : "positron.action.SelectClassAction",
+		"select-class" : "positron.action.SelectClassAction",
+		"sendmidi" : "positron.action.SendMIDIAction",
+		"send-midi" : "positron.action.SendMIDIAction",
+		"sendwebsocket" : "positron.action.SendWebSocketAction",
+		"send-web-socket" : "positron.action.SendWebSocketAction",
+		"setattribute" : "positron.action.SetAttributeAction",
+		"set-attribute" : "positron.action.SetAttributeAction",
+		"set" : "positron.action.SetAction",
+		"setlocalstorage" : "positron.action.SetLocalStorageAction",
+		"set-local-storage" : "positron.action.SetLocalStorageAction",
+		"setpage" : "positron.action.SetPageAction",
+		"set-page" : "positron.action.SetPageAction",
+		"setparams" : "positron.action.SetParamsAction",
+		"set-params" : "positron.action.SetParamsAction",
+		"setstyle" : "positron.action.SetStyleAction",
+		"set-style" : "positron.action.SetStyleAction",
+		"settransform" : "positron.action.SetTransformAction",
+		"set-transform" : "positron.action.SetTransformAction",
+		"setvalue" : "positron.action.SetValueAction",
+		"set-value" : "positron.action.SetValueAction",
+		"showview" : "positron.action.ShowViewAction",
+		"show-view" : "positron.action.ShowViewAction",
+		"stopsound" : "positron.action.StopSoundAction",
+		"stop-sound" : "positron.action.StopSoundAction",
+		"submitform" : "positron.action.SubmitFormAction",
+		"submit-form" : "positron.action.SubmitFormAction",
+		"toggleclass" : "positron.action.ToggleClassAction",
+		"toggle-class" : "positron.action.ToggleClassAction",
+		"toggleview" : "positron.action.ToggleViewAction",
+		"toggle-view" : "positron.action.ToggleViewAction",
+		"twitter-authorise" : "positron.action.TwitterAuthoriseAction",
+		"twitter-deauthorise" : "positron.action.TwitterDeauthoriseAction",
+		"twitter-setstatus" : "positron.action.TwitterSetStatusAction",
+		"validateform" : "positron.action.ValidateFormAction",
+		"validate-form" : "positron.action.ValidateFormAction"
+	},
+	
+	"attributes" :
+	{
+		"p-action" : "positron.attribute.ActionAttribute",
+		"p-view" : "positron.attribute.ViewAttribute"
+	},
+	
+	"tags" :
+	{
+		"p-audio" : "positron.tag.IsolatorTag",
+		"p-action" : "positron.tag.ActionTag",
+		"p-bearing" : "positron.tag.BearingTag",
+		"p-capitalcase" : "positron.tag.ChangeCaseTag",
+		"p-capital-case" : "positron.tag.ChangeCaseTag",
+		"p-changecase" : "positron.tag.ChangeCaseTag",
+		"p-change-case" : "positron.tag.ChangeCaseTag",
+		"p-circle" : "positron.tag.CircleTag",
+		"p-comment" : "positron.tag.CommentTag",
+		"p-date" : "positron.tag.DateTag",
+		"p-delay" : "positron.tag.DelayTag",
+		"p-distance" : "positron.tag.DistanceTag",
+		"p-facebook" : "positron.tag.FacebookTag",
+		"p-geobox" : "positron.tag.GeoBoxTag",
+		"p-get" : "positron.tag.GetTag",
+		"p-gmail-message" : "positron.tag.GmailMessageTag",
+		"p-gmail-messages" : "positron.tag.GmailMessagesTag",
+		"p-gmail-threads" : "positron.tag.GmailThreadsTag",
+		"p-google" : "positron.tag.GoogleTag",
+		"p-if" : "positron.tag.IfTag",
+		"p-iframe" : "positron.tag.IsolatorTag",
+		"p-input" : "positron.tag.IsolatorTag",
+		"p-img" : "positron.tag.IsolatorTag",
+		"p-join" : "positron.tag.JoinTag",
+		"p-json" : "positron.tag.JSONTag",
+		"p-list" : "positron.tag.ListTag",
+		"p-localise" : "positron.tag.LocaliseTag",
+		"p-localstorage" : "positron.tag.LocalStorageTag",
+		"p-local-storage" : "positron.tag.LocalStorageTag",
+		"p-location" : "positron.tag.LocationTag",
+		"p-log" : "positron.tag.LogTag",
+		"p-lowercase" : "positron.tag.ChangeCaseTag",
+		"p-map" : "positron.tag.MapTag",
+		"p-midi" : "positron.tag.MIDITag",
+		"p-midi-inputs" : "positron.tag.MIDIInputsTag",
+		"p-midi-message" : "positron.tag.MIDIMessageTag",
+		"p-midi-outputs" : "positron.tag.MIDIOutputsTag",
+		"p-move" : "positron.tag.MoveTag",
+		"p-numberformat" : "positron.tag.NumberFormatTag",
+		"p-number-format" : "positron.tag.NumberFormatTag",
+		"p-numbers" : "positron.tag.NumbersTag",
+		"p-option" : "positron.tag.IsolatorTag",
+		"p-pagelist" : "positron.tag.PageListTag",
+		"p-page-list" : "positron.tag.PageListTag",
+		"p-prefixedproperty" : "positron.tag.PrefixedPropertyTag",
+		"p-prefixed-property" : "positron.tag.PrefixedPropertyTag",
+		"p-preloadimage" : "positron.tag.PreloadImageTag",
+		"p-preload-image" : "positron.tag.PreloadImageTag",
+		"p-queryselector" : "positron.tag.QuerySelectorTag",
+		"p-query-selector" : "positron.tag.QuerySelectorTag",
+		"p-replace" : "positron.tag.ReplaceTag",
+		"p-source" : "positron.tag.IsolatorTag",
+		"p-sound" : "positron.tag.SoundTag",
+		"p-sqlquery" : "positron.tag.SQLQueryTag",
+		"p-sql-query" : "positron.tag.SQLQueryTag",
+		"p-select" : "positron.tag.IsolatorTag",
+		"p-selectoption" : "positron.tag.SelectOptionTag",
+		"p-select-option" : "positron.tag.SelectOptionTag",
+		"p-set" : "positron.tag.SetTag",
+		"p-split" : "positron.tag.SplitTag",
+		"p-string" : "positron.tag.StringTag",
+		"p-substring" : "positron.tag.SubstringTag",
+		"p-sub-string" : "positron.tag.SubstringTag",
+		"p-table" : "positron.tag.IsolatorTag",
+		"p-throw" : "positron.tag.ThrowTag",
+		"p-timeago" : "positron.tag.TimeAgoTag",
+		"p-time-ago" : "positron.tag.TimeAgoTag",
+		"p-td" : "positron.tag.IsolatorTag",
+		"p-th" : "positron.tag.IsolatorTag",
+		"p-tr" : "positron.tag.IsolatorTag",
+		"p-twitter" : "positron.tag.TwitterTag",
+		"p-twittermentions" : "positron.tag.TwitterMentionsTag",
+		"p-twitter-mentions" : "positron.tag.TwitterMentionsTag",
+		"p-twittertimeline" : "positron.tag.TwitterTimelineTag",
+		"p-twitter-timeline" : "positron.tag.TwitterTimelineTag",
+		"p-uppercase" : "positron.tag.ChangeCaseTag",
+		"p-upper-case" : "positron.tag.ChangeCaseTag",
+		"p-video" : "positron.tag.IsolatorTag",
+		"p-websocket" : "positron.tag.WebSocketTag",
+		"p-web-socket" : "positron.tag.WebSocketTag"
+	},
+
+	"triggers" :
+	{
+		"animationframe" : "positron.trigger.AnimationFrameTrigger",
+		"animation-frame" : "positron.trigger.AnimationFrameTrigger",
+		"change" : "positron.trigger.ChangeTrigger",
+		"circle" : "positron.trigger.CircleTrigger",
+		"defer" : "positron.trigger.DeferTrigger",
+		"delay" : "positron.trigger.DelayTrigger",
+		"dispatchform" : "positron.trigger.DispatchFormTrigger",
+		"dispatch-form" : "positron.trigger.DispatchFormTrigger",
+		"doubleclick" : "positron.trigger.DoubleClickTrigger",
+		"double-click" : "positron.trigger.DoubleClickTrigger",
+		"doubletap" : "positron.trigger.DoubleClickTrigger",
+		"double-tap" : "positron.trigger.DoubleClickTrigger",
+		"facebook-authorise" : "positron.trigger.FacebookAuthoriseTrigger",
+		"google-authorise" : "positron.trigger.GoogleAuthoriseTrigger",
+		"heading" : "positron.trigger.HeadingTrigger",
+		"keydown" : "positron.trigger.KeyDownTrigger",
+		"keypress" : "positron.trigger.KeyPressTrigger",
+		"input" : "positron.trigger.InputTrigger",
+		"interval" : "positron.trigger.IntervalTrigger",
+		"location" : "positron.trigger.LocationTrigger",
+		"longclick" : "positron.trigger.LongClickTrigger",
+		"long-click" : "positron.trigger.LongClickTrigger",
+		"longtap" : "positron.trigger.LongClickTrigger",
+		"long-tap" : "positron.trigger.LongClickTrigger",
+		"midimessage" : "positron.trigger.MIDIMessageTrigger",
+		"midi-message" : "positron.trigger.MIDIMessageTrigger",
+		"now" : "positron.trigger.NowTrigger",
+		"p-dispatchform" : "positron.trigger.DispatchFormTrigger",
+		"p-dispatch-form" : "positron.trigger.DispatchFormTrigger",
+		"prefixedevent" : "positron.trigger.PrefixedEventTrigger",
+		"prefixed-event" : "positron.trigger.PrefixedEventTrigger",
+		"refreshview" : "positron.trigger.RefreshViewTrigger",
+		"refresh-view" : "positron.trigger.RefreshViewTrigger",
+		"showview" : "positron.trigger.ShowViewTrigger",
+		"show-view" : "positron.trigger.ShowViewTrigger",
+		"twitter-authorise" : "positron.trigger.TwitterAuthoriseTrigger",
+		"websocketmessage" : "positron.trigger.WebSocketMessageTrigger",
+		"web-socket-message" : "positron.trigger.WebSocketMessageTrigger",
+		"xclick" : "positron.trigger.ClickTrigger",
+		"xmousedown" : "positron.trigger.MouseDownTrigger",
+		"xmouse-down" : "positron.trigger.MouseDownTrigger",
+		"xmousemove" : "positron.trigger.MouseMoveTrigger",
+		"xmouse-move" : "positron.trigger.MouseMoveTrigger",
+		"xmouseup" : "positron.trigger.MouseUpTrigger",
+		"xmouse-up" : "positron.trigger.MouseUpTrigger",
+		"xtap" : "positron.trigger.ClickTrigger",
+		"xtouchend" : "positron.trigger.MouseUpTrigger",
+		"xtouch-end" : "positron.trigger.MouseUpTrigger",
+		"xtouchmove" : "positron.trigger.MouseMoveTrigger",
+		"xtouch-move" : "positron.trigger.MouseMoveTrigger",
+		"xtouchstart" : "positron.trigger.MouseDownTrigger",
+		"xtouch-start" : "positron.trigger.MouseDownTrigger"
+	},
+
+	"views":
+	{
+		"mediaclient" : "positron.view.MediaClientView",
+		"media-client" : "positron.view.MediaClientView",
+		"mediaserver" : "positron.view.MediaServerView",
+		"media-server" : "positron.view.MediaServerView"
+	},
+	
+	"window-events" :
+	{
+		"compassneedscalibration" : true,
+		"devicemotion" : true,
+		"deviceorientation" : true,
+		"deviceproximity" : true,
+		"message" : true,
+		"resize" : true,
+		"userproximity": true
+	},
+	
+	"prefixed-events" :
+	{
+		"webkit" :
+		{
+			"animationstart" : "webkitAnimationStart",
+			"animationend" : "webkitAnimationEnd"
+		},
+		"gecko" :
+		{
+			"animationstart" : "animationstart",
+			"animationend" : "animationend"
+		},
+		"ie" :
+		{
+			"animationstart" : "MSAnimationStart",
+			"animationend" : "MSAnimationEnd"
+		},
+		"opera" :
+		{
+			"animationstart" : "oAnimationStart",
+			"animationend" : "oAnimationEnd"
+		},
+		"default" :
+		{
+			"animationstart" : "animationstart",
+			"animationend" : "animationend"
+		}
+	},
+	
+	"prefixed-properties" :
+	{
+		"webkit" :
+		{
+			"align-content" : "-webkit-align-content",
+			"align-items" : "-webkit-align-items",
+			"align-self" : "-webkit-align-self",
+			"animation" : "-webkit-animation",
+			"animation-delay" : "-webkit-animation-delay",
+			"animation-direction" : "-webkit-animation-direction",
+			"animation-duration" : "-webkit-animation-duration",
+			"animation-fill-mode" : "-webkit-animation-fill-mode",
+			"animation-iteration-count" : "-webkit-animation-iteration-count",
+			"animation-name" : "-webkit-animation-name",
+			"animation-play-state" : "-webkit-animation-play-state",
+			"animation-timing-function" : "-webkit-animation-timing-function",
+			"appearance" : "-webkit-appearance",
+			"border-radius" : "-webkit-border-radius",
+			"border-top-left-radius" : "-webkit-border-top-left-radius",
+			"border-top-right-radius" : "-webkit-border-top-right-radius",
+			"border-bottom-right-radius" : "-webkit-border-bottom-right-radius",
+			"border-bottom-left-radius" : "-webkit-border-bottom-left-radius",
+			"box" : "-webkit-box",
+			"box-align" : "-webkit-box-align",
+			"box-direction" : "-webkit-box-direction",
+			"box-flex" : "-webkit-box-flex",
+			"box-flex-group" : "-webkit-box-flex-group",
+			"box-lines" : "-webkit-box-lines",
+			"box-ordinal-group" : "-webkit-box-ordinal-group",
+			"box-orient" : "-webkit-box-orient",
+			"box-pack" : "-webkit-box-pack",
+			"box-sizing" : "-webkit-box-sizing",
+			"box-group" : "-webkit-box-group",
+			"backface-visibility" : "-webkit-backface-visibility",
+			"break-after" : "-webkit-break-after",
+			"break-inside" : "-webkit-break-inside",
+			"column-count" : "-webkit-column-count",
+			"column-gap" : "-webkit-column-gap",
+			"filter" : "-webkit-filter",
+			"flex" : "-webkit-flex",
+			"flex-basis" : "-webkit-flex-basis",
+			"flex-direction" : "-webkit-flex-direction",
+			"flex-flow" : "-webkit-flex-flow",
+			"flex-grow" : "-webkit-flex-grow",
+			"flex-shrink" : "-webkit-flex-shrink",
+			"flex-wrap" : "-webkit-flex-wrap",
+			"justify-content" : "-webkit-justify-content",
+			"line-clamp" : "-webkit-line-clamp",
+			"order" : "-webkit-order",
+			"perspective" : "-webkit-perspective",
+			"text-transform" : "-webkit-text-transform",
+			"transform" : "-webkit-transform",
+			"transform-origin" : "-webkit-transform-origin",
+			"transform-style" : "-webkit-transform-style",
+			"transition" : "-webkit-transition",
+			"transition-delay" : "-webkit-transition-delay",
+			"transition-duration" : "-webkit-transition-duration",
+			"transition-property" : "-webkit-transition-property",
+			"transition-timing-function" : "-webkit-transition-timing-function",
+			"user-select" : "-webkit-user-select",
+			"@keyframes" : "@-webkit-keyframes"
+		},
+		"gecko" :
+		{
+			"align-content" : "align-content",
+			"align-items" : "align-items",
+			"align-self" : "align-self",
+			"animation" : "animation",
+			"animation-delay" : "animation-delay",
+			"animation-direction" : "animation-direction",
+			"animation-duration" : "animation-duration",
+			"animation-fill-mode" : "animation-fill-mode",
+			"animation-iteration-count" : "animation-iteration-count",
+			"animation-name" : "animation-name",
+			"animation-play-state" : "animation-play-state",
+			"animation-timing-function" : "animation-timing-function",
+			"appearance" : "appearance",
+			"backface-visibility" : "backface-visibility",
+			"border-radius" : "border-radius",
+			"border-top-left-radius" : "border-radius-topleft",
+			"border-top-right-radius" : "-webkit-border-radius-top-right",
+			"border-bottom-right-radius" : "-webkit-border-radius-bottom-right",
+			"border-bottom-left-radius" : "-webkit-border-radius-bottom-left",
+			"box" : "box",
+			"box-align" : "box-align",
+			"box-direction" : "box-direction",
+			"box-flex" : "box-flex",
+			"box-flex-group" : "box-flex-group",
+			"box-lines" : "box-lines",
+			"box-ordinal-group" : "box-ordinal-group",
+			"box-orient" : "box-orient",
+			"box-pack" : "box-pack",
+			"box-sizing" : "box-sizing",
+			"box-group" : "box-group",
+			"break-after" : "break-after",
+			"break-inside" : "break-inside",
+			"column-count" : "column-count",
+			"column-gap" : "column-gap",
+			"filter" : "filter",
+			"flex" : "flex",
+			"flex-basis" : "flex-basis",
+			"flex-direction" : "flex-direction",
+			"flex-flow" : "flex-flow",
+			"flex-grow" : "flex-grow",
+			"flex-shrink" : "flex-shrink",
+			"flex-wrap" : "flex-wrap",
+			"justify-content" : "justify-content",
+			"line-clamp" : "line-clamp",
+			"order" : "order",
+			"perspective" : "perspective",
+			"transform" : "transform",
+			"transform-origin" : "transform-origin",
+			"transform-style" : "transform-style",
+			"transition" : "transition",
+			"transition-delay" : "transition-delay",
+			"transition-duration" : "transition-duration",
+			"transition-property" : "transition-property",
+			"transition-timing-function" : "transition-timing-function",
+			"user-select" : "user-select",
+			"@keyframes" : "@keyframes"
+		},
+		"ie" :
+		{
+			"align-content" : "-ms-align-content",
+			"align-items" : "-ms-align-items",
+			"align-self" : "-ms-align-self",
+			"animation" : "-ms-animation",
+			"animation-delay" : "-ms-animation-delay",
+			"animation-direction" : "-ms-animation-direction",
+			"animation-duration" : "-ms-animation-duration",
+			"animation-fill-mode" : "-ms-animation-fill-mode",
+			"animation-iteration-count" : "-ms-animation-iteration-count",
+			"animation-name" : "-ms-animation-name",
+			"animation-play-state" : "-ms-animation-play-state",
+			"animation-timing-function" : "-ms-animation-timing-function",
+			"backface-visibility" : "-ms-backface-visibility",
+			"box" : "-ms-box",
+			"box-align" : "-ms-box-align",
+			"box-direction" : "-ms-box-direction",
+			"box-flex" : "-ms-box-flex",
+			"box-flex-group" : "-ms-box-flex-group",
+			"box-lines" : "-ms-box-lines",
+			"box-ordinal-group" : "-ms-box-ordinal-group",
+			"box-orient" : "-ms-box-orient",
+			"box-pack" : "-ms-box-pack",
+			"box-sizing" : "-ms-box-sizing",
+			"box-group" : "-ms-box-group",
+			"break-after" : "-ms-break-after",
+			"break-inside" : "-ms-break-inside",
+			"filter" : "-ms-filter",
+			"flex" : "-ms-flex",
+			"flex-basis" : "-ms-flex-basis",
+			"flex-direction" : "-ms-flex-direction",
+			"flex-flow" : "-ms-flex-flow",
+			"flex-grow" : "-ms-flex-grow",
+			"flex-shrink" : "-ms-flex-shrink",
+			"flex-wrap" : "-ms-flex-wrap",
+			"justify-content" : "-ms-justify-content",
+			"line-clamp" : "-ms-line-clamp",
+			"order" : "-ms-order",
+			"perspective" : "-ms-perspective",
+			"transform" : "-ms-transform",
+			"transform-origin" : "-ms-transform-origin",
+			"transform-style" : "-ms-transform-style",
+			"transition" : "-ms-transition",
+			"transition-delay" : "-ms-transition-delay",
+			"transition-duration" : "-ms-transition-duration",
+			"transition-property" : "-ms-transition-property",
+			"transition-timing-function" : "-ms-transition-timing-function",
+			"user-select" : "-ms-user-select",
+			"@keyframes" : "@-ms-keyframes"
+		},
+		"opera" :
+		{
+			"align-content" : "-o-align-content",
+			"align-items" : "-o-align-items",
+			"align-self" : "-o-align-self",
+			"animation" : "-o-animation",
+			"animation-delay" : "-o-animation-delay",
+			"animation-direction" : "-o-animation-direction",
+			"animation-duration" : "-o-animation-duration",
+			"animation-fill-mode" : "-o-animation-fill-mode",
+			"animation-iteration-count" : "-o-animation-iteration-count",
+			"animation-name" : "-o-animation-name",
+			"animation-play-state" : "-o-animation-play-state",
+			"animation-timing-function" : "-o-animation-timing-function",
+			"backface-visibility" : "-o-backface-visibility",
+			"box" : "-o-box",
+			"box-align" : "-o-box-align",
+			"box-direction" : "-o-box-direction",
+			"box-flex" : "-o-box-flex",
+			"box-flex-group" : "-o-box-flex-group",
+			"box-lines" : "-o-box-lines",
+			"box-ordinal-group" : "-o-box-ordinal-group",
+			"box-orient" : "-o-box-orient",
+			"box-pack" : "-o-box-pack",
+			"box-sizing" : "-o-box-sizing",
+			"box-group" : "-o-box-group",
+			"break-after" : "-o-break-after",
+			"break-inside" : "-o-break-inside",
+			"filter" : "-o-filter",
+			"flex" : "-o-flex",
+			"flex-basis" : "-o-flex-basis",
+			"flex-direction" : "-o-flex-direction",
+			"flex-flow" : "-o-flex-flow",
+			"flex-grow" : "-o-flex-grow",
+			"flex-shrink" : "-o-flex-shrink",
+			"flex-wrap" : "-o-flex-wrap",
+			"justify-content" : "-o-justify-content",
+			"line-clamp" : "-o-line-clamp",
+			"order" : "-o-order",
+			"perspective" : "-o-perspective",
+			"transform" : "-o-transform",
+			"transform-origin" : "-o-transform-origin",
+			"transform-style" : "-o-transform-style",
+			"transition" : "-o-transition",
+			"transition-delay" : "-o-transition-delay",
+			"transition-duration" : "-o-transition-duration",
+			"transition-property" : "-o-transition-property",
+			"transition-timing-function" : "-o-transition-timing-function",
+			"user-select" : "-o-user-select",
+			"@keyframes" : "@-o-keyframes"
+		},
+		"default" :
+		{
+			"align-content" : "align-content",
+			"align-items" : "align-items",
+			"align-self" : "align-self",
+			"animation" : "animation",
+			"animation-delay" : "animation-delay",
+			"animation-direction" : "animation-direction",
+			"animation-duration" : "animation-duration",
+			"animation-fill-mode" : "animation-fill-mode",
+			"animation-iteration-count" : "animation-iteration-count",
+			"animation-name" : "animation-name",
+			"animation-play-state" : "animation-play-state",
+			"animation-timing-function" : "animation-timing-function",
+			"backface-visibility" : "backface-visibility",
+			"box" : "box",
+			"box-align" : "box-align",
+			"box-direction" : "box-direction",
+			"box-flex" : "box-flex",
+			"box-flex-group" : "box-flex-group",
+			"box-lines" : "box-lines",
+			"box-ordinal-group" : "box-ordinal-group",
+			"box-orient" : "box-orient",
+			"box-pack" : "box-pack",
+			"box-sizing" : "box-sizing",
+			"box-group" : "box-group",
+			"break-after" : "break-after",
+			"break-inside" : "break-inside",
+			"filter" : "filter",
+			"flex" : "flex",
+			"flex-basis" : "flex-basis",
+			"flex-direction" : "flex-direction",
+			"flex-flow" : "flex-flow",
+			"flex-grow" : "flex-grow",
+			"flex-shrink" : "flex-shrink",
+			"flex-wrap" : "flex-wrap",
+			"justify-content" : "justify-content",
+			"line-clamp" : "line-clamp",
+			"order" : "order",
+			"perspective" : "perspective",
+			"transform" : "transform",
+			"transform-origin" : "transform-origin",
+			"transform-style" : "transform-style",
+			"transition" : "transition",
+			"transition-delay" : "transition-delay",
+			"transition-duration" : "transition-duration",
+			"transition-property" : "transition-property",
+			"transition-timing-function" : "transition-timing-function",
+			"user-select" : "user-select",
+			"@keyframes" : "@keyframes"
+		}
+	}
+}
+
+);
+
 /**
 *
 * @license
@@ -717,13 +1359,13 @@ positron.DOM.addScript = function (inURL, inCallback)
 	}
 };
 
-positron.DOM.addStyleSheet = function (inURL, inViewPageName, inPage)
+positron.DOM.addStyleSheet = function (inURL, inViewPageName, inIsPage)
 {
 	var cssAttributeName = null;
 	
 	if (inViewPageName)
 	{
-		if (inPage)
+		if (inIsPage)
 		{
 			cssAttributeName = gApplication.getAttributePrefix () + "page";
 		}
@@ -736,28 +1378,17 @@ positron.DOM.addStyleSheet = function (inURL, inViewPageName, inPage)
 	// catch potential jquery issues here with bad or odd view names
 	try
 	{
-		var	viewCSSInclude = false;
+		var	alreadyIncluded = null;
 		
 		if (inViewPageName)
 		{
-			viewCSSInclude = document.querySelector ("head [" + cssAttributeName + "=" + inViewPageName + "]");
+			alreadyIncluded = document.querySelector ("head [" + cssAttributeName + "=" + inViewPageName + "]");
 		}
 		
-		if (!viewCSSInclude)
+		if (!alreadyIncluded)
 		{
-			var	cssPath = null;
-			
-			if (inPage)
-			{
-				cssPath = gApplication.getPageCSSPath (inViewPageName);
-			}
-			else
-			{
-				cssPath = gApplication.getViewCSSPath (inViewPageName);
-			}
-			
 			var	link = document.createElement ("link");
-			link.setAttribute ("href", cssPath);
+			link.setAttribute ("href", inURL);
 			link.setAttribute ("type", "text/css");
 			link.setAttribute ("rel", "stylesheet");
 			link.setAttribute ("media", "screen,print");
@@ -921,9 +1552,11 @@ positron.DOM.getDate = function (inElement, inContext)
 {
 	var	date = null;
 	
-	var	dateKey = inElement.getAttribute ("datekey");
-	var	dateString = inElement.getAttribute ("string");
-	var	msString = inElement.getAttribute ("ms");
+	// remember, tags which have their own attribute requirements
+	// may want to use this facility, so qualify the attributes it looks for
+	var	dateKey = inElement.getAttribute ("date-key");
+	var	dateString = inElement.getAttribute ("date-string");
+	var	msString = inElement.getAttribute ("date-ms");
 	
 	if (dateKey && dateKey.length)
 	{
@@ -2230,32 +2863,25 @@ positron.Twitter.requestAuthenticated = function (inRequest, inCallback)
 
 monohm.provideStatic ("positron.Util");
 
-// pretends to be jquery $.ajax
-positron.Util.ajax = function (inRequest)
+// ChugTag -> chug-tag.js
+// positron.tags.ChugTag -> positron/tags/chug-tag.js
+positron.Util.classNameToFileName = function (inClassName)
 {
-	console.error ("positron.Util.ajax() is deprecated, please use monohm.Network.ajax()");
-	return monohm.Network.ajax (inRequest);
-};
-
-// note this does *not* lowercase the remainder of the string
-positron.Util.capitalise = function (inString)
-{
-	console.error ("positron.Util.capitalise() is deprecated, please use monohm.String.capitalise()");
-	return monohm.String.capitalise (inString);
-}
-
-positron.Util.clone = function (inObject)
-{
-	console.error ("positron.Util.clone() is deprecated, please use monohm.Object.clone()");
-	return monohm.Object.ajax (inObject);
-}
-
-// returns whatever the last nonzero compare was
-// or -1 for type mismatches, etc
-positron.Util.compare = function (inOne, inTwo)
-{
-	console.error ("positron.Util.compare() is deprecated, please use monohm.Object.compare()");
-	return monohm.Object.compare (inOne, inTwo);
+	// map package elements to directories, like Java does
+	var	pathElements = inClassName.split ("\.");
+	
+	var	className = pathElements.pop ();
+	className = monohm.String.camelToHyphen (className);
+	
+	// ensure neither flavour has a leading slash
+	if (pathElements.length > 0)
+	{
+		return pathElements.join ("/") + "/" + className + ".js";
+	}
+	else
+	{
+		return className + ".js";
+	}
 }
 
 // note, no operator precedence is supported
@@ -2286,7 +2912,7 @@ positron.Util.evaluateArithmeticExpression = function (inString)
 				}
 				else
 				{
-					term = parseFloat (number);
+					term = positron.Util.parseNumeric (number);
 				}
 				
 				if (isNaN (term))
@@ -2311,6 +2937,21 @@ positron.Util.evaluateArithmeticExpression = function (inString)
 							break;
 						case '%':
 							sum %= term;
+							break;
+						case '<<':
+							sum <<= term;
+							break;
+						case '>>':
+							sum >>= term;
+							break;
+						case '&':
+							sum &= term;
+							break;
+						case '|':
+							sum |= term;
+							break;
+						case '^':
+							sum ^= term;
 							break;
 						default:
 							console.error ("unrecognised operand: " + operand);
@@ -2389,15 +3030,10 @@ positron.Util.evaluateExpression = function (inExpression)
 	// console.log ("evaluateExpression() on " + inExpression);
 	
 	var	success = false;
-	var	first = null;
-	var	second = null;
+	var	first = positron.Util.parseNumeric (inExpression [0]);
+	var	second = positron.Util.parseNumeric (inExpression [2]);
 	
-	if (positron.Util.isNumericTerm (inExpression [0]) && positron.Util.isNumericTerm (inExpression [2]))
-	{
-		first = parseFloat (inExpression [0]);
-		second = parseFloat (inExpression [2]);
-	}
-	else
+	if (isNaN (first) || isNaN (second))
 	{
 		first = inExpression [0];
 		second = inExpression [2];
@@ -2654,62 +3290,18 @@ positron.Util.isJSONPRequest = function (inRequest)
 	return monohm.Network.isJSONPRequest (inRequest);
 }
 
-positron.Util.isNumericTerm = function (inTerm)
+positron.Util.parseNumeric = function (inTerm)
 {
-	var	numeric = inTerm.length > 0;
-	var	hadE = false;
-	var	hadPlusMinus = false;
-	var	hadDecimal = false;
+	var	number = parseFloat (inTerm);
 	
-	for (var i = 0; i < inTerm.length; i++)
+	if (isNaN (number) || (number == 0))
 	{
-		var	ch = inTerm.charAt (i);
-		
-		if (ch >= "0" && ch <= "9")
-		{
-			// ok
-		}
-		else
-		if (ch == ".")
-		{
-			if (hadDecimal)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadDecimal = true;			
-		}
-		else
-		if (ch == "E" || ch == "e")
-		{
-			if (hadE)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadE = true;
-		}
-		else
-		if (ch == "+" || ch == "-")
-		{
-			if (hadPlusMinus)
-			{
-				numeric = false;
-				break;
-			}
-
-			hadPlusMinus = true;
-		}
-		else
-		{
-			numeric = false;
-			break;
-		}
+		// parseInt() handles 0xff etc
+		// which parseFloat() thinks is zero
+		number = parseInt (inTerm);
 	}
-	
-	return numeric;
+
+	return number;
 }
 
 positron.Util.jsonp = function (inRequest)
@@ -2748,7 +3340,8 @@ positron.Util.loadCodelet = function (inClassName, inDirectory)
 
 positron.Util.loadCodeletAsync = function (inClassName, inDirectory, inCallback)
 {
-	var	path = inDirectory + "/" + monohm.String.camelToHyphen (inClassName) + ".js";
+	// map package names to directories and convert camel etc to hyphenated
+	var	path = inDirectory + "/" + positron.Util.classNameToFileName (inClassName);
 	
 	positron.DOM.addScript (path, inCallback);
 }
@@ -3844,15 +4437,7 @@ function View_onVisible ()
 				this.onRefreshComplete ();
 			}
 			
-			var	event = positron.DOM.createEvent
-			(
-				gApplication.getEventPrefix () + "showview",
-				{
-					viewKey: this.key
-				}
-			);
-			
-			window.dispatchEvent (event);
+			this.onShowComplete ();
 			
 			// HACK if we're a page, notify application
 			// can't do this in the subclass
@@ -3913,27 +4498,6 @@ function View_onDOMReady ()
 	}
 }
 
-// this is called once all refresh-related activity is done
-// DOM is ready, view is visible, all that
-positron.View.prototype.onRefreshComplete =
-function View_onRefreshComplete ()
-{
-	if (gApplication.isLogging (gApplication.kLogViews)) console.log ("View.onRefreshComplete(" + this.key + ")");
-	
-	this.runDeferredTasks ();
-	this.registerDeferredActions ();
-
-	var	event = positron.DOM.createEvent
-	(
-		gApplication.getEventPrefix () + "refreshview",
-		{
-			viewKey: this.key
-		}
-	);
-	
-	window.dispatchEvent (event);
-}
-
 positron.View.prototype.onBeforeInvisible =
 function View_onBeforeInvisible ()
 {
@@ -3946,6 +4510,70 @@ function View_onInvisible ()
 	if (gApplication.isLogging (gApplication.kLogViews)) console.log ("View.onInvisible(" + this.key + ")");
 
 	this.fireAnalyticsEvent ("invisible");
+}
+
+// this is called once all refresh-related activity is done
+// DOM is ready, view is visible, all that
+positron.View.prototype.onRefreshComplete =
+function View_onRefreshComplete (inShow)
+{
+	if (gApplication.isLogging (gApplication.kLogViews)) console.log ("View.onRefreshComplete(" + this.key + ")");
+	
+	this.runDeferredTasks ();
+	this.registerDeferredActions ();
+
+	// defer this
+	// because it should definitely happen *after* any subclasses
+	// run their onDOMReady() and/or onVisible()
+
+	var	self = this;
+	
+	setTimeout
+	(
+		function ()
+		{
+			var	event = positron.DOM.createEvent
+			(
+				gApplication.getEventPrefix () + "refreshview",
+				{
+					viewKey: self.key
+				}
+			);
+	
+			window.dispatchEvent (event);
+		},
+		1
+	);
+}
+
+// this is called once all show-related activity is done
+positron.View.prototype.onShowComplete =
+function View_onShowComplete ()
+{
+	if (gApplication.isLogging (gApplication.kLogViews)) console.log ("View.onShowComplete(" + this.key + ")");
+	
+	// defer this
+	// because it should definitely happen *after* any subclasses
+	// run their onDOMReady() and/or onVisible()
+
+	var	self = this;
+	
+	setTimeout
+	(
+		function ()
+		{
+			var	event = positron.DOM.createEvent
+			(
+				gApplication.getEventPrefix () + "showview",
+				{
+					viewKey: self.key
+				}
+			);
+	
+			window.dispatchEvent (event);
+		},
+		2
+	);
 }
 
 /**
@@ -4008,8 +4636,9 @@ function ActionFactory ()
 
 // note this now passes back an action which is *created* but not *registered*
 positron.ActionFactory.createAction =
-function ActionFactory_createAction
-	(inElement, inContext, inActionAttributeName, inParamAttributeName, inParamKeysAttributeName, infireParamKeysAttributeName, inCallback)
+function ActionFactory_createAction (inElement, inContext,
+	inActionAttributeName, inParamAttributeName, inParamKeysAttributeName, inFireParamKeysAttributeName, inFlagsAttributeName,
+		inCallback)
 {
 	var	actionString = inElement.getAttribute (inActionAttributeName);
 	
@@ -4054,9 +4683,44 @@ function ActionFactory_createAction
 							}
 						}
 			
+						// check for flags
+						actionSpec.capturePhase = false;
+						actionSpec.preventDefault = false;
+						actionSpec.stopPropagation = false;
+	
+						var	flags = inElement.getAttribute (inFlagsAttributeName);
+
+						// check for our special last argument
+						if (flags && flags.length)
+						{
+							for (var i = 0; i < flags.length; i++)
+							{
+								var	ch = flags.charAt (i);
+			
+								if (ch == 'c')
+								{
+									actionSpec.capturePhase = true;
+								}
+								else
+								if (ch == 'p')
+								{
+									actionSpec.preventDefault = true;
+								}
+								else
+								if (ch == 's')
+								{
+									actionSpec.stopPropagation = true;
+								}
+								else
+								{
+									console.error ("unknown trigger flag: " + ch);
+								}
+							}
+						}
+		
 						// also keep track of parameter keys
 						// which are substituted at action time, not walk time
-						actionSpec.fireParamKeys = self.parseParams (inElement, infireParamKeysAttributeName);
+						actionSpec.fireParamKeys = self.parseParams (inElement, inFireParamKeysAttributeName);
 			
 						self.getTriggerlet
 						(
@@ -4221,55 +4885,6 @@ function ActionFactory_parseAction (inActionString)
 	action.triggerArgs = triggerSpec.args;
 	action.triggerArgString = triggerSpec.argString;
 	
-	action.capturePhase = false;
-	action.preventDefault = false;
-	action.stopPropagation = false;
-	
-	// check for our special last argument
-	if (action.triggerArgs.length > 0)
-	{
-		var	lastEventArg = action.triggerArgs [action.triggerArgs.length - 1];
-		
-		if (lastEventArg.length > 1
-			&& (lastEventArg.charAt (0) == ":" || lastEventArg.charAt (0) == "-"))
-		{
-			if (lastEventArg.charAt (0) == ":")
-			{
-				console.error (": in trigger flags is deprecated, please use - instead");
-			}
-			
-			for (var i = 1; i < lastEventArg.length; i++)
-			{
-				var	ch = lastEventArg.charAt (i);
-				
-				if (ch == 'c')
-				{
-					action.capturePhase = true;
-				}
-				else
-				if (ch == 'p')
-				{
-					action.preventDefault = true;
-				}
-				else
-				if (ch == 's')
-				{
-					action.stopPropagation = true;
-				}
-				else
-				{
-					console.error ("unknown trigger flag: " + ch);
-				}
-			}
-			
-			// remove the arg so the trigger doesn't see it
-			action.triggerArgs.pop ();
-			
-			// and rejig the trigger arg string too
-			action.triggerArgString = action.triggerArgs.join ("/");
-		}
-	}
-		
 	// event name is allowed a default of "click"
 	if (!action.triggerName || !action.triggerName.length)
 	{
@@ -4421,6 +5036,11 @@ positron.action.Action.prototype.configure = function (inActionSpec)
 	this.paramKeys = inActionSpec.paramKeys;
 	this.fireParamKeys = inActionSpec.fireParamKeys;
 	
+	// console.log ("capturePhase = " + inActionSpec.capturePhase);
+	// console.log ("preventDefault = " + inActionSpec.preventDefault);
+	// console.log ("stopPropagation = " + inActionSpec.stopPropagation);
+	
+	this.capturePhase = inActionSpec.capturePhase;
 	this.preventDefault = inActionSpec.preventDefault;
 	this.stopPropagation = inActionSpec.stopPropagation;
 }
@@ -5414,11 +6034,18 @@ positron.action.AlertAction.prototype.fire = function (inEvent)
 	{
 		alert (this.actionArgString);
 
-		this.dispatchPrefixedEvent ();
+		this.dispatchPrefixedEvent (this.params);
 	}
 	else
 	{
-		alert (positron.Util.unparseParams (this.params));
+		if (this.params.message)
+		{
+			alert (this.params.message);
+		}
+		else
+		{
+			alert ("AlertAction with no arg string or message param");
+		}
 	}
 };
 
@@ -5745,7 +6372,8 @@ positron.action.ConfirmAction.prototype.fire = function (inEvent)
 	{
 		if (confirm (this.actionArgString))
 		{
-			this.dispatchPrefixedEvent ();
+			// forward on our params to the next action in line via the event detail
+			this.dispatchPrefixedEvent (this.params);
 		}
 	}
 	else
@@ -5933,19 +6561,19 @@ positron.action.DispatchFormAction.prototype.fire = function (inEvent)
 		
 		if (tagName == "input")
 		{
-			if (element.type == "file")
-			{
-				console.error ("input type file not supported");
-				dispatch = false;
-				break;
-			}
-			
 			if (element.type == "submit")
 			{
 				continue;
 			}
 			
-			eventDetail [element.name] = element.value;
+			if (element.type == "file")
+			{
+				eventDetail [element.name] = element.files;
+			}
+			else
+			{
+				eventDetail [element.name] = element.value;
+			}
 		}
 		else
 		if (tagName == "select")
@@ -6023,7 +6651,7 @@ positron.action.FlushCacheAction.prototype.fire = function (inEvent)
 /**
 *
 * @license
-* Copyright © 2013 Jason Proctor.  All rights reserved.
+* Copyright © 2016 Monohm Inc.  All rights reserved.
 *
 **/
 
@@ -6050,7 +6678,7 @@ positron.action.FacebookAuthoriseAction.prototype.fire = function (inEvent)
 /**
 *
 * @license
-* Copyright © 2013 Jason Proctor.  All rights reserved.
+* Copyright © 2016 Monohm Inc.  All rights reserved.
 *
 **/
 
@@ -6073,7 +6701,7 @@ positron.action.FacebookDeauthoriseAction.prototype.fire = function (inEvent)
 /**
 *
 * @license
-* Copyright © 2013 Jason Proctor.  All rights reserved.
+* Copyright © 2016 Monohm Inc.  All rights reserved.
 *
 **/
 
@@ -6101,7 +6729,7 @@ positron.action.GoogleAuthoriseAction.prototype.fire = function (inEvent)
 /**
 *
 * @license
-* Copyright © 2013 Jason Proctor.  All rights reserved.
+* Copyright © 2016 Monohm Inc.  All rights reserved.
 *
 **/
 
@@ -6821,9 +7449,9 @@ positron.action.SendMIDIAction.prototype.fire = function (inEvent)
 				var	message = new Array ();
 
 				message.push (this.params.status);
-				message.push (this.params.data0);
-				message.push (this.params.data1);
-				message.push (this.params.data2);
+				message.push (this.params.data_0);
+				message.push (this.params.data_1);
+				message.push (this.params.data_2);
 				
 				for (var i = 0; i < message.length; i++)
 				{
@@ -7821,6 +8449,15 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 
 		fireParamKeysAttributeName += "fire-param-keys";
 
+		var	flagsAttributeName = prefix + "action-";
+		
+		if (inAttributeNumber >= 0)
+		{
+			flagsAttributeName += inAttributeNumber + "-";
+		}
+
+		flagsAttributeName += "flags";
+
 		sync = false;
 		
 		positron.ActionFactory.createAction
@@ -7831,6 +8468,7 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 			paramAttributeName,
 			paramKeysAttributeName,
 			fireParamKeysAttributeName,
+			flagsAttributeName,
 			function (inAction, inSync)
 			{
 				sync = inSync;
@@ -7915,8 +8553,7 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 		// which is fine, because component CSS should be manually included anyway
 		if (viewName.indexOf ('.') == -1)
 		{
-			// this will check for duplicates
-			positron.DOM.addStyleSheet (gApplication.getViewCSSPath (viewName), viewName, false);
+			this.loadViewCSS (inElement, viewName, false);
 		}
 	}
 
@@ -7926,8 +8563,8 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 	this.loadViewHTML
 	(
 		inElement,
+		viewName,
 		loadFlags,
-		gApplication.getViewHTMLPath (viewName),
 		function (inHTML, inLoadHTMLSync)
 		{
 			if (inHTML)
@@ -7937,8 +8574,8 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 	
 			self.loadViewJs
 			(
+				inElement,
 				viewName,
-				positron.DOM.getPrefixedAttribute (inElement, "view-class"),
 				loadFlags,
 				function (inView, inLoadViewSync)
 				{
@@ -8012,10 +8649,41 @@ function (inElement, inContext, inAttributeName, inAttributeNumber, inTreeWalker
 	return sync;
 };
 
-positron.attribute.ViewAttribute.prototype.loadViewHTML =
-function ViewAttribute_loadViewHTML (inElement, inLoadFlags, inHTMLPath, inCallback)
+
+positron.attribute.ViewAttribute.prototype.loadViewCSS =
+function ViewAttribute_loadViewCSS (inElement, inViewName, inCallback)
 {
-	// console.log ("ViewAttribute.loadHTML(" + inHTMLPath + ")");
+	var	sourcePath = null;
+	
+	var	source = positron.DOM.getPrefixedAttribute (inElement, "view-source");
+	
+	if (source && source.length)
+	{
+		sourcePath = source;
+		
+		if (sourcePath.charAt (sourcePath.length - 1) != '/')
+		{
+			sourcePath += '/';
+		}
+
+		// note we don't have the "views" directory for "remote" views
+		sourcePath += inViewName + "/" + inViewName + ".css";
+	}
+	else
+	{
+		sourcePath = "views/" + inViewName + "/" + inViewName + ".css";
+	}
+
+	// console.log ("getting view CSS from " + sourcePath);
+	
+	// this will check for duplicates
+	positron.DOM.addStyleSheet (sourcePath, inViewName, false);
+}
+
+positron.attribute.ViewAttribute.prototype.loadViewHTML =
+function ViewAttribute_loadViewHTML (inElement, inViewName, inLoadFlags, inCallback)
+{
+	// console.log ("ViewAttribute.loadViewHTML(" + inHTMLPath + ")");
 	
 	// inline markup overrides the load
 	if (positron.DOM.hasChildren (inElement))
@@ -8026,9 +8694,32 @@ function ViewAttribute_loadViewHTML (inElement, inLoadFlags, inHTMLPath, inCallb
 	{
 		if (inLoadFlags.indexOf ("h") >= 0)
 		{
+			var	sourcePath = null;
+			
+			var	source = positron.DOM.getPrefixedAttribute (inElement, "view-source");
+			
+			if (source && source.length)
+			{
+				sourcePath = source;
+				
+				if (sourcePath.charAt (sourcePath.length - 1) != '/')
+				{
+					sourcePath += '/';
+				}
+
+				// note we don't have the "views" directory for "remote" views
+				sourcePath += inViewName + "/" + inViewName + ".html";
+			}
+			else
+			{
+				sourcePath = "views/" + inViewName + "/" + inViewName + ".html";
+			}
+
+			// console.log ("getting view HTML from " + sourcePath);
+			
 			monohm.Network.getTextAsync
 			(
-				inHTMLPath,
+				sourcePath,
 				function (inError, inHTML)
 				{
 					inCallback (inHTML, false);
@@ -8043,16 +8734,18 @@ function ViewAttribute_loadViewHTML (inElement, inLoadFlags, inHTMLPath, inCallb
 }
 
 positron.attribute.ViewAttribute.prototype.loadViewJs =
-function ViewAttribute_loadViewJs (inViewName, inClassName, inLoadFlags, inCallback)
+function ViewAttribute_loadViewJs (inElement, inViewName, inLoadFlags, inCallback)
 {
 	// console.log ("ViewAttribute.loadView(" + inViewName + ")");
 
 	var	sync = true;
 	var	view = null;
+
+	var	className = positron.DOM.getPrefixedAttribute (inElement, "view-class");
 	
-	if (inClassName && inClassName.length)
+	if (className && className.length)
 	{
-		view = monohm.Object.instantiate (inClassName);
+		view = monohm.Object.instantiate (className);
 
 		if (view == null)
 		{
@@ -8065,9 +8758,31 @@ function ViewAttribute_loadViewJs (inViewName, inClassName, inLoadFlags, inCallb
 		{
 			sync = false;
 			
+			var	sourcePath = null;
+			
+			var	source = positron.DOM.getPrefixedAttribute (inElement, "view-source");
+			
+			if (source && source.length)
+			{
+				sourcePath = source;
+				
+				if (sourcePath.charAt (sourcePath.length - 1) != '/')
+				{
+					sourcePath += '/';
+				}
+
+				// note we don't have the "views" directory for "remote" views
+				sourcePath += inViewName + "/" + inViewName + ".js";
+			}
+			else
+			{
+				sourcePath = "views/" + inViewName + "/" + inViewName + ".js";
+			}
+					
 			gApplication.getViewletAsync
 			(
 				inViewName,
+				sourcePath,
 				function (inView, inSync)
 				{
 					sync = inSync;
@@ -8502,10 +9217,29 @@ monohm.inherits (positron.tag.JSONTag, positron.tag.AjaxTag);
 
 positron.tag.JSONTag.prototype.getDataType = function (inElement)
 {
+	var	type = "json";
   var jsonp = positron.DOM.getAttributeValue (inElement, "jsonp");
-  jsonp = jsonp && jsonp.toLowerCase () == "true";
   
-  return jsonp ? "jsonp" : "json";
+  if (jsonp && jsonp.length)
+  {
+  	if (jsonp.toLowerCase () == "true")
+  	{
+  		// force JSONP *on* for this request
+  		type = "jsonp";
+  	}
+  	else
+  	if (jsonp.toLowerCase () == "false")
+  	{
+  		// force JSONP *off* for this request
+  		type = "nojsonp";
+  	}
+  	else
+  	{
+  		console.error ("bad value for jsonp attribute: " + jsonp);
+  	}
+  }
+  
+  return type;
 };
 
 positron.tag.JSONTag.prototype.onContentReceived = function (inElement, inContext, inData, inCallback)
@@ -8542,90 +9276,46 @@ monohm.inherits (positron.tag.ActionTag, positron.tag.Tag);
 
 positron.tag.ActionTag.prototype.process = function (inElement, inContext, inTreeWalker)
 {
-	var	foundAction = false;
+	// if createAction() completes synchronously
+	// then it will set this and we walk our subtree here
+	var	sync = false;
 	
-	for (var i = -1; true; i++)
+	var	actionString = inElement.getAttribute ("action");
+	
+	if (actionString && actionString.length)
 	{
-		var	actionAttributeName = null;
+		var	self = this;
 		
-		if (i >= 0)
-		{
-			actionAttributeName = "action-" + i;
-		}
-		else
-		{
-			actionAttributeName = "action";
-		}
-		
-		var	actionString = inElement.getAttribute (actionAttributeName);
-		
-		if (actionString && actionString.length)
-		{
-			foundAction = true;
-
-			var	paramAttributeName = null;
-			
-			if (i >= 0)
+		positron.ActionFactory.createAction
+		(
+			inElement,
+			inContext,
+			"action",
+			"action-params",
+			"action-param-keys",
+			"action-fire-param-keys",
+			"action-flags",
+			function (inAction, inSync)
 			{
-				paramAttributeName = "action-" + i + "-params";
-			}
-			else
-			{
-				paramAttributeName = "action-params";
-			}
-
-			var	paramKeysAttributeName = null;
-			
-			if (i >= 0)
-			{
-				paramKeysAttributeName = "action-" + i + "-param-keys";
-			}
-			else
-			{
-				paramKeysAttributeName = "action-param-keys";
-			}
-
-			var	fireParamKeysAttributeName = null;
-			
-			if (i >= 0)
-			{
-				fireParamKeysAttributeName = "action-" + i + "-fire-param-keys";
-			}
-			else
-			{
-				fireParamKeysAttributeName = "action-fire-param-keys";
-			}
-
-			var	action = positron.ActionFactory.createAction
-			(
-				inElement,
-				inContext,
-				actionAttributeName,
-				paramAttributeName,
-				paramKeysAttributeName,
-				fireParamKeysAttributeName,
-				function (inAction, inSync)
+				sync = inSync;
+				
+				if (inAction)
 				{
-					sync = inSync;
-					
-					if (inAction)
-					{
-						inAction.fire (null, inContext);
-					}
+					inAction.fire (null, inContext);
 				}
-			);
-			
-		}
-		else
-		{
-			if (i > 0)
-			{
-				break;
+				
+				if (sync)
+				{
+					// process() runs our subtree below
+				}
+				else
+				{
+					self.walkChildren (inElement, inContext, inTreeWalker);
+				}
 			}
-		}
+		);
 	}
-	
-	if (!foundAction)
+	else
 	{
 		console.error ("ActionTag found no actions on element");
 		console.error (inElement);
@@ -8844,6 +9534,7 @@ monohm.inherits (positron.tag.CommentTag, positron.tag.Tag);
 positron.tag.CommentTag.prototype.process = function (inElement, inContext, inTreeWalker)
 {
 	positron.DOM.removeNode (inElement);
+	inTreeWalker.onWalkComplete ();
 	return true;
 }
 
@@ -9752,7 +10443,22 @@ positron.tag.ListTag.prototype.process = function (inElement, inContext, inTreeW
 positron.tag.ListTag.prototype.onWalkComplete = function (inTreeWalker)
 {
 	positron.DOM.replaceWithChildren (inTreeWalker.rootNode);
-	this.listHelper.onIteration ();
+	
+	// if the entire subtree is synchronous
+	// then all the subtrees are effectively called recursively
+	// and it *is* actually possible to blow the call stack
+	// so we always call back async after each subtree
+	
+	var	self = this;
+	
+	setTimeout
+	(
+		function ()
+		{
+			self.listHelper.onIteration ();
+		},
+		1
+	);
 }
 
 // DEFAULT IMPLEMENTATION
@@ -9798,10 +10504,7 @@ monohm.inherits (positron.tag.LocalStorageTag, positron.tag.Tag);
 positron.tag.LocalStorageTag.prototype.process = function (inElement, inContext, inTreeWalker)
 {
 	var	key = inElement.getAttribute ("key");
-	
-	console.log ("LS entry = " + localStorage [key]);
-
-  return this.walkChildren (inElement, inContext, inTreeWalker, localStorage [key]);
+	return this.walkChildren (inElement, inContext, inTreeWalker, localStorage [key]);
 }
 
 /**
@@ -9829,13 +10532,13 @@ positron.tag.LocaliseTag.prototype.process = function (inElement, inContext, inT
 {
 	var	key = inElement.getAttribute ("key");
 	
-	if (key.length > 8 && key.substr (0, 8) == "strings.")
+	if (key.length > 13 && key.substr (0, 13) == "localisation.")
 	{
 		// developer thoughtfully included the "strings." prefix...
 	}
 	else
 	{
-		key = "strings." + key;
+		key = "localisation." + key;
 	}
 
 	var	newContext = inContext;
@@ -10148,6 +10851,13 @@ positron.tag.MIDIMessageTag.prototype.process = function (inElement, inContext, 
 				if (i > 0)
 				{
 					message.string += " ";
+					message ["data_" + (i - 1)] = byte;
+					message ["data_" + (i - 1) + "_hex"] = "0x" + byte.toString (16);
+				}
+				else
+				{
+					message.status = byte;
+					message.status_hex = "0x" + byte.toString (16);
 				}
 				
 				message.string += "0x" + byte.toString (16);
@@ -10357,10 +11067,6 @@ positron.tag.MoveTag.prototype.onWalkComplete = function (inTreeWalker)
 *
 **/
 
-/*
-  this Tag does basic string substitution
-*/
-
 monohm.provide ("positron.tag.NumberFormatTag");
 monohm.require ("positron.DelegateHashMap");
 monohm.require ("positron.tag");
@@ -10418,6 +11124,16 @@ positron.tag.NumberFormatTag.prototype.process = function (inElement, inContext,
   if (type == "round")
   {
     newValue = Math.round (number);
+  }
+  else
+  if (type == "hex")
+  {
+    newValue = number.toString (16);
+  }
+  else
+  if (type == "prefixedhex")
+  {
+    newValue = "0x" + number.toString (16);
   }
   else
   {
@@ -10603,6 +11319,59 @@ positron.tag.PrefixedPropertyTag.prototype.process = function (inElement, inCont
   
   return this.walkChildren (inElement, inContext, inTreeWalker, prefixedProperty);
 }
+
+/**
+*
+* @license
+* Copyright 2016 Monohm Inc. All rights reserved.
+*
+**/
+
+monohm.provide ("positron.tag.PreloadImageTag");
+
+monohm.require ("positron.tag.Tag");
+
+// CONSTRUCTOR
+
+/**
+ * @constructor
+ */
+positron.tag.PreloadImageTag = function ()
+{
+	positron.tag.Tag.call (this);
+	
+	this.requiredAttributes.push ("url");
+};
+monohm.inherits (positron.tag.PreloadImageTag, positron.tag.Tag);
+
+// INTERFACE
+
+// inElement: DOM element
+// inContext: map<string,string>
+// inTreeWalker: tree walker
+positron.tag.PreloadImageTag.prototype.process = function (inElement, inContext, inTreeWalker)
+{
+	var	self = this;
+	var	url = inElement.getAttribute ("url");
+	
+	var	image = new Image ();
+	
+	image.onload = function ()
+	{
+		gApplication.images [url] = image;
+		self.walkChildren (inElement, inContext, inTreeWalker, true);
+	}
+	
+	image.onerror = function ()
+	{
+		console.error ("error preloading image with url: " + url);
+		self.walkChildren (inElement, inContext, inTreeWalker, false);
+	}
+	
+	image.src = url;
+		
+	return false;
+};
 
 /**
 *
@@ -11770,7 +12539,18 @@ positron.trigger.ChangeTrigger.prototype.register = function (inAction)
 					}
 				}
 		
-				inAction.params.value = value;
+				// if the target has a name attribute, honour that
+				var	name = target.getAttribute ("name");
+				
+				if (name && name.length)
+				{
+					inAction.params [name] = value;
+				}
+				else
+				{
+					inAction.params.value = value;
+				}
+				
 				inAction.fire (inEvent);
 			}
 		}
@@ -12326,29 +13106,38 @@ positron.trigger.DoubleClickTrigger.prototype.register = function (inAction)
 	);
 };
 
-monohm.provide ("positron.trigger.FacebookAuthorisedTrigger");
+monohm.provide ("positron.trigger.FacebookAuthoriseTrigger");
 
-positron.trigger.FacebookAuthorisedTrigger = function ()
+positron.trigger.FacebookAuthoriseTrigger = function ()
 {
 	positron.trigger.Trigger.call (this);
 }
-monohm.inherits (positron.trigger.FacebookAuthorisedTrigger, positron.trigger.Trigger);
+monohm.inherits (positron.trigger.FacebookAuthoriseTrigger, positron.trigger.Trigger);
 
-positron.trigger.FacebookAuthorisedTrigger.prototype.cancel = function ()
+positron.trigger.FacebookAuthoriseTrigger.prototype.cancel = function ()
 {
 	window.removeEventListener ("message", this.onMessageBound);
 }
 
-positron.trigger.FacebookAuthorisedTrigger.prototype.onMessage = function (inEvent)
+positron.trigger.FacebookAuthoriseTrigger.prototype.onMessage = function (inEvent)
 {
-	if (inEvent.data && (inEvent.data.type == "p-facebook-authorised"))
+	var	eventType = gApplication.getEventPrefix () + "facebook-authorise";
+
+	if (inEvent.data && (inEvent.data.type == eventType))
 	{
-		positron.OAuth.setAccessTokens ("facebook", inEvent.data.access_token);
-		this.action.fire ();
+		if (inEvent.data.oauth_access_token)
+		{
+			positron.OAuth.setAccessTokens ("facebook", inEvent.data.oauth_access_token);
+			this.action.fire ();
+		}
+		else
+		{
+			console.error ("facebook authorise event with no access token, ignoring");
+		}
 	}
 }
 
-positron.trigger.FacebookAuthorisedTrigger.prototype.register = function (inAction)
+positron.trigger.FacebookAuthoriseTrigger.prototype.register = function (inAction)
 {
 	this.action = inAction;
 	
@@ -12356,34 +13145,43 @@ positron.trigger.FacebookAuthorisedTrigger.prototype.register = function (inActi
 	window.addEventListener ("message", this.onMessageBound, this.action.capturePhase);
 };
 
-positron.trigger.FacebookAuthorisedTrigger.prototype.requiresCancel = function ()
+positron.trigger.FacebookAuthoriseTrigger.prototype.requiresCancel = function ()
 {
 	return true;
 }
 
-monohm.provide ("positron.trigger.GoogleAuthorisedTrigger");
+monohm.provide ("positron.trigger.GoogleAuthoriseTrigger");
 
-positron.trigger.GoogleAuthorisedTrigger = function ()
+positron.trigger.GoogleAuthoriseTrigger = function ()
 {
 	positron.trigger.Trigger.call (this);
 }
-monohm.inherits (positron.trigger.GoogleAuthorisedTrigger, positron.trigger.Trigger);
+monohm.inherits (positron.trigger.GoogleAuthoriseTrigger, positron.trigger.Trigger);
 
-positron.trigger.GoogleAuthorisedTrigger.prototype.cancel = function ()
+positron.trigger.GoogleAuthoriseTrigger.prototype.cancel = function ()
 {
 	window.removeEventListener ("message", this.onMessageBound);
 }
 
-positron.trigger.GoogleAuthorisedTrigger.prototype.onMessage = function (inEvent)
+positron.trigger.GoogleAuthoriseTrigger.prototype.onMessage = function (inEvent)
 {
-	if (inEvent.data && (inEvent.data.type == "p-google-authorised"))
+	var	eventType = gApplication.getEventPrefix () + "google-authorise";
+
+	if (inEvent.data && (inEvent.data.type == eventType))
 	{
-		positron.OAuth.setAccessTokens ("google", inEvent.data.access_token);
-		this.action.fire ();
+		if (inEvent.data.oauth_access_token)
+		{
+			positron.OAuth.setAccessTokens ("google", inEvent.data.oauth_access_token);
+			this.action.fire ();
+		}
+		else
+		{
+			console.error ("google authorise event with no access token, ignoring");
+		}
 	}
 }
 
-positron.trigger.GoogleAuthorisedTrigger.prototype.register = function (inAction)
+positron.trigger.GoogleAuthoriseTrigger.prototype.register = function (inAction)
 {
 	this.action = inAction;
 	
@@ -12391,7 +13189,7 @@ positron.trigger.GoogleAuthorisedTrigger.prototype.register = function (inAction
 	window.addEventListener ("message", this.onMessageBound, this.action.capturePhase);
 };
 
-positron.trigger.GoogleAuthorisedTrigger.prototype.requiresCancel = function ()
+positron.trigger.GoogleAuthoriseTrigger.prototype.requiresCancel = function ()
 {
 	return true;
 }
@@ -12432,8 +13230,6 @@ positron.trigger.HeadingTrigger.prototype.onHeadingChange = function (inEvent)
 
 positron.trigger.HeadingTrigger.prototype.register = function (inAction)
 {
-	console.log ("HeadingTrigger.register()");
-
 	this.action = inAction;
 	
 	this.onHeadingChangeBound = this.onHeadingChange.bind (this);
@@ -12877,19 +13673,12 @@ positron.trigger.MIDIMessageTrigger.prototype.register = function (inAction)
 {
 	if (inAction.triggerArgs.length > 0)
 	{
-		this.portID = parseInt (inAction.triggerArgs [0]);
+		// remember port IDs are strings though they look like integers
+		this.portID = inAction.triggerArgs [0];
+		this.action = inAction;
 		
-		if (isNaN (this.portID))
-		{
-			console.error ("MIDIMessageTrigger with bad port ID: " + this.portID);
-		}
-		else
-		{
-			this.action = inAction;
-			
-			this.onMIDIMessageBound = this.onMIDIMessage.bind (this);
-			gApplication.addMIDIListener (this.portID, this.onMIDIMessageBound);
-		}
+		this.onMIDIMessageBound = this.onMIDIMessage.bind (this);
+		gApplication.addMIDIListener (this.portID, this.onMIDIMessageBound);
 	}
 	else
 	{
@@ -13193,44 +13982,53 @@ positron.trigger.ShowViewTrigger.prototype.requiresCancel = function ()
 {
 	return this.action != null;
 }
-monohm.provide ("positron.trigger.TwitterAuthorisedTrigger");
+monohm.provide ("positron.trigger.TwitterAuthoriseTrigger");
 
-positron.trigger.TwitterAuthorisedTrigger = function ()
+positron.trigger.TwitterAuthoriseTrigger = function ()
 {
 	positron.trigger.Trigger.call (this);
 }
-monohm.inherits (positron.trigger.TwitterAuthorisedTrigger, positron.trigger.Trigger);
+monohm.inherits (positron.trigger.TwitterAuthoriseTrigger, positron.trigger.Trigger);
 
-positron.trigger.TwitterAuthorisedTrigger.prototype.cancel = function ()
+positron.trigger.TwitterAuthoriseTrigger.prototype.cancel = function ()
 {
 	window.removeEventListener ("message", this.onMessageBound);
 }
 
-positron.trigger.TwitterAuthorisedTrigger.prototype.onMessage = function (inEvent)
+positron.trigger.TwitterAuthoriseTrigger.prototype.onMessage = function (inEvent)
 {
-	if (inEvent.data && (inEvent.data.type == "p-twitter-authorised"))
+	var	eventType = gApplication.getEventPrefix () + "twitter-authorise";
+	
+	if (inEvent.data && (inEvent.data.type == eventType))
 	{
 		var	self = this;
 		
-		positron.Twitter.getAccessToken
-		(
-			inEvent.data.oauth_verifier,
-			function (inError, inResponse)
-			{
-				if (inError)
+		if (inEvent.data.oauth_verifier)
+		{
+			positron.Twitter.getAccessToken
+			(
+				inEvent.data.oauth_verifier,
+				function (inError, inResponse)
 				{
-					console.error (inError);
+					if (inError)
+					{
+						console.error (inError);
+					}
+					else
+					{
+						self.action.fire ();
+					}
 				}
-				else
-				{
-					self.action.fire ();
-				}
-			}
-		);
+			);
+		}
+		else
+		{
+			console.error ("twitter authorise event with no verifier, ignoring");
+		}
 	}
 }
 
-positron.trigger.TwitterAuthorisedTrigger.prototype.register = function (inAction)
+positron.trigger.TwitterAuthoriseTrigger.prototype.register = function (inAction)
 {
 	this.action = inAction;
 	
@@ -13238,7 +14036,7 @@ positron.trigger.TwitterAuthorisedTrigger.prototype.register = function (inActio
 	window.addEventListener ("message", this.onMessageBound, this.action.capturePhase);
 };
 
-positron.trigger.TwitterAuthorisedTrigger.prototype.requiresCancel = function ()
+positron.trigger.TwitterAuthoriseTrigger.prototype.requiresCancel = function ()
 {
 	return true;
 }
@@ -13483,12 +14281,6 @@ positron.view.MediaServerView.prototype.onDOMReady = function ()
 	
 	if (this.mediaElement)
 	{
-		// can't cleanly decide whether to add autoplay attribute in markup, so...
-		if (this.params.autoplay && (this.params.autoplay == "true"))
-		{
-			this.mediaElement.setAttribute ("autoplay", "true");
-		}
-		
 		var	self = this;
 		
 		// we COULD do this in markup, but since there are 7 of them...
@@ -13502,6 +14294,19 @@ positron.view.MediaServerView.prototype.onDOMReady = function ()
 					self.onMediaEvent (inEvent);
 				},
 				false
+			);
+		}
+
+		// autoplay attribute isn't supported on mobile, so...
+		if (this.params.autoplay && (this.params.autoplay == "true"))
+		{
+			setTimeout
+			(
+				function ()
+				{
+					self.mediaElement.play ();
+				},
+				1
 			);
 		}
 	}
@@ -14156,49 +14961,63 @@ function RefreshTreeWalker_onElement (inElement, inContext)
 	// we have to go off and find the next element to process
 	// as the current "next node" may be *inside* the element that got deleted
 	this.tempNextNode = this.findNextNodeOutside (inElement);
-	
+
 	// prep for potentially async attribute run
 	this.attributeSync = true;
 	this.attributeIndex = -1;
 	this.element = inElement;
 	this.context = inContext;
 
-	// honour any required attribute order
-	// as some have dependencies on others
-	if (this.attributesToCheck)
+	// HACK there is one kind of tag for which we shouldn't process attributelets
+	// the infamous ISOLATOR tag
+	// we defer attribute processing until the tag is swapped out for its replacement
+
+	var	tagName = this.element.tagName.toLowerCase ();
+	var	tagletClass = gApplication.config.tags [tagName];
+	
+	if (tagletClass && (tagletClass == "positron.tag.IsolatorTag"))
 	{
-		this.attributesToCheck.length = 0;
+		return this.runTaglet (true);
 	}
 	else
 	{
-		this.attributesToCheck = new Array ();
-	}
-	
-	var	configAttributes = gApplication.getConfigEntry ("attributeOrder");
-	
-	if (Array.isArray (configAttributes))
-	{
-		for (var i = 0; i < configAttributes.length; i++)
+		// honour any required attribute order
+		// as some have dependencies on others
+		if (this.attributesToCheck)
 		{
-			this.attributesToCheck.push (configAttributes [i]);
+			this.attributesToCheck.length = 0;
 		}
-	}
+		else
+		{
+			this.attributesToCheck = new Array ();
+		}
+	
+		var	configAttributes = gApplication.getConfigEntry ("attributeOrder");
+	
+		if (Array.isArray (configAttributes))
+		{
+			for (var i = 0; i < configAttributes.length; i++)
+			{
+				this.attributesToCheck.push (configAttributes [i]);
+			}
+		}
 
-	for (var i = 0; i < this.element.attributes.length; i++)
-	{
-		var attribute = this.element.attributes.item (i);
-		var	attributeName = attribute.name.toLowerCase ();
-		
-		// leave out ones we already have
-		if (configAttributes.indexOf (attributeName) == -1)
+		for (var i = 0; i < this.element.attributes.length; i++)
 		{
-			this.attributesToCheck.push (attributeName);
+			var attribute = this.element.attributes.item (i);
+			var	attributeName = attribute.name.toLowerCase ();
+		
+			// leave out ones we already have
+			if (configAttributes.indexOf (attributeName) == -1)
+			{
+				this.attributesToCheck.push (attributeName);
+			}
 		}
-	}
 	
-	// run any attributelets associated with attribute names
-	// when done, go on to taglet handling
-	return this.onAttributeWalkComplete ();
+		// run any attributelets associated with attribute names
+		// when done, go on to taglet handling
+		return this.onAttributeWalkComplete ();
+	}
 }
 
 // requires --
@@ -14547,6 +15366,13 @@ function RefreshTreeWalker_runTaglet (inSync)
 		}
 		else
 		{
+			// squawk if we have a hyphenated tag name with no taglet
+			// helps with config related issues
+			if (tagName.indexOf ('-') > 0)
+			{
+				console.error ("no taglet for hyphenated tag " + tagName);
+			}
+			
 			var	subwalked = false;
 			
 			if (positron.DOM.getPrefixedAttribute (this.element, "view"))
@@ -14833,7 +15659,6 @@ monohm.provide ("positron.Application");
 // MAINLINE
 
 var	gApplication = null;
-var	gApplicationPlugins = new Array ();
 
 document.addEventListener
 (
@@ -14868,7 +15693,7 @@ document.addEventListener
 positron.CreateApplication = 
 function positron_CreateApplication (inCallback)
 {
-	// see if application.js was loaded via a script tag
+	// see if we have an override Application class
 	if (typeof (Application) == "function")
 	{
 		try
@@ -14883,57 +15708,7 @@ function positron_CreateApplication (inCallback)
 	}
 	else
 	{
-		// see if there is an application.js waiting for us
-		positron.DOM.addScript
-		(
-			"application.js",
-			function (inSuccess)
-			{
-				if (inSuccess)
-				{
-					if (typeof (Application) == "function")
-					{
-						var	error = null;
-			
-						try
-						{
-							gApplication = new Application (inCallback);
-				
-							// ensure we have the correct type
-							if (typeof (gApplication.start) != "function")
-							{
-								gApplication = null;
-							}
-						}
-						catch (inError)
-						{
-							error = inError;
-							gApplication = null;
-						}
-		
-						// only moan if we found an Application class
-						// that wasn't suitable
-						if (!gApplication)
-						{
-							console.error ("unable to instantiate Application class");
-				
-							if (error)
-							{
-								console.error (error.message);
-							}
-				
-							console.error ("please ensure that Application inherits from positron.Application");
-							console.error ("and that Application() calls positron.Application.call(this)");
-						}
-					}
-				}
-				
-				if (!gApplication)
-				{
-					gApplication = new positron.Application (inCallback);
-				}
-			}
-		);
+		gApplication = new positron.Application (inCallback);
 	}
 }
 
@@ -14945,118 +15720,86 @@ function positron_Application (inCallback)
 	// so that code inside the constructor can reference the global
 	gApplication = this;
 	
+	// config is already here
+	gApplication.config = monohm.Config.getDomain ("positron");
+
+	// now we have config, make body invisible the proper way
+	// this ensures that showWindow() can use the regular view.show()
+	// interestingly, Safari won't let me set this to an empty string! :-o
+	document.body.style.display = "block";
+	positron.DOM.addPrefixedClass (document.body, "invisible");
+
+	this.pages = new Object ();
+	this.cache = new positron.Cache ();
+
+	this.params = new Object ();
+
+	this.context = gApplication.makeContext ();
+	this.context.put ("config", this.config);
+
+	this.audioContexts = new Object ();
+	this.audioSources = new Object ();
+	this.sounds = new Object ();
+	this.webSockets = new Object ();
+	this.images = new Object ();
+
+	this.setupRequest ();
+	this.setupLogging ();
+	this.setupBrowserFlags ();
+	this.setupDisplayClass ();
+	this.setupAnalytics ();
+	this.setupWindow ();
+
 	var	self = this;
 	
-	this.loadConfig
+	window.addEventListener
 	(
-		"positron/positron.json",
-		function (inError)
+		"hashchange",
+		function (inEvent)
 		{
-			if (inError)
-			{
-				console.error ("error loading config " + inError);
-				inCallback (inError);
-			}
-			else
-			{
-				// plugins may also merge config into self.config
-				self.installPlugins
-				(
-					function ()
-					{
-						// note load application.json LAST so it can override anything
-						self.loadConfig
-						(
-							"application.json",
-							function (inError)
-							{
-								if (inError)
-								{
-									console.error ("error loading application.json");
-									console.error (inError);
-								}
-
-								// now we have config, make body invisible the proper way
-								// this ensures that showWindow() can use the regular view.show()
-								document.body.style.display = "";
-								positron.DOM.addPrefixedClass (document.body, "invisible");
-
-								self.pages = new Object ();
-								self.cache = new positron.Cache ();
-	
-								self.params = new Object ();
-
-								self.context = gApplication.makeContext ();
-								self.context.put ("config", self.config);
-	
-								self.audioContexts = new Object ();
-								self.audioSources = new Object ();
-								self.sounds = new Object ();
-								self.webSockets = new Object ();
-	
-								self.setupRequest ();
-								self.setupLogging ();
-								self.setupBrowserFlags ();
-								self.setupDisplayClass ();
-								self.setupAnalytics ();
-								self.setupWindow ();
-	
-								window.addEventListener
-								(
-									"hashchange",
-									function (inEvent)
-									{
 if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("hashchange event fires!");
 if (gApplication.isLogging (gApplication.kLogApplication)) console.log (document.location.hash);
 
-										self.setPageFromHash ();
+			self.setPageFromHash ();
 
-										inEvent.preventDefault ();
-										inEvent.stopPropagation ();
-									},
-									false
-								);
-
-								if (self.config.localisation.enabled)
-								{
-if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("localisation enabled");
-
-									self.loadLocalisationStrings
-									(
-										function ()
-										{
-											if (inCallback)
-											{
-												inCallback ();
-											}
-											else
-											{
-												console.error ("positron.Application constructed with no callback function");
-											}
-										}
-									);
-								}
-								else
-								{
-if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("localisation disabled");
-
-									if (inCallback)
-									{
-										inCallback ();
-									}
-									else
-									{
-										console.error ("positron.Application constructed with no callback function");
-									}
-								}
-							}
-						);
-					}
-				);
-			}
-		}
+			inEvent.preventDefault ();
+			inEvent.stopPropagation ();
+		},
+		false
 	);
 
+	if (this.config.localisation.enabled)
+	{
+if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("localisation enabled");
+
+		this.loadLocalisationStrings
+		(
+			function ()
+			{
+				if (inCallback)
+				{
+					inCallback ();
+				}
+				else
+				{
+					console.error ("positron.Application constructed with no callback function");
+				}
+			}
+		);
+	}
+	else
+	{
+if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("localisation disabled");
+
+		if (inCallback)
+		{
+			inCallback ();
+		}
+		else
+		{
+			console.error ("positron.Application constructed with no callback function");
+		}
+	}
 }
 
 // CONFIG ACCESSORS
@@ -15089,42 +15832,6 @@ positron.Application.prototype.getURLParameterPrefix =
 function Application_getURLParameterPrefix ()
 {
 	return this.config.urlParameterPrefix;
-}
-
-positron.Application.prototype.getPageCSSPath = 
-function Application_getPageCSSPath (inPageKey)
-{
-	return this.config.pageCSSPath.split ("$page;").join (inPageKey);
-}
-
-positron.Application.prototype.getPageHTMLPath = 
-function Application_getPageHTMLPath (inPageKey)
-{
-	return this.config.pageHTMLPath.split ("$page;").join (inPageKey);
-}
-
-positron.Application.prototype.getPageJSPath = 
-function Application_getPageJSPath (inPageKey)
-{
-	return this.config.pageJSPath.split ("$page;").join (inPageKey);
-}
-
-positron.Application.prototype.getViewCSSPath = 
-function Application_getViewCSSPath (inViewKey)
-{
-	return this.config.viewCSSPath.split ("$view;").join (inViewKey);
-}
-
-positron.Application.prototype.getViewHTMLPath = 
-function Application_getViewHTMLPath (inViewKey)
-{
-	return this.config.viewHTMLPath.split ("$view;").join (inViewKey);
-}
-
-positron.Application.prototype.getViewJSPath = 
-function Application_getViewJSPath (inViewKey)
-{
-	return this.config.viewJSPath.split ("$view;").join (inViewKey);
 }
 
 positron.Application.prototype.getActionletAsync = 
@@ -15259,8 +15966,10 @@ function Application_getTriggerletAsync (inTriggerName, inCallback)
 }
 
 positron.Application.prototype.getViewletAsync = 
-function Application_getViewletAsync (inViewName, inCallback)
+function Application_getViewletAsync (inViewName, inURL, inCallback)
 {
+	// console.log ("Application.getViewletAsync(" + inViewName + "," + inURL + ")");
+	
 	var	sync = true;
 	
 	var	view = null;
@@ -15294,7 +16003,7 @@ function Application_getViewletAsync (inViewName, inCallback)
 				
 				positron.DOM.addScript
 				(
-					gApplication.getViewJSPath (inViewName),
+					inURL,
 					function (inSuccess)
 					{
 						if (inSuccess)
@@ -15989,9 +16698,34 @@ function Application_requestMIDI (inCallback)
 				},
 				function (inErrorMessage)
 				{
-					console.error ("requestMIDIAccess() failed");
+					console.error ("requestMIDIAccess(sysex) failed");
 					console.error (inErrorMessage);
-					inCallback (false);
+
+					try
+					{
+						// second try, don't request sysex
+						navigator.requestMIDIAccess ().then
+						(
+							function (inAccess)
+							{
+								self.midiAccess = inAccess;
+								self.setupMIDI (inAccess);
+								inCallback (true);
+							},
+							function (inErrorMessage)
+							{
+								console.error ("requestMIDIAccess(no sysex) failed");
+								console.error (inErrorMessage);
+
+								inCallback (false);
+							}
+						);
+					}
+					catch (inError2)
+					{
+						console.error (inError2);
+						inCallback (false);
+					}
 				}
 			);
 		}
@@ -16422,105 +17156,37 @@ function Application_showWindow ()
 
 // PRIVATE?
 
-positron.Application.prototype.installPlugins = 
-function Application_installPlugins (inCallback)
-{
-	if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("Application.installPlugins() has " + gApplicationPlugins.length + " plugins to run");
-	
-	new monohm.AsyncListHelper
-	(
-		{
-			this: this,
-			list: gApplicationPlugins,
-			iterate: function (inHelper, inItem)
-			{
-				try
-				{
-					inItem.install
-					(
-						function ()
-						{
-							inHelper.onIteration ();
-						}
-					);
-				}
-				catch (inError)
-				{
-					console.error (inError);
-					inHelper.onIteration ();
-				}
-			},
-			complete: function ()
-			{
-				inCallback ();
-			}
-		}
-	);
-}
-
-positron.Application.prototype.loadConfig = 
-function Application_loadConfig (inPath, inCallback)
-{
-	if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("Application.loadConfig(" + inPath + ")");
-
-	if (!this.config)
-	{
-		this.config = new Object ();
-	
-		// ensure we have a few basics
-	
-		this.config.actions = new Object ();
-		this.config.attributes = new Object ();
-		this.config.events = new Object ();
-		this.config.tags = new Object ();
-		this.config.triggers = new Object ();
-		this.config.views = new Object ();
-
-		monohm.Config.setDomain ("positron", this.config);
-	}
-	
-	monohm.Config.load 
-	(
-		"positron",
-		inPath,
-		function (inError, inConfig)
-		{
-			// this.config remains our pointer into the Monohm config space
-			inCallback (inError);
-		}
-	);
-}
-
+// your Js should put stuff in config/localisation
 positron.Application.prototype.loadLocalisationStrings = 
 function Application_loadLocalisationStrings (inCallback)
 {
 	if (gApplication.isLogging (gApplication.kLogApplication)) console.log ("Application.loadLocalisationStrings()");
 
-	var	strings = null;
+	var	self = this;
 	var	language = this.browser.language;
 	
 	if (language && language.length)
 	{
-		monohm.Network.getJSONAsync
+		positron.DOM.addScript
 		(
-			"localisation/strings-" + language + ".json",
-			function (inError, inStrings)
+			"localisation/strings-" + language + ".js",
+			function (inSuccess)
 			{
-				if (inStrings)
+				if (inSuccess)
 				{
-					gApplication.context.put ("strings", strings);
+					gApplication.context.put ("localisation", self.config.localisation);
 					inCallback ();
 				}
 				else
 				{
-					monohm.Network.getJSONAsync
+					positron.DOM.addScript
 					(
-						"localisation/strings.json",
-						function (inError, inStrings)
+						"localisation/strings.js",
+						function (inSuccess)
 						{
-							if (inStrings)
+							if (inSuccess)
 							{
-								gApplication.context.put ("strings", inStrings);
+								gApplication.context.put ("localisation", self.config.localisation);
 							}
 							
 							inCallback ();
@@ -16532,14 +17198,14 @@ function Application_loadLocalisationStrings (inCallback)
 	}
 	else
 	{
-		monohm.Network.getJSONAsync
+		positron.DOM.addScript
 		(
-			"localisation/strings.json",
-			function (inError, inStrings)
+			"localisation/strings.js",
+			function (inSuccess)
 			{
-				if (inStrings)
+				if (inSuccess)
 				{
-					gApplication.context.put ("strings", inStrings);
+					gApplication.context.put ("localisation", self.config.localisation);
 				}
 				
 				inCallback ();
@@ -16574,7 +17240,8 @@ function Application_loadPage (inPageKey, inCallback)
 	if (!pageCSSInclude)
 	{
 		// this will check for duplicates
-		positron.DOM.addStyleSheet (gApplication.getPageCSSPath (inPageKey), inPageKey, true);
+		var	pageCSSPath = "pages/" + inPageKey + "/" + inPageKey + ".js";
+		positron.DOM.addStyleSheet (pageCSSPath, inPageKey, true);
 	}
 
 	var	self = this;
@@ -16699,34 +17366,18 @@ if (gApplication.isLogging (gApplication.kLogLoader)) console.log ("Application.
 	// for callbacks
 	var	self = this;
 	
-	monohm.Network.getJSONAsync
-	(
-		"preload.json",
-		function (inError, inData)
-		{
-			if (inError)
-			{
-if (gApplication.isLogging (gApplication.kLogLoader)) console.error ("load of preload.json failed");
-			}
-			else
-			{
-				if (inData && Array.isArray (inData))
-				{
-if (gApplication.isLogging (gApplication.kLogLoader)) console.log ("preload.json has " + inData.length + " assets");
+	// this is set by preload.js
+	if (this.config.preloads && Array.isArray (this.config.preloads))
+	{
+if (gApplication.isLogging (gApplication.kLogLoader)) console.log ("preloads has " + this.config.preloads.length + " assets");
 
-					if (inData.length > 0)
-					{
-						self.assetLoader = new positron.Loader (self);
-						self.assetLoader.add (inData);
-					}
-				}
-				else
-				{
-if (gApplication.isLogging (gApplication.kLogLoader)) console.error ("preload.json empty or bad format");
-				}
-			}
-		}
-	);
+		this.assetLoader = new positron.Loader (this);
+		this.assetLoader.add (this.config.preloads);
+	}
+	else
+	{
+if (gApplication.isLogging (gApplication.kLogLoader)) console.log ("no preloads configured");
+	}	
 }
 
 positron.Application.prototype.setupAnalytics = 
@@ -17159,21 +17810,14 @@ function Application_setupMIDI (inAccess)
 		{
 			inPort.onmidimessage = function (inEvent)
 			{
-				if (self.midiListeners)
+				var	listeners = self.midiListeners [inPort.id];
+				
+				if (listeners)
 				{
-					var	listeners = self.midiListeners [inPort.id];
-					
-					if (listeners)
+					for (var i = 0; i < listeners.length; i++)
 					{
-						for (var i = 0; i < listeners.length; i++)
-						{
-							listeners [i] (inEvent);
-						}
+						listeners [i] (inEvent);
 					}
-				}
-				else
-				{
-					console.error ("midi listeners not defined in onmidimessage()");
 				}
 			}
 		}

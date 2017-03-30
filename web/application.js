@@ -72,17 +72,17 @@ Application.prototype.sendMIDIParameterChangeMessage = function ()
 // hence params are in object params
 Application.prototype.setMIDIOutputChannel = function ()
 {
-	console.log ("setMIDIOutputChannel(" + this.params.value + ")");
+	console.log ("setMIDIOutputChannel(" + this.params.midi_output_channel0 + ")");
 
-	this.midiChannel0 = parseInt (this.params.value);
+	this.midiChannel0 = parseInt (this.params.midi_output_channel0);
 }
 
 // called from positron "call" action
 // hence params are in object params
 Application.prototype.setMIDIOutputPortID = function ()
 {
-	console.log ("setMIDIOutputPortID(" + this.params.value + ")");
+	console.log ("setMIDIOutputPortID(" + this.params.midi_output_port_id + ")");
 
-	this.midiOutputPortID = parseInt (this.params.value);
+	this.midiOutputPortID = parseInt (this.params.midi_output_port_id);
 }
 
