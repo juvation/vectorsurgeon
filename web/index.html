@@ -58,8 +58,9 @@
 						</p-select>
 					</div>
 					<div>Filter Cutoff:
-						<p-input name="cutoff" type="range" min="0" max="99"
-							p-action="(change) call sendMIDIParameterChangeMessage"
+						<p-input type="range" min="0" max="99"
+							p-action="(change) call sendParameterChange"
+								p-action-params="name: FilterCutoff"
 							></p-input>
 					</div>
 				</p-if>
