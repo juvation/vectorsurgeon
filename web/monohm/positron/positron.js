@@ -15743,6 +15743,8 @@ function positron_Application (inCallback)
 	this.webSockets = new Object ();
 	this.images = new Object ();
 
+	this.midiListeners = new Object ();
+	
 	this.setupRequest ();
 	this.setupLogging ();
 	this.setupBrowserFlags ();
@@ -16040,16 +16042,7 @@ function Application_addMIDIListener (inPortID, inListener)
 		
 		if (port)
 		{
-			var	listeners = null;
-			
-			if (this.midiListeners)
-			{
-				listeners = this.midiListeners [inPortID];
-			}
-			else
-			{
-				this.midiListeners = new Object ();
-			}
+			var	listeners = this.midiListeners [inPortID];
 			
 			if (!listeners)
 			{
@@ -16644,12 +16637,7 @@ function Application_removeMIDIListener (inPortID, inListener)
 		
 		if (port)
 		{
-			var	listeners = null;
-			
-			if (this.midiListeners)
-			{
-				listeners = this.midiListeners [inPortID];
-			}
+			var	listeners = this.midiListeners [inPortID];
 			
 			if (listeners)
 			{
