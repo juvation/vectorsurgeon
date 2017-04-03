@@ -1378,11 +1378,13 @@ monohm.inherits (Application, positron.Application);
 // hence params are in object params
 Application.prototype.sendParameterChange = function ()
 {
-	this.sendMIDIParameterChangeMessage (this.params.name, this.params.value);
+	this.sendParameterChangeMessage (this.params.name, this.params.value);
 }
 
 Application.prototype.sendParameterChangeMessage = function (inName, inValue)
 {
+	console.log ("sendParameterChangeMessage(" + inName + "," + inValue + ")");
+	
 	var	parameterSpec = gParameterMap [inName];
 	
 	if (! parameterSpec)
@@ -1403,7 +1405,7 @@ Application.prototype.sendParameterChangeMessage = function (inName, inValue)
 	{
 		this.parameterMessageCount = 0;
 		
-		console.log ("new parameter number: " + parameterNumber);
+		// console.log ("new parameter number: " + parameterNumber);
 		
 		var	parameterNumberLSB = parameterNumber & 0xff;
 		var	parameterNumberMSB = (parameterNumber >> 8) & 0xff;

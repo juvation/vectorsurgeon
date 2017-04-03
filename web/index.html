@@ -59,8 +59,14 @@
 					</div>
 					<div>Filter Cutoff:
 						<p-input type="range" min="0" max="99"
-							p-action="(change) call sendParameterChange"
+							p-action="(input) call sendParameterChange"
 								p-action-params="name: FilterCutoff"
+							></p-input>
+					</div>
+					<div>Filter Resonance:
+						<p-input type="range" min="0" max="99"
+							p-action="(input) call sendParameterChange"
+								p-action-params="name: FilterResonance"
 							></p-input>
 					</div>
 				</p-if>
