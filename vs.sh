@@ -7,7 +7,7 @@ then
 	DIR=.
 fi
 
-CLASSPATH=${DIR}/vs.jar
+CLASSPATH=${DIR}/vs.jar:${DIR}/lib-mmj/mmj.jar
 export CLASSPATH
 
 exec java com.prophetvs.editor.ControlWindow

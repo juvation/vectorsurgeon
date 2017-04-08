@@ -160,7 +160,11 @@ public class Wave
 		if (inSampleNumber >= 0 && inSampleNumber < 128)
 		{
 			this.buffer [inSampleNumber * 2] = (byte) ((inSample >> 8) & 0xf);
-			this.buffer [(inSampleNumber * 2) + 1] = (byte) ((inSample >> 4) & 0xf);
+
+			// The MS nibble must be converted to 2s complement instead of 0-15 integer
+			// Accomplished by flipping most significant bit ( ^ 1 << 3 )
+			// (thanks to Henrik Rydell for finding and fixing this bug)
+			this.buffer [inSampleNumber * 2] = (byte) ((inSample >> 8) & 0xf ^ 1 << 3 );
 
 			// hold it! the lsbs for all the samples are stored in the last 128 byte chunk
 			// weird eh?

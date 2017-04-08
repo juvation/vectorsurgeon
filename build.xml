@@ -6,7 +6,7 @@
 
 	<property name="build.dir"  value="build"/>
 	<property name="classes.dir"  value="${build.dir}/classes"/>
-	<property name="java.src.dir"  value="src"/>
+	<property name="java.src.dir"  value="src-mac"/>
 
 	<path
 		id="project.classpath"
