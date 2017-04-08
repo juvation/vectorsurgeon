@@ -89,7 +89,7 @@ public class ControlWindow
 		}
 		else
 		{
-			configFileURL = new File (configFilePath).toURL ();
+			configFileURL = new File (configFilePath).toURI ().toURL ();
 		}
 		
 		// this will default to the config file in the jar file

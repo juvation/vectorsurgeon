@@ -12,6 +12,16 @@
 		id="project.classpath"
 		>
 		<fileset
+			dir="lib-mmj"
+			>
+			<include
+				name="**/*.jar"
+			/>
+			<include
+				name="**/*.zip"
+			/>
+		</fileset>
+		<fileset
 			dir="lib"
 			>
 			<include
