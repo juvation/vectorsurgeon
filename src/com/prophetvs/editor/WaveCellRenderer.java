@@ -59,9 +59,12 @@ public class WaveCellRenderer
 			setBorder (null);
 		}
 		
-		this.titleLabel.setText ("WAVE " + wave.getWaveNumber ());
-		this.waveView.setWave (wave);
-		
+		if (wave != null)
+		{
+			this.titleLabel.setText ("WAVE " + wave.getWaveNumber ());
+			this.waveView.setWave (wave);
+		}
+				
 		return this;
 	}
 	
