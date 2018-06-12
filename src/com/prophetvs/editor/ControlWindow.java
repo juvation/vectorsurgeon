@@ -454,7 +454,7 @@ public class ControlWindow
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
-			("Version 1.1.3 - Copyright 2009 Jason Proctor <jason@redfish.net>");
+			("Version 1.1.5 - Copyright 2011 Jason Proctor <jason@redfish.net>");
 		blurbLabel.setForeground (Color.white);
 		blurbLabel.setBackground (Color.black);
 		blurbLabel.setFont (this.labelFont);
