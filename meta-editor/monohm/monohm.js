@@ -23,7 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 //
-// generated on Wed Feb 10 16:51:11 PST 2016
+// generated on Mon Mar 13 22:38:13 PDT 2017
 //
 
 // namespace.js
@@ -133,6 +133,38 @@ monohm.provide ("monohm.AsyncListHelper");
 
 // help for async processing a list of stuff
 
+/*
+
+Usage:
+
+new monohm.AsyncListHelper
+(
+	{
+		// the "this" you want in the iterate() function
+		this: this,
+
+		// array of things through which to iterate
+		list: listOfThings,
+
+		// iteration function, called for each list element
+		iterate: function (inHelper, inListElement)
+		{
+			// do iteration stuff here
+			// note inHelper.index is the current index into the list
+			
+			// when done, call the helper back
+			// continue is optional flag to terminate the iteration early
+			inHelper.onIteration (continue);
+		},
+		complete: function ()
+		{
+			// called when all the iterations have been done
+		}
+	}
+);
+
+*/
+
 monohm.AsyncListHelper = function (inConfig)
 {
 	this.config = inConfig;
@@ -150,7 +182,7 @@ monohm.AsyncListHelper = function (inConfig)
 	else
 	{
 		console.error ("no list passed to AsyncListHelper");
-		this.complete ();
+		this.complete.call (this);
 	}
 }
 
@@ -178,12 +210,12 @@ monohm.AsyncListHelper.prototype.iterate = function ()
 		else
 		{
 			console.error ("no iterate function passed to AsyncListHelper");
-			this.complete ();
+			this.complete.call (this);
 		}
 	}
 	else
 	{
-		this.complete ();
+		this.complete.call (this);
 	}
 }
 
@@ -201,7 +233,7 @@ monohm.AsyncListHelper.prototype.onIteration = function (inContinue)
 	}
 	else
 	{
-		this.complete ();
+		this.complete.call (this);
 	}
 }
 
@@ -491,28 +523,30 @@ monohm.Config.load = function (inDomain, inURL, inCallback)
 			}
 			else
 			{
-				var	domain = monohm.Config.config [inDomain];
-				
-				if (domain)
-				{
-					monohm.Object.merge (inConfig, domain);
-				}
-				else
-				{
-					monohm.Config.config [inDomain] = inConfig;
-					domain = inConfig;
-				}
-				
-				inCallback (inError, domain);
+				monohm.Config.set (inDomain, inConfig);
 			}
 		}
 	);
 }
 
-// some clients like to start with defaults etc
-monohm.Config.setDomain = function (inDomain, inConfig)
+monohm.Config.mergeDomain = function (inDomain, inConfig)
 {
-	monohm.Config.config [inDomain] = inConfig;
+	console.error ("monohm.Config.mergeDomain() is deprecated, use set() instead");
+	monohm.Config.set (inDomain, inConfig);
+}
+
+monohm.Config.set = function (inDomain, inConfig)
+{
+	var	domain = monohm.Config.config [inDomain];
+	
+	if (domain)
+	{
+		monohm.Object.merge (inConfig, domain);
+	}
+	else
+	{
+		monohm.Config.config [inDomain] = inConfig;
+	}
 }
 
 // date.js
@@ -1598,10 +1632,22 @@ monohm.Network.ajax = function (inRequest)
 
 	var	jsonp = false;
 	
-	// ONLY even potentially enable JSONP for JSON requests
 	if (inRequest.dataType == "json")
 	{
 		jsonp = monohm.Network.isJSONPRequest (inRequest);
+	}
+	else
+	if (inRequest.dataType == "jsonp")
+	{
+		jsonp = true;
+	}
+	else
+	if (inRequest.dataType == "nojsonp")
+	{
+		// this type is set by AjaxTag and others
+		// to force JSONP *off* for individual requests
+		inRequest.dataType = "json";
+		jsonp = false;
 	}
 	
 	if (jsonp)
@@ -1676,8 +1722,11 @@ monohm.Network.ajax = function (inRequest)
 						}
 						else
 						{
-							// 
-							inRequest.error (this, "error", "Not Found");
+							if (!errorReported)
+							{
+								errorReported = true;
+								inRequest.error (this, "error", this.responseText);
+							}
 						}
 					}
 					else
@@ -1746,10 +1795,19 @@ monohm.Network.ajax = function (inRequest)
 			xhr.responseType = inRequest.dataType;
 		}
 
+		// if the dev has included a content type header
+		// we don't set one
+		var	sendContentTypeHeader = true;
+		
 		if (typeof (inRequest.headers) == "object")
 		{
 			for (var key in inRequest.headers)
 			{
+				if (key.toLowerCase () == "content-type")
+				{
+					sendContentTypeHeader = false;
+				}
+				
 				var	value = inRequest.headers [key];
 				
 				if (typeof (value) != "function")
@@ -1764,7 +1822,11 @@ monohm.Network.ajax = function (inRequest)
 		{
 			if (inRequest.type == "POST")
 			{
-				xhr.setRequestHeader ("Content-Type", "application/x-www-form-urlencoded");
+				if (sendContentTypeHeader)
+				{
+					xhr.setRequestHeader ("Content-Type", "application/x-www-form-urlencoded");
+				}
+				
 				xhr.send (data);
 			}
 			else
@@ -2251,7 +2313,7 @@ monohm.Object.instantiate = function (inFullClassName)
 		}
 	}
 	
-	if (object != null && object != window)
+	if (typeof object == "function")
 	{
 		try
 		{
@@ -2260,7 +2322,6 @@ monohm.Object.instantiate = function (inFullClassName)
 		catch (inError)
 		{
 			console.error ("error trying to construct " + inFullClassName);
-			console.error (inError);
 		}
 	}
 	
