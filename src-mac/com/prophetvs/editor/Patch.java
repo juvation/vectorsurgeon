@@ -229,7 +229,7 @@ public class Patch
 				{
 					// it's a numeric digit
 					value -= 26;
-					nameCharacter = (char) ('0' + value);
+					nameCharacter = (char) ('1' + value);
 				}
 				else
 				{
