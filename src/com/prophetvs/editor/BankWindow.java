@@ -34,6 +34,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -50,7 +51,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableCellRenderer;
@@ -61,7 +65,7 @@ import org.w3c.dom.Document;
 
 public class BankWindow
 	extends JFrame
-	implements ActionListener, ClipboardOwner, MouseListener
+	implements ActionListener, ClipboardOwner, ListSelectionListener, MouseListener
 {
 	// PUBLIC CONSTRUCTOR
 	
@@ -123,6 +127,19 @@ public class BankWindow
 		this.table.setDefaultRenderer (Object.class, new PatchCellRenderer ());
 		this.table.setTableHeader (null);
 		this.table.setAutoResizeMode (JTable.AUTO_RESIZE_OFF);
+
+		ListSelectionModel	selectionModel = this.table.getSelectionModel ();
+		selectionModel.addListSelectionListener (this);
+		
+		selectionModel = this.table.getColumnModel ().getSelectionModel ();
+		selectionModel.addListSelectionListener (this);
+		
+		// override enter key
+		
+		KeyStroke	enter = KeyStroke.getKeyStroke (KeyEvent.VK_ENTER, 0);
+		
+		this.table.getInputMap (JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put (enter, "OPEN_PATCH");
+		this.table.getActionMap ().put ("OPEN_PATCH", new EnterAction ());
 
 		// add copy/paste actions
 		Toolkit	toolkit = Toolkit.getDefaultToolkit ();
@@ -549,6 +566,42 @@ System.err.println (inException);
 		// like we care
 	}
 	
+	// LIST SELECTION LISTENER IMPLEMENTATION
+	
+	// note we DO allow program changes from bank selection window changes
+	// if the bank isn't in the prophet
+	// it just becomes a handy way of selecting patches :-)
+	public void
+	valueChanged (ListSelectionEvent inEvent)
+	{
+		if (inEvent.getValueIsAdjusting ())
+		{
+			return;
+		}
+		
+		if (ControlWindow.getInstance ().getPatchWindow () != null)
+		{
+			// don't send program changes from the bank window if there is a patch window up
+			System.err.println ("patch window up, bank selection ignored");
+			
+			return;
+		}
+
+		int	row = this.table.getSelectedRow ();
+		int	column = this.table.getSelectedColumn ();
+		
+		if (row >= 0 && column >= 0)
+		{
+			int	patchNumber = (row * 10) + column;
+			
+			ControlWindow.getInstance ().sendMidiProgramChange (patchNumber);
+		}
+		else
+		{
+			System.err.println ("selection event with no selection?!?");
+		}
+	}
+	
 	// MOUSE LISTENER IMPLEMENTATION
 
 	public void
@@ -591,49 +644,7 @@ System.err.println (inException);
 					{
 						int	patchNumber = (row * kTableColumnCount) + column;
 						
-						boolean	openEditor = true;
-						
-						// send a program change to the selected patch
-						try
-						{
-							// enable all MIDI parameter options
-							ControlWindow.getInstance ().sendMidiMessage (Machine.makeEnableParametersMessage ());
-							
-							// change to the right patch
-							ControlWindow.getInstance ().sendMidiProgramChange (patchNumber);
-						}
-						catch (Exception inException)
-						{
-inException.printStackTrace (System.err);
-							openEditor = false;
-						}
-						
-						// if we had an error sending the midi, confirm the editor window open
-						if (! openEditor)
-						{
-							int	response = JOptionPane.showConfirmDialog
-								(this, "Could not send program change to Prophet. OK to open editor window?",
-									"Confirm", JOptionPane.YES_NO_OPTION);
-								
-							openEditor = (response == JOptionPane.YES_OPTION);
-						}
-						
-						if (openEditor)
-						{
-							try
-							{
-								Patch	patch = this.bank.getPatchCopy (patchNumber);
-								PatchWindow	patchWindow = new PatchWindow (this, this.document, patch);
-								ControlWindow.getInstance ().setPatchWindow (patchWindow);
-								patchWindow.setLocationRelativeTo (null);
-								patchWindow.setVisible (true);
-							}
-							catch (Exception inException)
-							{
-inException.printStackTrace (System.err);
-								ControlWindow.showErrorDialog ("Error", inException);
-							}
-						}
+						openPatchWindow (patchNumber);
 					}
 				}
 			}
@@ -726,6 +737,54 @@ inException.printStackTrace (System.err);
 	}
 
 	// PRIVATE METHODS
+	
+	private void
+	openPatchWindow (int inPatchNumber)
+	{
+		boolean	openEditor = true;
+		
+		// send a program change to the selected patch
+		try
+		{
+			// enable all MIDI parameter options
+			ControlWindow.getInstance ().sendMidiMessage (Machine.makeEnableParametersMessage ());
+			
+			// change to the right patch
+			ControlWindow.getInstance ().sendMidiProgramChange (inPatchNumber);
+		}
+		catch (Exception inException)
+		{
+inException.printStackTrace (System.err);
+			openEditor = false;
+		}
+		
+		// if we had an error sending the midi, confirm the editor window open
+		if (! openEditor)
+		{
+			int	response = JOptionPane.showConfirmDialog
+				(this, "Could not send program change to Prophet. OK to open editor window?",
+					"Confirm", JOptionPane.YES_NO_OPTION);
+				
+			openEditor = (response == JOptionPane.YES_OPTION);
+		}
+		
+		if (openEditor)
+		{
+			try
+			{
+				Patch	patch = this.bank.getPatchCopy (inPatchNumber);
+				PatchWindow	patchWindow = new PatchWindow (this, this.document, patch);
+				ControlWindow.getInstance ().setPatchWindow (patchWindow);
+				patchWindow.setLocationRelativeTo (null);
+				patchWindow.setVisible (true);
+			}
+			catch (Exception inException)
+			{
+inException.printStackTrace (System.err);
+				ControlWindow.showErrorDialog ("Error", inException);
+			}
+		}
+	}
 	
 	private void
 	packColumns (int inMargin)
@@ -864,5 +923,57 @@ inException.printStackTrace (System.err);
 	private JTable
 	table = null;
 	
+	// INNER CLASSES
+	
+	class EnterAction
+	extends AbstractAction
+	{
+		@Override
+		public void
+		actionPerformed (ActionEvent inEvent)
+		{
+			System.err.println ("EnterAction.actionPerformed()");
+			
+			ControlWindow	controlWindow = ControlWindow.getInstance ();
+
+			if (controlWindow.getPatchWindow () != null)
+			{
+				// close the patch window - will confirm write if dirty
+				PatchWindow	patchWindow = controlWindow.getPatchWindow ();
+				
+				// this sets the control window's patch window to null
+				// which we'll check for in a second
+				patchWindow.setVisible (false);
+			}
+
+			if (controlWindow.getPatchWindow () == null)
+			{
+				if (! BankWindow.this.bankInProphet)
+				{
+					// allow the user to override our flag
+					int	response = ControlWindow.showConfirmDialog
+						("Confirm", "This bank is not in the Prophet. OK to open patch editing windows anyway?");
+					
+					if (response == JOptionPane.YES_OPTION)
+					{
+						setBankInProphet (true);
+					}
+				}
+				
+				if (BankWindow.this.bankInProphet)
+				{
+					int	row = BankWindow.this.table.getSelectedRow ();
+					int	column = BankWindow.this.table.getSelectedColumn ();
+					
+					if (row >= 0 && column >= 0)
+					{
+						int	patchNumber = (row * 10) + column;
+						BankWindow.this.openPatchWindow (patchNumber);
+					}
+				}
+			}
+    }		
+	}
+   
 }
 

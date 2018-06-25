@@ -53,78 +53,78 @@
 			target="jar"
 		/>
 		<antcall
-			target="deploy"
-		/>
-	</target>
-	
-	<target
-		name="clean"
-		>
-		<delete
-			dir="${classes.dir}"
-		/>
-		<delete
-			file="vs.jar"
-		/>
-	</target>
-
-	<target
-		name="libext"
-		>
-	</target>
-
- 	<target
-		name="compile"
-		>
-	 	<javac
-			srcdir="${java.src.dir}"
-			destdir="${classes.dir}"
-			debug="on"
-			source="1.5"
-			deprecation="on"
-			>
- 			<classpath
-				refid="project.classpath"
+				target="deploy"
 			/>
-		</javac>
-	</target>
+		</target>
+		
+		<target
+			name="clean"
+			>
+			<delete
+				dir="${classes.dir}"
+			/>
+			<delete
+				file="vs.jar"
+			/>
+		</target>
 
-	<target
-		name="jar"
-		>
-		<copy
-			file="config/prophetvs_ui.xml"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="config/transforms.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_banner.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_blue_button_off.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_blue_button_on.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<jar
-			destfile="vs.jar"
-			basedir="${classes.dir}"
-		/>
-	</target>
+		<target
+			name="libext"
+			>
+		</target>
 
-	<target
-		name="deploy"
+		<target
+			name="compile"
+			>
+			<javac
+				srcdir="${java.src.dir}"
+				destdir="${classes.dir}"
+				debug="on"
+				source="1.5"
+				deprecation="on"
+				>
+				<classpath
+					refid="project.classpath"
+				/>
+			</javac>
+		</target>
+
+		<target
+			name="jar"
+			>
+			<copy
+				file="config/prophetvs_ui.xml"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<copy
+				file="config/transforms.properties"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<copy
+				file="images/vs_banner.gif"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<copy
+				file="images/vs_blue_button_off.gif"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<copy
+				file="images/vs_blue_button_on.gif"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<jar
+				destfile="vs.jar"
+				basedir="${classes.dir}"
+			/>
+		</target>
+
+		<target
+			name="deploy"
 		>
 		<copy
 			file="vs.jar"
@@ -134,6 +134,11 @@
 		<copy
 			file="vs.jar"
 			todir="mac/VSControlMapper.app/Contents/Resources/Java/"
+			verbose="true"
+		/>
+		<copy
+			file="vs.jar"
+			todir="mac-old/VectorSurgeon.app/Contents/Resources/Java/"
 			verbose="true"
 		/>
 		<copy
