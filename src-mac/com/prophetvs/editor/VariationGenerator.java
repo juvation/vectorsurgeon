@@ -65,28 +65,6 @@ public class VariationGenerator
 	generate (Patch inPatch, List<TransformOperation> inTransformOperations)
 		throws Exception
 	{
-		// skip through the transform list
-		// and see if the user wants any name transforms
-		boolean	numberPatchNames = true;
-		
-		for (TransformOperation operation : inTransformOperations)
-		{
-			String	patchParameterName = operation.getPatchParameter ();
-			
-			// HACK
-			if (patchParameterName.length () == 5
-				&& patchParameterName.startsWith ("Name"))
-			{
-				// the user is doing patch name operations
-				// so leave them alone
-				numberPatchNames = false;
-				break;
-			}
-		}
-		
-		char	renameAlphabet = 'A';
-		char	renameLetter = 'A';
-		
 		// make a new bank using our template as... the template
 		Bank	bank = new Bank (inPatch);
 
@@ -97,43 +75,28 @@ public class VariationGenerator
 			Patch	patch = bank.getPatch (i);
 
 			applyTransforms (patch, i, inTransformOperations);
-			
-			if (numberPatchNames)
-			{
-				// unfortunately the VS character set only has A-Z, 0-5, and space
-				// so we can't renumber 0-100!
-				// we do AA-AZ and BA-BZ etc instead
-				// sigh
-				
-				StringBuffer	nameBuffer = new StringBuffer (patch.getName ());
-				nameBuffer.setLength (6);
-				
-				nameBuffer.append (renameAlphabet);
-				nameBuffer.append (renameLetter);
-				
-				if (renameLetter == 'Z')
-				{
-					// roll alphabets
-					renameAlphabet++;
-					renameLetter = 'A';
-				}
-				else
-				{
-					renameLetter++;
-				}
-				
-				patch.setName (nameBuffer.toString ());
-			}
 		}
 
 		return bank;
+	}
+	
+	public List<String>
+	getMetaParameter (String inMetaParameterName)
+	{
+		return metaParameterMap.get (inMetaParameterName);
+	}
+	
+	public String[]
+	getMetaParameterNames ()
+	{
+		return (String[]) this.metaParameterMap.keySet ().toArray (new String [0]);
 	}
 	
 	public Transform
 	getTransform (String inName)
 		throws Exception
 	{
-		return (Transform) this.transformMap.get (inName);
+		return this.transformMap.get (inName);
 	}
 
 	public String[]
@@ -162,19 +125,34 @@ public class VariationGenerator
 			}
 			
 			String	patchParameterName = transformOperation.getPatchParameter ();
-			Patch.ParameterSpec	parameterSpec = ioPatch.getParameterSpec (patchParameterName);
-
-			if (parameterSpec == null)
+			
+			// check for meta parameter!
+			List<String>	patchParameterNames = getMetaParameter (patchParameterName);
+			
+			if (patchParameterNames == null)
 			{
-				throw new VSException
-					("transform parameter name not found: " + patchParameterName);
+				patchParameterNames = new ArrayList<String> ();
+				patchParameterNames.add (patchParameterName);
 			}
 			
-			// apply the transform
-			int	newParameterValue = transform.transformParameter (patchParameterName,
-				transformOperation.getTransformParameters (), inPatchNumber, parameterSpec.size);
+			for (int i = 0; i < patchParameterNames.size (); i++)
+			{
+				patchParameterName = patchParameterNames.get (i);
 				
-			ioPatch.setParameterValue (patchParameterName, newParameterValue);
+				Patch.ParameterSpec	parameterSpec = ioPatch.getParameterSpec (patchParameterName);
+	
+				if (parameterSpec == null)
+				{
+					throw new VSException
+						("transform parameter name not found: " + patchParameterName);
+				}
+				
+				// apply the transform
+				int	newParameterValue = transform.transformParameter (patchParameterName,
+					transformOperation.getTransformParameters (), inPatchNumber, parameterSpec.size);
+					
+				ioPatch.setParameterValue (patchParameterName, newParameterValue);
+			}
 		}
 	}
 
@@ -183,16 +161,16 @@ public class VariationGenerator
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException
 	{
 		// load the transform map config file
-		URL	transformPropertiesURL = ControlWindow.getResource ("transforms.properties");
+		URL	propertiesURL = ControlWindow.getResource ("transforms.properties");
 		
 		InputStream	uis = null;
-		Properties	transformProperties = new Properties ();
+		Properties	properties = new Properties ();
 		
 		try
 		{
-			uis = transformPropertiesURL.openStream ();
+			uis = propertiesURL.openStream ();
 
-			transformProperties.load (uis);
+			properties.load (uis);
 		}
 		finally
 		{
@@ -210,21 +188,63 @@ public class VariationGenerator
 
 		this.transformMap = new HashMap<String, Transform> ();
 
-		Enumeration	propertyNames
-			= transformProperties.propertyNames ();
+		Enumeration	propertyNames = properties.propertyNames ();
 
 		while (propertyNames.hasMoreElements ())
 		{
-			String	transformName
-				= (String) propertyNames.nextElement ();
-
-			String	transformClassName
-				= transformProperties.getProperty (transformName);
+			String	transformName = (String) propertyNames.nextElement ();
+			String	transformClassName = properties.getProperty (transformName);
 
 			Class	transformClass = Class.forName (transformClassName);
 
 			Transform	transform = (Transform) transformClass.newInstance ();
 			this.transformMap.put (transformName, transform);
+		}
+
+		// load the metaparameter map config file
+		propertiesURL = ControlWindow.getResource ("metaparameters.properties");
+		
+		properties = new Properties ();
+		
+		try
+		{
+			uis = propertiesURL.openStream ();
+
+			properties.load (uis);
+		}
+		finally
+		{
+			if (uis != null)
+			{
+				try
+				{
+					uis.close ();
+				}
+				catch (Throwable inThrowable)
+				{
+				}
+			}
+		}
+
+		this.metaParameterMap = new HashMap<String, List<String>> ();
+
+		Enumeration	metaParameterNames = properties.propertyNames ();
+
+		while (metaParameterNames.hasMoreElements ())
+		{
+			String	metaParameterName = (String) metaParameterNames.nextElement ();
+			String	parameterNames = properties.getProperty (metaParameterName);
+
+			String[]	parameterNamesArray = parameterNames.split (",", -1);
+			
+			List<String>	parameterNamesList = new ArrayList<String> ();
+			
+			for (int i = 0; i < parameterNamesArray.length; i++)
+			{
+				parameterNamesList.add (parameterNamesArray [i].trim ());
+			}
+
+			this.metaParameterMap.put (metaParameterName, parameterNamesList);
 		}
 	}
 
@@ -237,6 +257,9 @@ public class VariationGenerator
 	sSynchronizer = new Object ();
 	
 	// PRIVATE DATA
+
+	private Map<String, List<String>>
+	metaParameterMap = null;
 	
 	private Map<String, Transform>
 	transformMap = null;

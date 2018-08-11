@@ -44,8 +44,13 @@
 
 	<target
 		name="build"
-		depends="init"
 		>
+		<antcall
+			target="clean"
+		/>
+		<antcall
+			target="init"
+		/>
 		<antcall
 			target="compile"
 		/>
@@ -99,6 +104,11 @@
 			/>
 			<copy
 				file="config/transforms.properties"
+				todir="${classes.dir}"
+				verbose="true"
+			/>
+			<copy
+				file="config/metaparameters.properties"
 				todir="${classes.dir}"
 				verbose="true"
 			/>
