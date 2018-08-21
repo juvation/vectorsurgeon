@@ -42,12 +42,17 @@ public class VariationGenerator
 
 		return sInstance;
 	}
+
+	public static VariationGenerator
+	getInstanceSafe ()
+	{
+		return sInstance;
+	}
 	
 	// PRIVATE CONSTRUCTOR
 	
 	private
 	VariationGenerator ()
-		throws VSException
 	{
 		try
 		{
@@ -55,7 +60,8 @@ public class VariationGenerator
 		}
 		catch (Throwable inThrowable)
 		{
-			throw new VSException (inThrowable.toString ());
+			// rather than insist everything catch we log and leave the map blank
+			System.err.println (inThrowable.toString ());
 		}
 	}
 	
@@ -78,18 +84,6 @@ public class VariationGenerator
 		}
 
 		return bank;
-	}
-	
-	public List<String>
-	getMetaParameter (String inMetaParameterName)
-	{
-		return metaParameterMap.get (inMetaParameterName);
-	}
-	
-	public String[]
-	getMetaParameterNames ()
-	{
-		return (String[]) this.metaParameterMap.keySet ().toArray (new String [0]);
 	}
 	
 	public Transform
@@ -127,7 +121,9 @@ public class VariationGenerator
 			String	patchParameterName = transformOperation.getPatchParameter ();
 			
 			// check for meta parameter!
-			List<String>	patchParameterNames = getMetaParameter (patchParameterName);
+			MetaParameters	mp = MetaParameters.getInstance ();
+			
+			List<String>	patchParameterNames = mp.get (patchParameterName);
 			
 			if (patchParameterNames == null)
 			{
@@ -158,7 +154,7 @@ public class VariationGenerator
 
 	private void
 	setupTransformMap ()
-		throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException
+	throws Exception
 	{
 		// load the transform map config file
 		URL	propertiesURL = ControlWindow.getResource ("transforms.properties");
@@ -186,8 +182,6 @@ public class VariationGenerator
 			}
 		}
 
-		this.transformMap = new HashMap<String, Transform> ();
-
 		Enumeration	propertyNames = properties.propertyNames ();
 
 		while (propertyNames.hasMoreElements ())
@@ -199,52 +193,6 @@ public class VariationGenerator
 
 			Transform	transform = (Transform) transformClass.newInstance ();
 			this.transformMap.put (transformName, transform);
-		}
-
-		// load the metaparameter map config file
-		propertiesURL = ControlWindow.getResource ("metaparameters.properties");
-		
-		properties = new Properties ();
-		
-		try
-		{
-			uis = propertiesURL.openStream ();
-
-			properties.load (uis);
-		}
-		finally
-		{
-			if (uis != null)
-			{
-				try
-				{
-					uis.close ();
-				}
-				catch (Throwable inThrowable)
-				{
-				}
-			}
-		}
-
-		this.metaParameterMap = new HashMap<String, List<String>> ();
-
-		Enumeration	metaParameterNames = properties.propertyNames ();
-
-		while (metaParameterNames.hasMoreElements ())
-		{
-			String	metaParameterName = (String) metaParameterNames.nextElement ();
-			String	parameterNames = properties.getProperty (metaParameterName);
-
-			String[]	parameterNamesArray = parameterNames.split (",", -1);
-			
-			List<String>	parameterNamesList = new ArrayList<String> ();
-			
-			for (int i = 0; i < parameterNamesArray.length; i++)
-			{
-				parameterNamesList.add (parameterNamesArray [i].trim ());
-			}
-
-			this.metaParameterMap.put (metaParameterName, parameterNamesList);
 		}
 	}
 
@@ -258,11 +206,8 @@ public class VariationGenerator
 	
 	// PRIVATE DATA
 
-	private Map<String, List<String>>
-	metaParameterMap = null;
-	
 	private Map<String, Transform>
-	transformMap = null;
+	transformMap = new HashMap<String, Transform> ();
 	
 }
 

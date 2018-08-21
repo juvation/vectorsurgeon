@@ -47,8 +47,22 @@ public class VaryPanel
 		JLabel	parameterLabel = new JLabel ("Parameter:");
 		add (parameterLabel);
 		
+		// add the meta parameters first
+		String[]	metaParameterNames = MetaParameters.getInstance ().getNames ();
 		String[]	parameterNames = Patch.getParameterNamesArray ();
-		this.parameterPopup = new JComboBox (parameterNames);
+		String[]	names = new String [metaParameterNames.length + parameterNames.length];
+		
+		for (int i = 0; i < metaParameterNames.length; i++)
+		{
+			names [i] = metaParameterNames [i];
+		}
+
+		for (int i = 0; i < parameterNames.length; i++)
+		{
+			names [metaParameterNames.length + i] = parameterNames [i];
+		}
+		
+		this.parameterPopup = new JComboBox (names);
 		this.parameterPopup.setActionCommand ("PARAMETER_POPUP");
 		this.parameterPopup.addActionListener (this);
 		add (this.parameterPopup);
@@ -94,6 +108,14 @@ inThrowable.printStackTrace (System.err);
 			
 			try
 			{
+				// check for meta parameter!
+				List<String>	parameterNames = MetaParameters.getInstance ().get (parameterName);
+				
+				if (parameterNames != null)
+				{
+					parameterName = parameterNames.get (0);
+				}
+				
 				// this throws on bad name
 				Patch.ParameterSpec	parameterSpec = Patch.getParameterSpec (parameterName);
 				

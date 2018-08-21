@@ -48,22 +48,8 @@ public class VaryPanel
 		add (parameterLabel);
 		
 		// add the meta parameters first
-		String[]	metaParameterNames = null;
-		
-		try
-		{
-			metaParameterNames = VariationGenerator.getInstance ().getMetaParameterNames ();
-		}
-		catch (VSException inException)
-		{
-			// if we throw this, we get a bad case of exception virus propagation
-			// it's unlikely we would get this far if making VG didn't work
-			// so if this does happen, we just take out the meta parameters
-			metaParameterNames = new String [0];
-		}
-		
+		String[]	metaParameterNames = MetaParameters.getInstance ().getNames ();
 		String[]	parameterNames = Patch.getParameterNamesArray ();
-		
 		String[]	names = new String [metaParameterNames.length + parameterNames.length];
 		
 		for (int i = 0; i < metaParameterNames.length; i++)
@@ -123,7 +109,7 @@ inThrowable.printStackTrace (System.err);
 			try
 			{
 				// check for meta parameter!
-				List<String>	parameterNames = VariationGenerator.getInstance ().getMetaParameter (parameterName);
+				List<String>	parameterNames = MetaParameters.getInstance ().get (parameterName);
 				
 				if (parameterNames != null)
 				{

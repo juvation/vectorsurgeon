@@ -64,7 +64,7 @@ public class WaveCellRenderer
 			this.titleLabel.setText ("WAVE " + wave.getWaveNumber ());
 			this.waveView.setWave (wave);
 		}
-				
+		
 		return this;
 	}
 	

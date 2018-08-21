@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
@@ -695,20 +696,45 @@ System.err.println (inException);
 	{
 		try
 		{
-			// make the change in our patch
-			this.patch.setParameterValue (inParameterName, inParameterValue);
-			
 			// give the user some nice visual feedback that the window has changed
 			// (most likely Mac only)
 			getRootPane ().putClientProperty ("windowModified", Boolean.TRUE);
 			getRootPane ().putClientProperty ("Window.documentModified", Boolean.TRUE);
-	
-			// generate the MIDI messages to update the Prophet
-			MidiMessage[]	messages = Machine.makeParameterChangeMessage
-				(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
+
+			// check for meta parameter!
+			MetaParameters	mp = MetaParameters.getInstance ();
+			
+			List<String>	patchParameterNames = mp.get (inParameterName);
+			
+			if (patchParameterNames == null)
+			{
+				// saves us an instantiation for every parameter sent
+				patchParameterNames = this.singleParameterList;
 				
-			// and send them
-			ControlWindow.getInstance ().sendMidiMessages (messages);
+				if (patchParameterNames.size () == 0)
+				{
+					patchParameterNames.add (inParameterName);
+				}
+				else
+				{
+					patchParameterNames.set (0, inParameterName);
+				}
+			}
+			
+			for (int i = 0; i < patchParameterNames.size (); i++)
+			{
+				String	patchParameterName = patchParameterNames.get (i);
+
+				// make the change in our patch
+				this.patch.setParameterValue (patchParameterName, inParameterValue);
+			
+				// generate the MIDI messages to update the Prophet
+				byte[][]	messages = Machine.makeParameterChangeMessage
+					(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
+				
+				// and send them
+				ControlWindow.getInstance ().sendMidiMessages (messages);
+			}
 		}
 		catch (Exception inException)
 		{
@@ -1252,6 +1278,9 @@ System.err.println (inException);
 	
 	private JTabbedPane
 	tabbedPane = null;
+	
+	private List<String>
+	singleParameterList = new ArrayList<String> ();
 	
 	private Map<JComponent, String>
 	componentToNameMap = new HashMap<JComponent, String> ();
