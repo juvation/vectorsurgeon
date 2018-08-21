@@ -27,6 +27,17 @@
 		<horizontalbox>
 			<horizontalcenter>
 				<verticalbox
+					name="Oscillator Waves"
+					>
+					<horizontalcenter>
+						<popup
+							label="Wave"
+							parameter="WaveNumber"
+							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+				</verticalbox>
+				<verticalbox
 					name="Oscillator A"
 					>
 					<horizontalcenter>

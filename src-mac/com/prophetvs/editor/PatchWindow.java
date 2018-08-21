@@ -706,7 +706,9 @@ System.err.println (inException);
 			
 			List<String>	patchParameterNames = mp.get (inParameterName);
 			
-			if (patchParameterNames == null)
+			boolean	meta = patchParameterNames != null;
+			
+			if (! meta)
 			{
 				// saves us an instantiation for every parameter sent
 				patchParameterNames = this.singleParameterList;
@@ -730,16 +732,23 @@ System.err.println (inException);
 			
 				// generate the MIDI messages to update the Prophet
 				byte[][]	messages = Machine.makeParameterChangeMessage
-					(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
+					(ControlWindow.getInstance ().getMidiChannel0 (), patchParameterName, inParameterValue);
 				
 				// and send them
 				ControlWindow.getInstance ().sendMidiMessages (messages);
+				
+				// and update the clients of the meta
+				if (meta)
+				{
+					JComponent	control = this.nameToComponentMap.get (patchParameterName);
+					copyParameterToControl (patchParameterName, control);
+				}
 			}
 		}
 		catch (Exception inException)
 		{
 			// offensive UI? should we have a status pane instead?
-			ControlWindow.showErrorDialog ("Error", inException.toString ());
+			ControlWindow.showErrorDialog ("Error", inException);
 		}
 	}
 	
@@ -784,7 +793,73 @@ System.err.println (inException);
 			}
 		}
 	}
+	
+	private void
+	copyParameterToControl (String inParameterName, JComponent outControl)
+	{
+		// HACK check for meta-params
+		if (inParameterName.equalsIgnoreCase ("$PatchName"))
+		{
+			if (outControl instanceof JTextField)
+			{
+				JTextField	textField = (JTextField) outControl;
+				textField.setText (this.patch.getName ());
+			}
+		}
+		else
+		{
+			int	value = 0;
 			
+			try
+			{
+				value = this.patch.getParameterValue (inParameterName);
+
+				if (outControl instanceof JSlider)
+				{
+					JSlider	slider = (JSlider) outControl;
+					slider.setValue (value);
+
+					JLabel	valueLabel = this.componentToLabelMap.get (outControl);
+					
+					if (valueLabel != null)
+					{
+						valueLabel.setText (Integer.toString (value));
+					}
+				}
+				else
+				if (outControl instanceof JComboBox)
+				{
+					try
+					{
+						JComboBox	popup = (JComboBox) outControl;
+						popup.setSelectedIndex (value);
+					}
+					catch (Exception inException)
+					{
+System.err.println ("error setting popup of parameter " + inParameterName);
+System.err.println (inException);
+					}
+				}
+				else
+				if (outControl instanceof JCheckBox)
+				{
+					JCheckBox	checkbox = (JCheckBox) outControl;
+					checkbox.setSelected (value != 0);
+				}
+				else
+				if (outControl instanceof CustomControl)
+				{
+					CustomControl	customControl = (CustomControl) outControl;
+					customControl.updateFromPatch ();
+				}
+			}
+			catch (VSException inException)
+			{
+				inException.printStackTrace (System.err);
+			}
+		}
+	}
+	
 	private void
 	copyPatchToControls ()
 	{
@@ -795,66 +870,31 @@ System.err.println (inException);
 			JComponent	control = controls.next ();
 			String	parameterName = this.componentToNameMap.get (control);
 			
-			// HACK check for meta-params
-			if (parameterName.equalsIgnoreCase ("$PatchName"))
+			// check for meta parameter!
+			MetaParameters	mp = MetaParameters.getInstance ();
+			
+			List<String>	patchParameterNames = mp.get (parameterName);
+			
+			if (patchParameterNames == null)
 			{
-				if (control instanceof JTextField)
+				// saves us an instantiation for every parameter sent
+				patchParameterNames = this.singleParameterList;
+				
+				if (patchParameterNames.size () == 0)
 				{
-					JTextField	textField = (JTextField) control;
-					textField.setText (this.patch.getName ());
+					patchParameterNames.add (parameterName);
+				}
+				else
+				{
+					patchParameterNames.set (0, parameterName);
 				}
 			}
-			else
+
+			// remember only do the first value
+			// as the list of parameters might/will have different values
+			if (patchParameterNames.size () > 0)
 			{
-				int	value = 0;
-				
-				try
-				{
-					value = this.patch.getParameterValue (parameterName);
-	
-					if (control instanceof JSlider)
-					{
-						JSlider	slider = (JSlider) control;
-						slider.setValue (value);
-	
-						JLabel	valueLabel = this.componentToLabelMap.get (control);
-						
-						if (valueLabel != null)
-						{
-							valueLabel.setText (Integer.toString (value));
-						}
-					}
-					else
-					if (control instanceof JComboBox)
-					{
-						try
-						{
-							JComboBox	popup = (JComboBox) control;
-							popup.setSelectedIndex (value);
-						}
-						catch (Exception inException)
-						{
-System.err.println ("error setting popup of parameter " + parameterName);
-System.err.println (inException);
-						}
-					}
-					else
-					if (control instanceof JCheckBox)
-					{
-						JCheckBox	checkbox = (JCheckBox) control;
-						checkbox.setSelected (value != 0);
-					}
-					else
-					if (control instanceof CustomControl)
-					{
-						CustomControl	customControl = (CustomControl) control;
-						customControl.updateFromPatch ();
-					}
-				}
-				catch (VSException inException)
-				{
-System.err.println (inException);
-				}
+				copyParameterToControl (patchParameterNames.get (0), control);
 			}
 		}
 	}

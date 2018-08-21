@@ -780,7 +780,6 @@ inException.printStackTrace (System.err);
 			}
 			catch (Exception inException)
 			{
-inException.printStackTrace (System.err);
 				ControlWindow.showErrorDialog ("Error", inException);
 			}
 		}

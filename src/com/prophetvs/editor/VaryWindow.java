@@ -177,7 +177,7 @@ public class VaryWindow
 				}
 				catch (Throwable inThrowable)
 				{
-					ControlWindow.showErrorDialog ("Error", inThrowable.toString ());
+					ControlWindow.showErrorDialog ("Error", inThrowable);
 				}
 			}
 		}

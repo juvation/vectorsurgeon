@@ -90,8 +90,7 @@ public class VaryPanel
 		}
 		catch (Throwable inThrowable)
 		{
-inThrowable.printStackTrace (System.err);
-			ControlWindow.showErrorDialog ("Error", inThrowable.toString ());
+			ControlWindow.showErrorDialog ("Error", inThrowable);
 		}
 	}
 	
@@ -131,8 +130,7 @@ inThrowable.printStackTrace (System.err);
 			}
 			catch (Throwable inThrowable)
 			{
-inThrowable.printStackTrace (System.err);
-				ControlWindow.showErrorDialog ("Error", inThrowable.toString ());
+				ControlWindow.showErrorDialog ("Error", inThrowable);
 			}
 		}
 		else
