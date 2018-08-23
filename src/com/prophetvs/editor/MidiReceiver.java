@@ -13,6 +13,7 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
+import javax.swing.SwingUtilities;
 
 // CLASS
 
@@ -140,6 +141,11 @@ inThrowable.printStackTrace (System.err);
 				{
 					handleControlChange (shortMessage);
 				}
+				else
+				if (shortMessage.getCommand () == ShortMessage.PROGRAM_CHANGE)
+				{
+					handleProgramChange (shortMessage);
+				}
 			}
 			else
 			if (this.device == this.midiHost.getMidiThruDevice ())
@@ -148,6 +154,11 @@ inThrowable.printStackTrace (System.err);
 				{
 					this.midiHost.sendMidiControlChange
 						(shortMessage.getData1 (), shortMessage.getData2 ());
+				}
+				else
+				if (shortMessage.getCommand () == ShortMessage.PROGRAM_CHANGE)
+				{
+					handleProgramChange (shortMessage);
 				}
 				else
 				if (shortMessage.getCommand () == ShortMessage.CHANNEL_PRESSURE)
@@ -242,6 +253,31 @@ inThrowable.printStackTrace (System.err);
 		else
 		{
 			this.midiHost.sendMidiNoteOn (inMessage.getData1 (), inMessage.getData2 ());
+		}
+	}
+	
+	private void
+	handleProgramChange (ShortMessage inMessage)
+	{
+		// see what we're doing here
+		int	patchNumber = inMessage.getData1 ();
+		
+		ControlWindow	controlWindow = ControlWindow.getInstance ();
+		BankWindow	bankWindow = controlWindow.getBankWindowInProphet ();
+		
+		if (bankWindow != null)
+		{
+			// we are in the MIDI thread so defer to the UI thread
+			RunnableTryOpenPatchWindow	runnable = new RunnableTryOpenPatchWindow (bankWindow, patchNumber);
+			
+			try
+			{
+				SwingUtilities.invokeAndWait (runnable);
+			}
+			catch (Exception inException)
+			{
+				System.err.println (inException);
+			}
 		}
 	}
 	

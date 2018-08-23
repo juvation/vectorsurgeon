@@ -716,7 +716,7 @@ System.err.println (inException);
 				this.patch.setParameterValue (inParameterName, inParameterValue);
 			
 				// generate the MIDI messages to update the Prophet
-				byte[][]	messages = Machine.makeParameterChangeMessage
+				MidiMessage[]	messages = Machine.makeParameterChangeMessage
 					(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
 				
 				// and send them

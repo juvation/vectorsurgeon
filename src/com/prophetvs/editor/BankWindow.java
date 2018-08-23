@@ -609,44 +609,14 @@ System.err.println (inException);
 	{
 		if (inEvent.getClickCount () == 2)
 		{
-			ControlWindow	controlWindow = ControlWindow.getInstance ();
+			int row = this.table.rowAtPoint (inEvent.getPoint ());
+			int column = this.table.columnAtPoint (inEvent.getPoint ());
 
-			if (controlWindow.getPatchWindow () != null)
+			if (row != -1 && column != -1)
 			{
-				// close the patch window - will confirm write if dirty
-				PatchWindow	patchWindow = controlWindow.getPatchWindow ();
-				
-				// this sets the control window's patch window to null
-				// which we'll check for in a second
-				patchWindow.setVisible (false);
-			}
+				int	patchNumber = (row * kTableColumnCount) + column;
 
-			if (controlWindow.getPatchWindow () == null)
-			{
-				if (! this.bankInProphet)
-				{
-					// allow the user to override our flag
-					int	response = ControlWindow.showConfirmDialog
-						("Confirm", "This bank is not in the Prophet. OK to open patch editing windows anyway?");
-					
-					if (response == JOptionPane.YES_OPTION)
-					{
-						setBankInProphet (true);
-					}
-				}
-				
-				if (this.bankInProphet)
-				{
-					int row = this.table.rowAtPoint (inEvent.getPoint ());
-					int column = this.table.columnAtPoint (inEvent.getPoint ());
-		
-					if (row != -1 && column != -1)
-					{
-						int	patchNumber = (row * kTableColumnCount) + column;
-						
-						openPatchWindow (patchNumber);
-					}
-				}
+				tryOpenPatchWindow (patchNumber);
 			}
 		}
 	}
@@ -672,6 +642,48 @@ System.err.println (inException);
 	}
 
 	// PUBLIC METHODS
+	
+	public boolean
+	isBankInProphet ()
+	{
+		return this.isBankInProphet;
+	}
+	
+	public void
+	tryOpenPatchWindow (int inPatchNumber)
+	{
+		ControlWindow	controlWindow = ControlWindow.getInstance ();
+
+		if (controlWindow.getPatchWindow () != null)
+		{
+			// close the patch window - will confirm write if dirty
+			PatchWindow	patchWindow = controlWindow.getPatchWindow ();
+			
+			// this sets the control window's patch window to null
+			// which we'll check for in a second
+			patchWindow.setVisible (false);
+		}
+
+		if (controlWindow.getPatchWindow () == null)
+		{
+			if (! this.isBankInProphet)
+			{
+				// allow the user to override our flag
+				int	response = ControlWindow.showConfirmDialog
+					("Confirm", "This bank is not in the Prophet. OK to open patch editing windows anyway?");
+				
+				if (response == JOptionPane.YES_OPTION)
+				{
+					setBankInProphet (true);
+				}
+			}
+			
+			if (this.isBankInProphet)
+			{
+				openPatchWindow (inPatchNumber);
+			}
+		}
+	}
 	
 	public void
 	setBankInProphet (boolean inBankInProphet)
@@ -705,7 +717,7 @@ System.err.println (inException);
 			this.statusLabel.setForeground (Color.red);
 		}
 		
-		this.bankInProphet = inBankInProphet;
+		this.isBankInProphet = inBankInProphet;
 	}
 	
 	public void
@@ -905,7 +917,7 @@ inException.printStackTrace (System.err);
 	// PRIVATE DATA
 
 	private boolean
-	bankInProphet = false;
+	isBankInProphet = false;
 	
 	private Bank
 	bank = null;
@@ -947,7 +959,7 @@ inException.printStackTrace (System.err);
 
 			if (controlWindow.getPatchWindow () == null)
 			{
-				if (! BankWindow.this.bankInProphet)
+				if (! BankWindow.this.isBankInProphet)
 				{
 					// allow the user to override our flag
 					int	response = ControlWindow.showConfirmDialog
@@ -959,7 +971,7 @@ inException.printStackTrace (System.err);
 					}
 				}
 				
-				if (BankWindow.this.bankInProphet)
+				if (BankWindow.this.isBankInProphet)
 				{
 					int	row = BankWindow.this.table.getSelectedRow ();
 					int	column = BankWindow.this.table.getSelectedColumn ();

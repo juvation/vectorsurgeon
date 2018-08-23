@@ -755,6 +755,33 @@ public class ControlWindow
 
 	// PUBLIC METHODS
 
+	public BankWindow
+	getBankWindowInProphet ()
+	{
+		BankWindow	bankWindow = null;
+		
+		Frame[]	frames = Frame.getFrames ();
+		
+		for (int i = 0; i < frames.length; i++)
+		{
+			Frame	frame = frames [i];
+			
+			if (frame.isVisible () && frame instanceof BankWindow)
+			{
+				bankWindow = (BankWindow) frame;
+				
+				if (bankWindow.isBankInProphet ())
+				{
+					break;
+				}
+				
+				bankWindow = null;
+			}
+		}
+		
+		return bankWindow;
+	}
+	
 	public Document
 	getDocument ()
 	{

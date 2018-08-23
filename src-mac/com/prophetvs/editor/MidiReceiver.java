@@ -6,6 +6,8 @@ package com.prophetvs.editor;
 
 // IMPORTS
 
+import javax.swing.SwingUtilities;
+
 // use MMJ on Mac, thanks to idiotic Apple
 import de.humatic.mmj.MidiInput;
 import de.humatic.mmj.MidiOutput;
@@ -85,6 +87,11 @@ inThrowable.printStackTrace (System.err);
 				{
 					handleControlChange (inMessage);
 				}
+				else
+				if (command == 0xc0)
+				{
+					handleProgramChange (inMessage);
+				}
 			}
 			else
 			if (this.input == this.midiHost.getMidiThruDevice ())
@@ -92,6 +99,13 @@ inThrowable.printStackTrace (System.err);
 				if (command == 0xb0)
 				{
 					this.midiHost.sendMidiControlChange (inMessage [1], inMessage [2]);
+				}
+				else
+				if (command == 0xc0)
+				{
+					// program change from the controller
+					// should do the same as if we received it from the VS itself
+					handleProgramChange (inMessage);
 				}
 				else
 				if (command == 0xd0)
@@ -185,6 +199,30 @@ inThrowable.printStackTrace (System.err);
 		else
 		{
 			this.midiHost.sendMidiNoteOn (inMessage [1], inMessage [2]);
+		}
+	}
+	
+	private void
+	handleProgramChange (byte[] inMessage)
+	{
+		int	patchNumber = (int) inMessage [1];
+		
+		ControlWindow	controlWindow = ControlWindow.getInstance ();
+		BankWindow	bankWindow = controlWindow.getBankWindowInProphet ();
+		
+		if (bankWindow != null)
+		{
+			// we are in the MIDI thread so defer to the UI thread
+			RunnableTryOpenPatchWindow	runnable = new RunnableTryOpenPatchWindow (bankWindow, patchNumber);
+			
+			try
+			{
+				SwingUtilities.invokeAndWait (runnable);
+			}
+			catch (Exception inException)
+			{
+				System.err.println (inException);
+			}
 		}
 	}
 	

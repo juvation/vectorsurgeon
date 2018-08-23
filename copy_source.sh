@@ -15,6 +15,7 @@ cp src-mac/com/prophetvs/editor/PatchNumberTransform.java src/com/prophetvs/edit
 cp src-mac/com/prophetvs/editor/RandomTransform.java src/com/prophetvs/editor/RandomTransform.java
 cp src-mac/com/prophetvs/editor/RawFile.java src/com/prophetvs/editor/RawFile.java
 cp src-mac/com/prophetvs/editor/ROMPatchNumberTransform.java src/com/prophetvs/editor/ROMPatchNumberTransform.java
+cp src-mac/com/prophetvs/editor/RunnableTryOpenPatchWindow.java src/com/prophetvs/editor/RunnableTryOpenPatchWindow.java
 cp src-mac/com/prophetvs/editor/SetTransform.java src/com/prophetvs/editor/SetTransform.java
 cp src-mac/com/prophetvs/editor/TransferablePatch.java src/com/prophetvs/editor/TransferablePatch.java
 cp src-mac/com/prophetvs/editor/TransferableWave.java src/com/prophetvs/editor/TransferableWave.java
