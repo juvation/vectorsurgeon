@@ -308,6 +308,8 @@ public class PatchWindow
 	{
 		String	actionCommand = inEvent.getActionCommand ();
 		
+// System.err.println ("PatchWindow.actionPerformed(" + actionCommand + ")");
+		
 		if (actionCommand.equals ("PARAMETER_POPUP"))
 		{
 			JComboBox	popup = (JComboBox) inEvent.getSource ();
@@ -706,40 +708,33 @@ System.err.println (inException);
 			
 			List<String>	patchParameterNames = mp.get (inParameterName);
 			
-			boolean	meta = patchParameterNames != null;
-			
-			if (! meta)
+			if (patchParameterNames == null)
 			{
-				// saves us an instantiation for every parameter sent
-				patchParameterNames = this.singleParameterList;
-				
-				if (patchParameterNames.size () == 0)
-				{
-					patchParameterNames.add (inParameterName);
-				}
-				else
-				{
-					patchParameterNames.set (0, inParameterName);
-				}
-			}
-			
-			for (int i = 0; i < patchParameterNames.size (); i++)
-			{
-				String	patchParameterName = patchParameterNames.get (i);
+				// regular parameter
 
 				// make the change in our patch
-				this.patch.setParameterValue (patchParameterName, inParameterValue);
+				this.patch.setParameterValue (inParameterName, inParameterValue);
 			
 				// generate the MIDI messages to update the Prophet
 				byte[][]	messages = Machine.makeParameterChangeMessage
-					(ControlWindow.getInstance ().getMidiChannel0 (), patchParameterName, inParameterValue);
+					(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
 				
 				// and send them
 				ControlWindow.getInstance ().sendMidiMessages (messages);
+			}
+			else
+			{
+				// meta parameter(s)
 				
-				// and update the clients of the meta
-				if (meta)
+				for (int i = 0; i < patchParameterNames.size (); i++)
 				{
+					String	patchParameterName = patchParameterNames.get (i);
+					
+					// make the change in our patch
+					this.patch.setParameterValue (patchParameterName, inParameterValue);
+
+					// the change handlers on the JComponents
+					// will update the patch and send the parameter change messages
 					JComponent	control = this.nameToComponentMap.get (patchParameterName);
 					copyParameterToControl (patchParameterName, control);
 				}
