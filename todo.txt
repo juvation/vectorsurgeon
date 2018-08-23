@@ -1,6 +1,7 @@
 
-
 DONE
+
+don't send parameter changes twice when setting meta values -- can just send from the update listeners!
 
 PENDING
 
@@ -8,5 +9,4 @@ TODO
 
 name to component map should be a list, as there can be duplicate components in patch window!
 more meta parameters - envelope stages, etc
-don't send parameter changes twice when setting meta values -- can just send from the update listeners!
 
