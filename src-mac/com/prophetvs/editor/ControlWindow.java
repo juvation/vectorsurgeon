@@ -1076,12 +1076,12 @@ public class ControlWindow
 	private void
 	openMidi ()
 	{
-System.err.println ("openMidi() called");
+// System.err.println ("openMidi() called");
 
 		// build our device lists
 		this.midiInputList = new ArrayList<MidiInput> ();
 
-System.err.println ("system has " + MidiSystem.getNumberOfInputs () + " inputs");
+// System.err.println ("system has " + MidiSystem.getNumberOfInputs () + " inputs");
 
 		for (int i = 0; i < MidiSystem.getNumberOfInputs (); i++)
 		{
@@ -1089,13 +1089,13 @@ System.err.println ("system has " + MidiSystem.getNumberOfInputs () + " inputs")
 			{
 				MidiInput	input = MidiSystem.openMidiInput (i);
 
-System.err.println ("found input: " + input.getName ());
+// System.err.println ("found input: " + input.getName ());
 				
 				this.midiInputList.add (input);
 				
 				input.addMidiListener (new MidiReceiver (input, this));
 
-System.err.println ("added listener for input: " + input.getName ());
+// System.err.println ("added listener for input: " + input.getName ());
 			}
 			catch (Throwable inThrowable)
 			{
@@ -1105,7 +1105,7 @@ System.err.println (inThrowable);
 
 		this.midiOutputList = new ArrayList<MidiOutput> ();
 
-System.err.println ("system has " + MidiSystem.getNumberOfOutputs () + " outputs");
+// System.err.println ("system has " + MidiSystem.getNumberOfOutputs () + " outputs");
 
 		for (int i = 0; i < MidiSystem.getNumberOfOutputs (); i++)
 		{
@@ -1113,7 +1113,7 @@ System.err.println ("system has " + MidiSystem.getNumberOfOutputs () + " outputs
 			{
 				MidiOutput	output = MidiSystem.openMidiOutput (i);
 				
-System.err.println ("found output: " + output.getName ());
+// System.err.println ("found output: " + output.getName ());
 				
 				this.midiOutputList.add (output);
 			}
