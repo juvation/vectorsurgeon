@@ -11,27 +11,45 @@ public class PatchNames
 	{
 		byte[]	buffer = new byte [16405];
 		int	cc = 0;
-		FileInputStream	fis = new FileInputStream (inArgs [0]);
-
-		cc = fis.read (buffer);
 		
-		if (cc == 16405)
+		FileInputStream	fis = null;
+		
+		for (int i = 0; i < inArgs.length; i++)
 		{
-			Bank	bank = new Bank (buffer);
+			String	fileName = inArgs [i];
 			
-			String[]	names = bank.getPatchNames ();
-			
-			for (String name : names)
+			try
 			{
-				System.out.println (name);
+				fis = new FileInputStream (fileName);
+
+				cc = fis.read (buffer);
+				
+				if (cc == 16405)
+				{
+					Bank	bank = new Bank (buffer);
+					
+					String[]	names = bank.getPatchNames ();
+					
+					for (String name : names)
+					{
+						System.out.println (fileName + " -- " + name);
+					}
+				}
+				else
+				{
+					// probably a waves dump or something, ignore
+					// System.err.println ("bad read length from file: " + fileName);
+				}
+			}
+			catch (Exception inException)
+			{
+				System.err.println (inException);
+			}
+			finally
+			{
+				fis.close ();
 			}
 		}
-		else
-		{
-			System.err.println ("bad read length from file: " + cc);
-		}
-
-
 	}
 
 }
