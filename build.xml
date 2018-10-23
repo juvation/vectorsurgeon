@@ -32,7 +32,25 @@
 	/>
 	
 	<target
+		name="build"
+		depends="deploy"
+		>
+	</target>
+	
+	<target
+		name="clean"
+		>
+		<delete
+			dir="${classes.dir}"
+		/>
+		<delete
+			file="vs.jar"
+		/>
+	</target>
+
+	<target
 		name="init"
+		depends="clean"
 		>
 		<mkdir
 			dir="${build.dir}"
@@ -40,102 +58,85 @@
 		<mkdir
 			dir="${classes.dir}"
 		/>
+		<mkdir
+			dir="${classes.dir}/META-INF"
+		/>
 	</target>
 
 	<target
-		name="build"
+		name="libext"
 		>
-		<antcall
-			target="clean"
-		/>
-		<antcall
-			target="init"
-		/>
-		<antcall
-			target="compile"
-		/>
-		<antcall
-			target="jar"
-		/>
-		<antcall
-				target="deploy"
-			/>
-		</target>
-		
-		<target
-			name="clean"
-			>
-			<delete
-				dir="${classes.dir}"
-			/>
-			<delete
-				file="vs.jar"
-			/>
-		</target>
+	</target>
 
-		<target
-			name="libext"
+	<target
+		name="compile"
+		depends="init"
+		>
+		<javac
+			srcdir="${java.src.dir}"
+			destdir="${classes.dir}"
+			debug="on"
+			source="1.5"
+			target="1.5"
+			deprecation="on"
+			includeantruntime="false"
 			>
-		</target>
+			<classpath
+				refid="project.classpath"
+			/>
+		</javac>
+	</target>
 
-		<target
-			name="compile"
-			>
-			<javac
-				srcdir="${java.src.dir}"
-				destdir="${classes.dir}"
-				debug="on"
-				source="1.5"
-				target="1.5"
-				deprecation="on"
-				>
-				<classpath
-					refid="project.classpath"
-				/>
-			</javac>
-		</target>
+	<target
+		name="jar"
+		depends="compile"
+		>
+		<copy
+			file="config/prophetvs_ui.xml"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="config/transforms.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="config/metaparameters.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_banner.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_off.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_on.gif"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="MANIFEST.MF"
+			todir="${classes.dir}/META-INF"
+			verbose="true"
+		/>
+		<jar destfile="vs.jar">
+			<fileset dir="${classes.dir}" />
+			<manifest>
+				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+			</manifest>
+		</jar>
+	</target>
 
-		<target
-			name="jar"
-			>
-			<copy
-				file="config/prophetvs_ui.xml"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<copy
-				file="config/transforms.properties"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<copy
-				file="config/metaparameters.properties"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<copy
-				file="images/vs_banner.gif"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<copy
-				file="images/vs_blue_button_off.gif"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<copy
-				file="images/vs_blue_button_on.gif"
-				todir="${classes.dir}"
-				verbose="true"
-			/>
-			<jar
-				destfile="vs.jar"
-				basedir="${classes.dir}"
-			/>
-		</target>
-
-		<target
-			name="deploy"
+	<target
+		name="deploy"
+		depends="jar"
 		>
 		<copy
 			file="vs.jar"
