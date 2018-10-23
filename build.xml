@@ -5,32 +5,13 @@
 	>
 
 	<property name="build.dir"  value="build"/>
-	<property name="classes.dir"  value="${build.dir}/classes"/>
-	<property name="java.src.dir"  value="src-mac"/>
-
-	<path
-		id="project.classpath"
-		>
-		<fileset
-			dir="lib"
-			>
-			<include
-				name="**/*.jar"
-			/>
-			<include
-				name="**/*.zip"
-			/>
-		</fileset>
-		<pathelement
-			location="${classes.dir}"
-		/>
-	</path>
-
-	<property
-		name="project.classpath.property"
-		refid="project.classpath"
-	/>
 	
+	<property name="classes.dir"  value="${build.dir}/classes"/>
+	<property name="source.dir"  value="src"/>
+
+	<property name="macclasses.dir"  value="${build.dir}/classes-mac"/>
+	<property name="macsource.dir"  value="src-mac"/>
+
 	<target
 		name="build"
 		depends="deploy"
@@ -40,6 +21,17 @@
 	<target
 		name="clean"
 		>
+		<!-- Mac -->
+
+		<delete
+			dir="${macclasses.dir}"
+		/>
+		<delete
+			file="vs-mac.jar"
+		/>
+		
+		<!-- Win/Linux -->
+		
 		<delete
 			dir="${classes.dir}"
 		/>
@@ -55,6 +47,18 @@
 		<mkdir
 			dir="${build.dir}"
 		/>
+		
+		<!-- Mac -->
+
+		<mkdir
+			dir="${macclasses.dir}"
+		/>
+		<mkdir
+			dir="${macclasses.dir}/META-INF"
+		/>
+		
+		<!-- Win/Linux -->
+		
 		<mkdir
 			dir="${classes.dir}"
 		/>
@@ -72,8 +76,24 @@
 		name="compile"
 		depends="init"
 		>
+		
+		<!-- Mac -->
+		
 		<javac
-			srcdir="${java.src.dir}"
+			srcdir="${macsource.dir}"
+			destdir="${macclasses.dir}"
+			debug="on"
+			source="1.5"
+			target="1.5"
+			deprecation="on"
+			includeantruntime="false"
+			>
+		</javac>
+
+		<!-- Win/Linux -->
+		
+		<javac
+			srcdir="${source.dir}"
 			destdir="${classes.dir}"
 			debug="on"
 			source="1.5"
@@ -81,9 +101,6 @@
 			deprecation="on"
 			includeantruntime="false"
 			>
-			<classpath
-				refid="project.classpath"
-			/>
 		</javac>
 	</target>
 
@@ -91,6 +108,54 @@
 		name="jar"
 		depends="compile"
 		>
+		
+		<!-- Mac -->
+
+		<copy
+			file="config/prophetvs_ui.xml"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="config/transforms.properties"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="config/metaparameters.properties"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_banner.gif"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_off.gif"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="images/vs_blue_button_on.gif"
+			todir="${macclasses.dir}"
+			verbose="true"
+		/>
+		<copy
+			file="MANIFEST.MF"
+			todir="${macclasses.dir}/META-INF"
+			verbose="true"
+		/>
+		
+		<jar destfile="vs-mac.jar">
+			<fileset dir="${macclasses.dir}" />
+			<manifest>
+				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+			</manifest>
+		</jar>
+		
+		<!-- Win/Linux -->
+		
 		<copy
 			file="config/prophetvs_ui.xml"
 			todir="${classes.dir}"
@@ -126,6 +191,7 @@
 			todir="${classes.dir}/META-INF"
 			verbose="true"
 		/>
+		
 		<jar destfile="vs.jar">
 			<fileset dir="${classes.dir}" />
 			<manifest>
@@ -139,18 +205,18 @@
 		depends="jar"
 		>
 		<copy
-			file="vs.jar"
-			todir="mac/VectorSurgeon.app/Contents/Resources/Java/"
+			file="vs-mac.jar"
+			tofile="mac/VectorSurgeon.app/Contents/Resources/Java/vs.jar"
 			verbose="true"
 		/>
 		<copy
-			file="vs.jar"
-			todir="mac/VSControlMapper.app/Contents/Resources/Java/"
+			file="vs-mac.jar"
+			tofile="mac/VSControlMapper.app/Contents/Resources/Java/vs.jar"
 			verbose="true"
 		/>
 		<copy
-			file="vs.jar"
-			todir="mac-old/VectorSurgeon.app/Contents/Resources/Java/"
+			file="vs-mac.jar"
+			tofile="mac-old/VectorSurgeon.app/Contents/Resources/Java/vs.jar"
 			verbose="true"
 		/>
 		<copy
@@ -175,7 +241,7 @@
 				refid="project.classpath"
 			/>
 			<packageset
-				dir="${java.src.dir}"
+				dir="${source.dir}"
 				defaultexcludes="yes"
 				>
 				<include
