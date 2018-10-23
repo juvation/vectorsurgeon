@@ -451,6 +451,7 @@ public class ControlWindow
 		
 		JPanel	blurbPanel = new JPanel ();
 		blurbPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		blurbPanel.setBackground (Color.BLACK);
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
