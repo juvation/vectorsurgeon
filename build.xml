@@ -14,7 +14,7 @@
 
 	<target
 		name="build"
-		depends="deploy"
+		depends="jar"
 		>
 	</target>
 	
@@ -198,32 +198,6 @@
 				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
 			</manifest>
 		</jar>
-	</target>
-
-	<target
-		name="deploy"
-		depends="jar"
-		>
-		<copy
-			file="vs-mac.jar"
-			tofile="mac/VectorSurgeon.app/Contents/Resources/Java/vs.jar"
-			verbose="true"
-		/>
-		<copy
-			file="vs-mac.jar"
-			tofile="mac/VSControlMapper.app/Contents/Resources/Java/vs.jar"
-			verbose="true"
-		/>
-		<copy
-			file="vs-mac.jar"
-			tofile="mac-old/VectorSurgeon.app/Contents/Resources/Java/vs.jar"
-			verbose="true"
-		/>
-		<copy
-			file="vs.jar"
-			todir="windows"
-			verbose="true"
-		/>
 	</target>
 
 	<target name="javadoc">
