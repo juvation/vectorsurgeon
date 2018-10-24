@@ -601,6 +601,114 @@
 		</horizontalbox>
 	</page>
 	
+	<!-- output page -->
+
+	<page
+		name="Amplifier Envelope"
+		>
+		<horizontalbox>
+			<horizontalcenter>
+				<horizontalbox
+					name="Amplifier Envelope"
+					>
+					<custom
+						class="com.prophetvs.editor.AmpEnvelopeControl"
+						width="600"
+						height="200"
+						rateparameter1="AmpEnvRate1"
+						rateparameter2="AmpEnvRate2"
+						rateparameter3="AmpEnvRate3"
+						rateparameter4="AmpEnvRate4"
+						levelparameter0="AmpEnvLevel0"
+						levelparameter1="AmpEnvLevel1"
+						levelparameter2="AmpEnvLevel2"
+						levelparameter3="AmpEnvLevel3"
+						label="Amplifier Envelope"
+					/>
+					<!--
+					<slider
+						label="Initial Level"
+						parameter="AmpEnvLevel0"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Attack"
+						parameter="AmpEnvRate1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Attack Level"
+						parameter="AmpEnvLevel1"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Hold"
+						parameter="AmpEnvRate2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Post-Hold Level"
+						parameter="AmpEnvLevel2"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Decay"
+						parameter="AmpEnvRate3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Sustain"
+						parameter="AmpEnvLevel3"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<slider
+						label="Release"
+						parameter="AmpEnvRate4"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					-->
+					<slider
+						label="Pedal Release"
+						parameter="AmpEnvRate4A"
+						min="0"
+						max="99"
+						majortick="10"
+					/>
+					<verticalcenter>
+						<verticalbox>
+							<popup
+								label="Loop"
+								parameter="AmpEnvLoop"
+								valueref="envelope_loop_names"
+							/>
+							<popup
+								label="Repeats"
+								parameter="AmpEnvRepeat"
+								valueref="envelope_loop_iterations"
+							/>
+						</verticalbox>
+					</verticalcenter>
+				</horizontalbox>
+			</horizontalcenter>
+		</horizontalbox>
+	</page>
+	
 	<!-- LFOs page -->
 
 	<page
@@ -1039,114 +1147,6 @@
 							<checkbox
 								label="Filter Envelope"
 								parameter="FilterEnvPanMod"
-							/>
-						</verticalbox>
-					</verticalcenter>
-				</horizontalbox>
-			</horizontalcenter>
-		</horizontalbox>
-	</page>
-	
-	<!-- output page -->
-
-	<page
-		name="Amplifier Envelope"
-		>
-		<horizontalbox>
-			<horizontalcenter>
-				<horizontalbox
-					name="Amplifier Envelope"
-					>
-					<custom
-						class="com.prophetvs.editor.AmpEnvelopeControl"
-						width="600"
-						height="200"
-						rateparameter1="AmpEnvRate1"
-						rateparameter2="AmpEnvRate2"
-						rateparameter3="AmpEnvRate3"
-						rateparameter4="AmpEnvRate4"
-						levelparameter0="AmpEnvLevel0"
-						levelparameter1="AmpEnvLevel1"
-						levelparameter2="AmpEnvLevel2"
-						levelparameter3="AmpEnvLevel3"
-						label="Amplifier Envelope"
-					/>
-					<!--
-					<slider
-						label="Initial Level"
-						parameter="AmpEnvLevel0"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Attack"
-						parameter="AmpEnvRate1"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Post-Attack Level"
-						parameter="AmpEnvLevel1"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Hold"
-						parameter="AmpEnvRate2"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Post-Hold Level"
-						parameter="AmpEnvLevel2"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Decay"
-						parameter="AmpEnvRate3"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Sustain"
-						parameter="AmpEnvLevel3"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Release"
-						parameter="AmpEnvRate4"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<slider
-						label="Pedal Release"
-						parameter="AmpEnvRate4A"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<verticalcenter>
-						<verticalbox>
-							<popup
-								label="Loop"
-								parameter="AmpEnvLoop"
-								valueref="envelope_loop_names"
-							/>
-							<popup
-								label="Repeats"
-								parameter="AmpEnvRepeat"
-								valueref="envelope_loop_iterations"
 							/>
 						</verticalbox>
 					</verticalcenter>
