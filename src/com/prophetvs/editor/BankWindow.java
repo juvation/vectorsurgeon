@@ -408,8 +408,7 @@ public class BankWindow
 				{
 					try
 					{
-						ControlWindow.getInstance ().sendMidiMessage
-							(Machine.makePatchDumpMessage (patch));
+						ControlWindow.getInstance ().sendPatchDumpMessage (patch);
 					}
 					catch (Exception inException)
 					{
@@ -758,7 +757,7 @@ System.err.println (inException);
 		try
 		{
 			// enable all MIDI parameter options
-			ControlWindow.getInstance ().sendMidiMessage (Machine.makeEnableParametersMessage ());
+			ControlWindow.getInstance ().sendEnableParametersMessage ();
 			
 			// change to the right patch
 			ControlWindow.getInstance ().sendMidiProgramChange (inPatchNumber);

@@ -1376,6 +1376,13 @@ System.err.println (inThrowable);
 	}
 	
 	public void
+	sendEnableParametersMessage ()
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeEnableParametersMessage ());
+	}
+	
+	public void
 	sendMidiAllNotesOff ()
 	{
 		for (int i = 0; i < this.midiHeldNotes.length; i++)

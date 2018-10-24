@@ -1237,6 +1237,13 @@ System.err.println (inThrowable);
 	{
 		sendMidiMessage (Machine.makeBankDumpMessage (inBank));
 	}
+
+	public void
+	sendEnableParametersMessage ()
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeEnableParametersMessage ());
+	}
 	
 	public void
 	sendMidiAllNotesOff ()

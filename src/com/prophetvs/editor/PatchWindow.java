@@ -565,6 +565,8 @@ public class PatchWindow
 			// will update the patch (again) and send the parameter change messages
 			JComponent	control = this.nameToComponentMap.get (inParameterName);
 			copyParameterToControl (inParameterName, control);
+			
+			setPatchModified (true);
 		}
 		catch (Exception inException)
 		{
