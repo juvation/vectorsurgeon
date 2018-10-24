@@ -965,6 +965,7 @@ public class ControlWindow
 
 		JPanel	buttonIconPanel = new JPanel ();
 		buttonIconPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		buttonIconPanel.setBackground (Color.BLACK);
 		buttonPanel.add (buttonIconPanel);
 
 		JButton	button = new JButton (this.offIcon);
@@ -979,6 +980,7 @@ public class ControlWindow
 
 		JPanel	buttonLabelPanel = new JPanel ();
 		buttonLabelPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		buttonLabelPanel.setBackground (Color.BLACK);
 		buttonPanel.add (buttonLabelPanel);
 
 		JLabel	buttonLabel = new JLabel (inLabel);
@@ -1078,6 +1080,7 @@ public class ControlWindow
 		
 		JPanel	panel = new JPanel ();
 		panel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		panel.setBackground (Color.BLACK);
 		
 		// MIDI INPUT DEVICE
 		
