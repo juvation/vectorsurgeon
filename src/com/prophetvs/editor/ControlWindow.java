@@ -414,13 +414,14 @@ public class ControlWindow
 		
 		getContentPane ().setLayout (new BoxLayout (getContentPane (), BoxLayout.Y_AXIS));
 
-		setBackground (Color.black);
-		setForeground (Color.white);
+		setBackground (Color.BLACK);
+		setForeground (Color.WHITE);
 
 		// BANNER
 
 		JPanel	bannerPanel = new JPanel ();
 		bannerPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
+		bannerPanel.setBackground (Color.BLACK);
 		getContentPane ().add (bannerPanel);
 
 		ImageIcon	bannerIcon = new ImageIcon (getResource ("vs_banner.gif"));
@@ -431,6 +432,7 @@ public class ControlWindow
 
 		JPanel	buttonPanel = new JPanel ();
 		buttonPanel.setLayout (new BoxLayout (buttonPanel, BoxLayout.X_AXIS));
+		buttonPanel.setBackground (Color.BLACK);
 		getContentPane ().add (buttonPanel);
 
 		createButtonWithLabel ("Open File...", "OPEN", buttonPanel);
@@ -456,8 +458,8 @@ public class ControlWindow
 		
 		JLabel	blurbLabel = new JLabel
 			("Version 1.1.6 - Copyright 2018 Jason Proctor <jason@redfish.net>");
-		blurbLabel.setForeground (Color.white);
-		blurbLabel.setBackground (Color.black);
+		blurbLabel.setForeground (Color.WHITE);
+		blurbLabel.setBackground (Color.BLACK);
 		blurbLabel.setFont (this.labelFont);
 		blurbPanel.add (blurbLabel);
 		

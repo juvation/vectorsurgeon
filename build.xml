@@ -77,19 +77,6 @@
 		depends="init"
 		>
 		
-		<!-- Mac -->
-		
-		<javac
-			srcdir="${macsource.dir}"
-			destdir="${macclasses.dir}"
-			debug="on"
-			source="1.5"
-			target="1.5"
-			deprecation="on"
-			includeantruntime="false"
-			>
-		</javac>
-
 		<!-- Win/Linux -->
 		
 		<javac
@@ -102,57 +89,28 @@
 			includeantruntime="false"
 			>
 		</javac>
+
+		<!-- compile the Mac later so our class files are newer -->
+		<!-- ensure to include the generic class dir in the path sigh -->
+		
+		<javac
+			srcdir="${macsource.dir}"
+			destdir="${macclasses.dir}"
+			classpath="${classes.dir}"
+			debug="on"
+			source="1.5"
+			target="1.5"
+			deprecation="on"
+			includeantruntime="false"
+			>
+		</javac>
+
 	</target>
 
 	<target
 		name="jar"
 		depends="compile"
 		>
-		
-		<!-- Mac -->
-
-		<copy
-			file="config/prophetvs_ui.xml"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="config/transforms.properties"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="config/metaparameters.properties"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_banner.gif"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_blue_button_off.gif"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_blue_button_on.gif"
-			todir="${macclasses.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="MANIFEST.MF"
-			todir="${macclasses.dir}/META-INF"
-			verbose="true"
-		/>
-		
-		<jar destfile="vs-mac.jar">
-			<fileset dir="${macclasses.dir}" />
-			<manifest>
-				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
-			</manifest>
-		</jar>
 		
 		<!-- Win/Linux -->
 		
@@ -198,6 +156,25 @@
 				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
 			</manifest>
 		</jar>
+		
+		<!-- remake the jar with the Mac specific files excluded -->
+		<!-- because Ant WILL NOT update files in a jar for some reason -->
+		<!-- le fucking sigh -->
+		
+		<jar destfile="vs-mac.jar">
+			<fileset dir="${classes.dir}" excludesfile="mac-excludes.txt"/>
+			<manifest>
+				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+			</manifest>
+		</jar>
+		
+		<jar destfile="vs-mac.jar" update="true">
+			<fileset dir="${macclasses.dir}" />
+			<manifest>
+				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+			</manifest>
+		</jar>
+		
 	</target>
 
 	<target name="javadoc">

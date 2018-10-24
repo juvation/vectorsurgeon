@@ -1,0 +1,4 @@
+com/prophetvs/editor/ControlWindow.class
+com/prophetvs/editor/Machine.class
+com/prophetvs/editor/MidiHost.class
+com/prophetvs/editor/MidiReceiver.class
