@@ -918,24 +918,16 @@ System.err.println (inException);
 			
 			if (patchParameterNames == null)
 			{
-				// saves us an instantiation for every parameter sent
-				patchParameterNames = this.singleParameterList;
-				
-				if (patchParameterNames.size () == 0)
-				{
-					patchParameterNames.add (parameterName);
-				}
-				else
-				{
-					patchParameterNames.set (0, parameterName);
-				}
+				copyParameterToControl (parameterName, control);
 			}
-
-			// remember only do the first value
-			// as the list of parameters might/will have different values
-			if (patchParameterNames.size () > 0)
+			else
 			{
-				copyParameterToControl (patchParameterNames.get (0), control);
+				// remember only do the first value
+				// as the list of parameters might/will have different values
+				if (patchParameterNames.size () > 0)
+				{
+					copyParameterToControl (patchParameterNames.get (0), control);
+				}
 			}
 		}
 	}
@@ -1382,9 +1374,6 @@ System.err.println (inException);
 	
 	private JTabbedPane
 	tabbedPane = null;
-	
-	private List<String>
-	singleParameterList = new ArrayList<String> ();
 	
 	private Map<JComponent, String>
 	componentToNameMap = new HashMap<JComponent, String> ();
