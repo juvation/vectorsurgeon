@@ -1248,7 +1248,7 @@ System.err.println (inThrowable);
 	{
 		try
 		{
-			sendMidiMessage (0xd0, inPressure);
+			sendMidiMessage (0xd0 | this.midiChannel0, inPressure);
 		}
 		catch (Throwable inThrowable)
 		{
@@ -1261,7 +1261,7 @@ System.err.println (inThrowable);
 	{
 		try
 		{
-			sendMidiMessage (0xb0, inControlNumber, inControlValue);
+			sendMidiMessage (0xb0 | this.midiChannel0, inControlNumber, inControlValue);
 		}
 		catch (Throwable inThrowable)
 		{
@@ -1316,7 +1316,7 @@ System.err.println (inThrowable);
 	{
 		try
 		{
-			sendMidiMessage (0xe0, inLSB, inMSB);
+			sendMidiMessage (0xe0 | this.midiChannel0, inLSB, inMSB);
 		}
 		catch (Throwable inThrowable)
 		{
@@ -1329,7 +1329,7 @@ System.err.println (inThrowable);
 	{
 		try
 		{
-			sendMidiMessage (0xc0, inPatchNumber);
+			sendMidiMessage (0xc0 | this.midiChannel0, inPatchNumber);
 		}
 		catch (Throwable inThrowable)
 		{
@@ -1359,7 +1359,7 @@ System.err.println (inThrowable);
 	{
 		try
 		{
-			sendMidiMessage (0x90, inNoteNumber, inVelocity);
+			sendMidiMessage (0x90 | this.midiChannel0, inNoteNumber, inVelocity);
 			
 			this.midiHeldNotes [inNoteNumber] = true;
 		}

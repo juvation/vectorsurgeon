@@ -7,7 +7,9 @@ PENDING
 
 TODO
 
-write joystick test app to check we have it right
+button control type which maps to a chunk of code
+controlwindow.sendmidimessages() should take note of midi channel!
 name to component map should be a list, as there can be duplicate components in patch window!
 more meta parameters - envelope stages, etc
+write joystick test app to check we have it right
 
