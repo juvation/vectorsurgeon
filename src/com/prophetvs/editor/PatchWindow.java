@@ -576,8 +576,12 @@ public class PatchWindow
 
 				// the change handlers on the JComponents
 				// will update the patch (again) and send the parameter change messages
-				JComponent	control = this.nameToComponentMap.get (inParameterName);
-				copyParameterToControl (inParameterName, control);
+				List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+				
+				for (JComponent control : controls)
+				{
+					copyParameterToControl (inParameterName, control);
+				}
 			}
 			else
 			{
@@ -591,9 +595,13 @@ public class PatchWindow
 					this.patch.setParameterValue (patchParameterName, inParameterValue);
 
 					// the change handlers on the JComponents
-					// will update the patch and send the parameter change messages
-					JComponent	control = this.nameToComponentMap.get (patchParameterName);
-					copyParameterToControl (patchParameterName, control);
+					// will update the patch (again) and send the parameter change messages
+					List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+				
+					for (JComponent control : controls)
+					{
+						copyParameterToControl (inParameterName, control);
+					}
 				}
 			}
 		}
@@ -621,13 +629,9 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 			else
 			{
 				// now look up the component for our parameter
-				JComponent	jComponent = nameToComponentMap.get (parameterName);
+				List<JComponent>	controls = nameToComponentMap.get (parameterName);
 				
-				if (jComponent == null)
-				{
-	System.err.println ("no component for parameter name " + parameterName);
-				}
-				else
+				for (JComponent control : controls)
 				{
 					int	componentTabIndex = -1;
 					
@@ -643,7 +647,7 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 							
 							// now traverse the jcomponent's parents
 							// if we find container, it's in this tab (sigh)
-							for (Container	parent = jComponent.getParent ();
+							for (Container	parent = control.getParent ();
 								parent != null;
 								parent = parent.getParent ())
 							{
@@ -692,25 +696,25 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 						}
 						
 						// figure out what kind of jcomponent we have
-						if (jComponent instanceof JCheckBox)
+						if (control instanceof JCheckBox)
 						{
-							JCheckBox	checkBox = (JCheckBox) jComponent;
+							JCheckBox	checkBox = (JCheckBox) control;
 							checkBox.removeChangeListener (this);
 							checkBox.setSelected (parameterValue != 0);
 							checkBox.addChangeListener (this);
 						}
 						else
-						if (jComponent instanceof JComboBox)
+						if (control instanceof JComboBox)
 						{
-							JComboBox	popup = (JComboBox) jComponent;
+							JComboBox	popup = (JComboBox) control;
 							popup.removeActionListener (this);
 							popup.setSelectedIndex (parameterValue);
 							popup.addActionListener (this);
 						}
 						else
-						if (jComponent instanceof JSlider)
+						if (control instanceof JSlider)
 						{
-							JSlider	slider = (JSlider) jComponent;
+							JSlider	slider = (JSlider) control;
 							slider.removeChangeListener (this);
 							slider.setValue (parameterValue);
 							slider.addChangeListener (this);
@@ -723,9 +727,9 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 							}
 						}
 						else
-						if (jComponent instanceof CustomControl)
+						if (control instanceof CustomControl)
 						{
-							CustomControl	customControl = (CustomControl) jComponent;
+							CustomControl	customControl = (CustomControl) control;
 							customControl.setParameterValue (parameterName, parameterValue);
 						}
 						
@@ -780,9 +784,13 @@ System.err.println (inException);
 					this.patch.setParameterValue (patchParameterName, inParameterValue);
 
 					// the change handlers on the JComponents
-					// will update the patch and send the parameter change messages
-					JComponent	control = this.nameToComponentMap.get (patchParameterName);
-					copyParameterToControl (patchParameterName, control);
+					// will update the patch (again) and send the parameter change messages
+					List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+				
+					for (JComponent control : controls)
+					{
+						copyParameterToControl (patchParameterName, control);
+					}
 				}
 			}
 		}
@@ -833,6 +841,20 @@ System.err.println (inException);
 				// nothing to do for custom controls
 			}
 		}
+	}
+	
+	private void
+	addToNameToComponentMap (String inParameterName, JComponent inControl)
+	{
+		List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+
+		if (controls == null)
+		{
+			controls = new ArrayList<JComponent> ();
+			this.nameToComponentMap.put (inParameterName, controls);
+		}
+
+		controls.add (inControl);
 	}
 	
 	private void
@@ -971,7 +993,7 @@ System.err.println (inException);
 		componentPanel.add (checkBox);
 		
 		String	parameterName = parameterNode.getValue ();
-		this.nameToComponentMap.put (parameterName, checkBox);
+		addToNameToComponentMap (parameterName, checkBox);
 		this.componentToNameMap.put (checkBox, parameterName);
 	}
 	
@@ -1014,7 +1036,7 @@ System.err.println (inException);
 					this.componentToNameMap.put (customControl, parameterNames [0]);
 				}
 				
-				this.nameToComponentMap.put (parameterNames [i], customControl);
+				addToNameToComponentMap (parameterNames [i], customControl);
 			}
 		}
 		
@@ -1202,8 +1224,8 @@ System.err.println (inException);
 		
 		// update the maps
 		String	parameterName = parameterNode.getValue ();
+		addToNameToComponentMap (parameterName, popup);
 		this.componentToNameMap.put (popup, parameterName);
-		this.nameToComponentMap.put (parameterName, popup);
 	}
 	
 	private void
@@ -1234,8 +1256,8 @@ System.err.println (inException);
 		// this must be before the setMaximum()/setMinimum() calls
 		// as they call stateChanged()
 		String	parameterName = parameterNode.getValue ();
+		addToNameToComponentMap (parameterName, slider);
 		this.componentToNameMap.put (slider, parameterName);
-		this.nameToComponentMap.put (parameterName, slider);
 
 		slider.setMaximum (Integer.parseInt (maxNode.getValue ()));
 		slider.setMinimum (Integer.parseInt (minNode.getValue ()));
@@ -1288,7 +1310,7 @@ System.err.println (inException);
 		componentPanel.add (textField);
 		
 		String	parameterName = parameterNode.getValue ();
-		this.nameToComponentMap.put (parameterName, textField);
+		addToNameToComponentMap (parameterName, textField);
 		this.componentToNameMap.put (textField, parameterName);
 	}
 	
@@ -1381,8 +1403,8 @@ System.err.println (inException);
 	private Map<JComponent, JLabel>
 	componentToLabelMap = new HashMap<JComponent, JLabel> ();
 	
-	private Map<String, JComponent>
-	nameToComponentMap = new HashMap<String, JComponent> ();
+	private Map<String, List<JComponent>>
+	nameToComponentMap = new HashMap<String, List<JComponent>> ();
 	
 	private Map<String, String>
 	variableMap = new HashMap<String, String> ();
