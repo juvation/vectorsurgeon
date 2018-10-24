@@ -1076,7 +1076,7 @@ public class ControlWindow
 	private void
 	openMidi ()
 	{
-// System.err.println ("openMidi() called");
+System.err.println ("using MMJ for MIDI");
 
 		// build our device lists
 		this.midiInputList = new ArrayList<MidiInput> ();

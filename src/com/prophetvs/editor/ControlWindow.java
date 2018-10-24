@@ -1168,6 +1168,8 @@ public class ControlWindow
 	private void
 	openMidi ()
 	{
+System.err.println ("using JavaMIDI for MIDI");
+
 		// get a list of MIDI devices
 		MidiDevice.Info[]	deviceInfoArray = MidiSystem.getMidiDeviceInfo ();
 
