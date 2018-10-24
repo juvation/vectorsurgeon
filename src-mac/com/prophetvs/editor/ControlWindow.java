@@ -410,8 +410,8 @@ public class ControlWindow
 		
 		getContentPane ().setLayout (new BoxLayout (getContentPane (), BoxLayout.Y_AXIS));
 
-		setBackground (Color.black);
-		setForeground (Color.white);
+		setBackground (Color.BLACK);
+		setForeground (Color.WHITE);
 
 		// BANNER
 
@@ -454,8 +454,8 @@ public class ControlWindow
 		
 		JLabel	blurbLabel = new JLabel
 			("Version 1.1.6 - Copyright 2018 Jason Proctor <jason@redfish.net>");
-		blurbLabel.setForeground (Color.white);
-		blurbLabel.setBackground (Color.black);
+		blurbLabel.setForeground (Color.WHITE);
+		blurbLabel.setBackground (Color.BLACK);
 		blurbLabel.setFont (this.labelFont);
 		blurbPanel.add (blurbLabel);
 		
