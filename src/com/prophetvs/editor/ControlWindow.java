@@ -1516,6 +1516,27 @@ System.err.println (inThrowable);
 	}
 	
 	public void
+	sendParameterChangeMessage (String inName, int inValue)
+	throws Exception
+	{
+		sendMidiMessages (Machine.makeParameterChangeMessage (this.midiChannel0, inName, inValue));
+	}
+	
+	public void
+	sendPatchDumpMessage (Patch inPatch)
+	throws Exception
+	{
+		sendMidiMessage (Machine.makePatchDumpMessage (inPatch));
+	}
+	
+	public void
+	sendPatchNameChangeMessage (String inPatchName)
+	throws Exception
+	{
+		sendMidiMessages (Machine.makePatchNameChangeMessage (this.midiChannel0, inPatchName));
+	}
+
+	public void
 	setKeyboardWindow (KeyboardWindow inKeyboardWindow)
 	{
 		this.keyboardWindow = inKeyboardWindow;

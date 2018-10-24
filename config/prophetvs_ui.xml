@@ -1351,18 +1351,34 @@
 		</horizontalbox>
 	</page>
 	<page
-		name="Meta"
+		name="Experiments"
 		>
 		<horizontalbox>
 			<horizontalcenter>
 				<verticalbox
-					name="Oscillator Waves"
+					name="Set All Oscillator Waves"
 					>
 					<horizontalcenter>
 						<popup
 							label="Wave"
 							parameter="WaveNumber"
 							valueref="oscillator_wave_names"
+						/>
+					</horizontalcenter>
+				</verticalbox>
+				<verticalbox
+					name="Custom Actions"
+					>
+					<horizontalcenter>
+						<button
+							label="Filter ADSR Mode"
+							class="com.prophetvs.editor.ADSRModeAction"
+							command="FILTER_ADSR_MODE"
+						/>
+						<button
+							label="Amplifier ADSR Mode"
+							class="com.prophetvs.editor.ADSRModeAction"
+							command="AMP_ADSR_MODE"
 						/>
 					</horizontalcenter>
 				</verticalbox>

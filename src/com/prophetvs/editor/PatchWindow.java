@@ -388,8 +388,7 @@ public class PatchWindow
 			{
 				try
 				{
-					ControlWindow.getInstance ().sendMidiMessage
-						(Machine.makePatchDumpMessage (this.patch));
+					ControlWindow.getInstance ().sendPatchDumpMessage (this.patch);
 				}
 				catch (Exception inException)
 				{
@@ -552,6 +551,28 @@ public class PatchWindow
 		return this.patch;
 	}
 	
+	// for use by imperative clients of PatchWindow
+	// like custom actions etc
+	public void
+	setControlValue (String inParameterName, int inParameterValue)
+	{
+		try
+		{
+			// make the change in our patch
+			this.patch.setParameterValue (inParameterName, inParameterValue);
+
+			// the change handlers on the JComponents
+			// will update the patch (again) and send the parameter change messages
+			JComponent	control = this.nameToComponentMap.get (inParameterName);
+			copyParameterToControl (inParameterName, control);
+		}
+		catch (Exception inException)
+		{
+			// offensive UI? should we have a status pane instead?
+			ControlWindow.showErrorDialog ("Error", inException);
+		}
+	}
+	
 	// used to remote-control Patcher from the Prophet
 	// inParameterValue is a raw MIDI value
 	public void
@@ -692,7 +713,7 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 System.err.println (inException);
 		}
 	}
-	
+
 	public void
 	setPatchParameterValue (String inParameterName, int inParameterValue)
 	{
@@ -714,13 +735,9 @@ System.err.println (inException);
 
 				// make the change in our patch
 				this.patch.setParameterValue (inParameterName, inParameterValue);
-			
-				// generate the MIDI messages to update the Prophet
-				MidiMessage[]	messages = Machine.makeParameterChangeMessage
-					(ControlWindow.getInstance ().getMidiChannel0 (), inParameterName, inParameterValue);
-				
+
 				// and send them
-				ControlWindow.getInstance ().sendMidiMessages (messages);
+				ControlWindow.getInstance ().sendParameterChangeMessage (inParameterName, inParameterValue);
 			}
 			else
 			{
@@ -895,6 +912,29 @@ System.err.println (inException);
 	}
 			
 	private void
+	processButton (Node inButtonNode, JPanel inPanel)
+	throws Exception
+	{
+		NamedNodeMap	attributes = inButtonNode.getAttributes ();
+		
+		Attr	labelNode = (Attr) attributes.getNamedItem ("label");
+		Attr	classNode = (Attr) attributes.getNamedItem ("class");
+		Class	actionClass = Class.forName (classNode.getValue ());
+		ActionListener	actionListener = (ActionListener) actionClass.newInstance ();
+		
+		JPanel	componentPanel = new JPanel ();
+		componentPanel.setLayout (new FlowLayout (FlowLayout.LEADING));
+		inPanel.add (componentPanel);
+		
+		JButton	button = new JButton (labelNode.getValue ());
+		componentPanel.add (button);
+		
+		Attr	commandNode = (Attr) attributes.getNamedItem ("command");
+		button.setActionCommand (commandNode.getValue ());
+		button.addActionListener (actionListener);
+	}
+	
+	private void
 	processCheckbox (Node inCheckboxNode, JPanel inPanel)
 	{
 		NamedNodeMap	attributes = inCheckboxNode.getAttributes ();
@@ -1031,6 +1071,11 @@ System.err.println (inException);
 				subPanel.add (Box.createGlue ());
 				
 				processNode (node, subSubPanel);
+			}
+			else
+			if (name.equalsIgnoreCase ("button"))
+			{
+				processButton (node, inPanel);
 			}
 			else
 			if (name.equalsIgnoreCase ("checkbox"))
@@ -1287,12 +1332,7 @@ System.err.println (inException);
 						
 						try
 						{
-							// generate the MIDI messages to update the Prophet
-							MidiMessage[]	messages = Machine.makePatchNameChangeMessage
-								(ControlWindow.getInstance ().getMidiChannel0 (), text);
-
-							// and send them
-							ControlWindow.getInstance ().sendMidiMessages (messages);
+							ControlWindow.getInstance ().sendPatchNameChangeMessage (text);
 						}
 						catch (Exception inException)
 						{
