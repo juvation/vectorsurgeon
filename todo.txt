@@ -5,13 +5,14 @@ don't send parameter changes twice when setting meta values -- can just send fro
 button control type which maps to a chunk of code
 controlwindow.sendmidimessages() should take note of midi channel!
 refactor Machine calls into ControlWindow, making PatchWindow the same
+make generic + mac source bases
+actions should "dirty" the window
 
 PENDING
 
 TODO
 
-actions should "dirty" the window
+revisit how PatchWindow.setParameterValue() works
 name to component map should be a list, as there can be duplicate components in patch window!
-more meta parameters - envelope stages, etc
 write joystick test app to check we have it right
 

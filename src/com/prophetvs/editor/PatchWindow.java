@@ -553,20 +553,49 @@ public class PatchWindow
 	
 	// for use by imperative clients of PatchWindow
 	// like custom actions etc
+	// so we have to go in at the top by setting the control value
+	// somehow i get the feeling that we're doing these things in an awkward order...
 	public void
-	setControlValue (String inParameterName, int inParameterValue)
+	setParameterValue (String inParameterName, int inParameterValue)
 	{
 		try
 		{
-			// make the change in our patch
-			this.patch.setParameterValue (inParameterName, inParameterValue);
-
-			// the change handlers on the JComponents
-			// will update the patch (again) and send the parameter change messages
-			JComponent	control = this.nameToComponentMap.get (inParameterName);
-			copyParameterToControl (inParameterName, control);
-			
 			setPatchModified (true);
+
+			// check for meta parameter!
+			MetaParameters	mp = MetaParameters.getInstance ();
+			
+			List<String>	patchParameterNames = mp.get (inParameterName);
+			
+			if (patchParameterNames == null)
+			{
+				// regular parameter
+
+				// make the change in our patch
+				this.patch.setParameterValue (inParameterName, inParameterValue);
+
+				// the change handlers on the JComponents
+				// will update the patch (again) and send the parameter change messages
+				JComponent	control = this.nameToComponentMap.get (inParameterName);
+				copyParameterToControl (inParameterName, control);
+			}
+			else
+			{
+				// meta parameter(s)
+				
+				for (int i = 0; i < patchParameterNames.size (); i++)
+				{
+					String	patchParameterName = patchParameterNames.get (i);
+					
+					// make the change in our patch
+					this.patch.setParameterValue (patchParameterName, inParameterValue);
+
+					// the change handlers on the JComponents
+					// will update the patch and send the parameter change messages
+					JComponent	control = this.nameToComponentMap.get (patchParameterName);
+					copyParameterToControl (patchParameterName, control);
+				}
+			}
 		}
 		catch (Exception inException)
 		{
@@ -716,15 +745,13 @@ System.err.println (inException);
 		}
 	}
 
+	// called from the actionListeners on the controls
 	public void
 	setPatchParameterValue (String inParameterName, int inParameterValue)
 	{
 		try
 		{
-			// give the user some nice visual feedback that the window has changed
-			// (most likely Mac only)
-			getRootPane ().putClientProperty ("windowModified", Boolean.TRUE);
-			getRootPane ().putClientProperty ("Window.documentModified", Boolean.TRUE);
+			setPatchModified (true);
 
 			// check for meta parameter!
 			MetaParameters	mp = MetaParameters.getInstance ();
