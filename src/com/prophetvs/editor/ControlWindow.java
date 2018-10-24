@@ -1362,6 +1362,13 @@ System.err.println (inThrowable);
 	}
 	
 	public void
+	sendBankDumpMessage (Bank inBank)
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeBankDumpMessage (inBank));
+	}
+	
+	public void
 	sendMidiAllNotesOff ()
 	{
 		for (int i = 0; i < this.midiHeldNotes.length; i++)
@@ -1503,19 +1510,6 @@ System.err.println (inThrowable);
 	}
 	
 	public void
-	setParameterValueFromMIDI (int inParameterNumber, int inParameterValue)
-	{
-		if (this.patchWindow == null)
-		{
-// System.err.println ("ControlWindow.setParameterValue() with no patch window");
-		}
-		else
-		{
-			this.patchWindow.setParameterValueFromMIDI (inParameterNumber, inParameterValue);
-		}
-	}
-	
-	public void
 	sendParameterChangeMessage (String inName, int inValue)
 	throws Exception
 	{
@@ -1537,9 +1531,29 @@ System.err.println (inThrowable);
 	}
 
 	public void
+	sendWaveBankDumpMessage (WaveBank inWaveBank)
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeWaveBankDumpMessage (inWaveBank));
+	}
+
+	public void
 	setKeyboardWindow (KeyboardWindow inKeyboardWindow)
 	{
 		this.keyboardWindow = inKeyboardWindow;
+	}
+	
+	public void
+	setParameterValueFromMIDI (int inParameterNumber, int inParameterValue)
+	{
+		if (this.patchWindow == null)
+		{
+// System.err.println ("ControlWindow.setParameterValue() with no patch window");
+		}
+		else
+		{
+			this.patchWindow.setParameterValueFromMIDI (inParameterNumber, inParameterValue);
+		}
 	}
 	
 	public void

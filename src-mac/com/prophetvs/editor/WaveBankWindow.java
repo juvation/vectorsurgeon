@@ -355,9 +355,7 @@ public class WaveBankWindow
 			{
 				try
 				{
-					byte[]	message = Machine.makeWaveBankDumpMessage (this.waveBank);
-					
-					ControlWindow.getInstance ().sendMidiMessage (message);
+					ControlWindow.getInstance ().sendWaveBankDumpMessage (this.waveBank);
 					
 					// this bank is now in the Prophet
 					setWaveBankInProphet (true);

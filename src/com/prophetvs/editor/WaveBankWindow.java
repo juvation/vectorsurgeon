@@ -33,10 +33,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.SysexMessage;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -359,14 +355,7 @@ public class WaveBankWindow
 			{
 				try
 				{
-					MidiMessage[]	messages = new MidiMessage [1];
-					
-					messages [0] = Machine.makeWaveBankDumpMessage (this.waveBank);
-					
-					if (messages [0] != null)
-					{
-						ControlWindow.getInstance ().sendMidiMessages (messages);
-					}
+					ControlWindow.getInstance ().sendWaveBankDumpMessage (this.waveBank);
 					
 					// this bank is now in the Prophet
 					setWaveBankInProphet (true);

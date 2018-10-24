@@ -369,8 +369,7 @@ public class BankWindow
 			{
 				try
 				{
-					ControlWindow.getInstance ().sendMidiMessage
-						(Machine.makeBankDumpMessage (this.bank));
+					ControlWindow.getInstance ().sendBankDumpMessage (this.bank);
 					
 					// this bank is now in the Prophet
 					setBankInProphet (true);
