@@ -7,12 +7,14 @@ controlwindow.sendmidimessages() should take note of midi channel!
 refactor Machine calls into ControlWindow, making PatchWindow the same
 make generic + mac source bases
 actions should "dirty" the window
+name to component map is now a list
 
 PENDING
 
 TODO
 
+generic actions based on a list of key value parameter pairs
+monosynth mode -- set all oscs, detune, filter & amp settings
 revisit how PatchWindow.setParameterValue() works
-name to component map should be a list, as there can be duplicate components in patch window!
 write joystick test app to check we have it right
 
