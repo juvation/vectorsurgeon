@@ -79,31 +79,7 @@ public class MetaParameters
 	setupMap ()
 	throws Exception
 	{
-		// load the metaparameter map config file
-		URL	propertiesURL = ControlWindow.getResource ("metaparameters.properties");
-		Properties	properties = new Properties ();
-
-		InputStream	uis = null;
-		
-		try
-		{
-			uis = propertiesURL.openStream ();
-
-			properties.load (uis);
-		}
-		finally
-		{
-			if (uis != null)
-			{
-				try
-				{
-					uis.close ();
-				}
-				catch (Throwable inThrowable)
-				{
-				}
-			}
-		}
+		Properties	properties = ControlWindow.getPropertiesResource ("metaparameters.properties");
 
 		Enumeration	names = properties.propertyNames ();
 

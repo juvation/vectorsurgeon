@@ -960,20 +960,31 @@ System.err.println (inException);
 	{
 		NamedNodeMap	attributes = inButtonNode.getAttributes ();
 		
-		Attr	labelNode = (Attr) attributes.getNamedItem ("label");
-		Attr	classNode = (Attr) attributes.getNamedItem ("class");
-		Class	actionClass = Class.forName (classNode.getValue ());
-		ActionListener	actionListener = (ActionListener) actionClass.newInstance ();
 		
 		JPanel	componentPanel = new JPanel ();
 		componentPanel.setLayout (new FlowLayout (FlowLayout.LEADING));
 		inPanel.add (componentPanel);
 		
+		Attr	labelNode = (Attr) attributes.getNamedItem ("label");
 		JButton	button = new JButton (labelNode.getValue ());
 		componentPanel.add (button);
+
+		ActionListener	actionListener = null;
 		
-		Attr	commandNode = (Attr) attributes.getNamedItem ("command");
-		button.setActionCommand (commandNode.getValue ());
+		Attr	actionNode = (Attr) attributes.getNamedItem ("action");
+		Attr	classNode = (Attr) attributes.getNamedItem ("class");
+		
+		if (classNode == null)
+		{
+			actionListener = new GenericAction (actionNode.getValue ());
+		}
+		else
+		{
+			Class	actionClass = Class.forName (classNode.getValue ());
+			actionListener = (ActionListener) actionClass.newInstance ();
+			button.setActionCommand (actionNode.getValue ());
+		}
+		
 		button.addActionListener (actionListener);
 	}
 	

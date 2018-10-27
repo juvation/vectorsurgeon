@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.prefs.Preferences;
 
 import javax.sound.midi.MidiDevice;
@@ -304,6 +305,27 @@ public class ControlWindow
 	}
 	
 	// PUBLIC STATIC METHODS
+	
+	public static Properties
+	getPropertiesResource (String inResourceName)
+	throws Exception
+	{
+		URL	propertiesURL = ControlWindow.getResource (inResourceName);
+		Properties	properties = new Properties ();
+
+		InputStream	uis = propertiesURL.openStream ();
+		
+		try
+		{
+			properties.load (uis);
+
+			return properties;
+		}
+		finally
+		{
+			uis.close ();
+		}
+	}
 	
 	public static URL
 	getResource (String inResourceName)

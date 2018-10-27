@@ -720,8 +720,7 @@
 					<verticalcenter>
 						<button
 							label="Filter AHDSR Mode"
-							class="com.prophetvs.editor.AHDSRModeAction"
-							command="FILTER_AHDSR_MODE"
+							action="filter_ahdsr_mode_action"
 						/>
 					</verticalcenter>
 					<slider
@@ -766,8 +765,7 @@
 					<verticalcenter>
 						<button
 							label="Amplifier AHDSR Mode"
-							class="com.prophetvs.editor.AHDSRModeAction"
-							command="AMP_AHDSR_MODE"
+							action="amp_ahdsr_mode_action"
 						/>
 					</verticalcenter>
 					<slider
@@ -1409,15 +1407,12 @@
 									valueref="oscillator_wave_names"
 								/>
 							</horizontalcenter>
-							<!--
 							<horizontalcenter>
 								<button
 									label="Centre Mix Envelope"
-									class="com.prophetvs.editor.ADSRModeAction"
-									command="FILTER_ADSR_MODE"
+									action="centre_mix_envelope_action"
 								/>
 							</horizontalcenter>
-							-->
 						</verticalbox>
 					</horizontalcenter>
 				</horizontalbox>
@@ -1480,8 +1475,7 @@
 							<horizontalcenter>
 								<button
 									label="ADSR Mode"
-									class="com.prophetvs.editor.ADSRModeAction"
-									command="FILTER_ADSR_MODE"
+									action="filter_adsr_mode_action"
 								/>
 							</horizontalcenter>
 						</horizontalbox>
@@ -1525,8 +1519,7 @@
 							<horizontalcenter>
 								<button
 									label="ADSR Mode"
-									class="com.prophetvs.editor.ADSRModeAction"
-									command="AMP_ADSR_MODE"
+									action="amp_adsr_mode_action"
 								/>
 							</horizontalcenter>
 						</horizontalbox>

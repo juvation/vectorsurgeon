@@ -112,7 +112,7 @@
 		depends="compile"
 		>
 		
-		<!-- Win/Linux -->
+		<!-- GENERIC -->
 		
 		<copy
 			file="config/prophetvs_ui.xml"
@@ -129,11 +129,47 @@
 			todir="${classes.dir}"
 			verbose="true"
 		/>
+
+		<!-- actions -->
+
+		<copy
+			file="config/amp_adsr_mode_action.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+
+		<copy
+			file="config/amp_ahdsr_mode_action.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+
+		<copy
+			file="config/centre_mix_envelope_action.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+
+		<copy
+			file="config/filter_adsr_mode_action.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+
+		<copy
+			file="config/filter_ahdsr_mode_action.properties"
+			todir="${classes.dir}"
+			verbose="true"
+		/>
+
+		<!-- graphics -->
+
 		<copy
 			file="images/vs_banner.gif"
 			todir="${classes.dir}"
 			verbose="true"
 		/>
+
 		<copy
 			file="images/vs_blue_button_off.gif"
 			todir="${classes.dir}"
@@ -142,11 +178,6 @@
 		<copy
 			file="images/vs_blue_button_on.gif"
 			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="MANIFEST.MF"
-			todir="${classes.dir}/META-INF"
 			verbose="true"
 		/>
 		
