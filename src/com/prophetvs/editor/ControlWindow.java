@@ -346,12 +346,11 @@ public class ControlWindow
 	public static Document
 	initConfigFile (URL inConfigFileURL)
 	{
-		boolean	configFileOK = false;
 		Document	configDocument = null;
 		
-		do
+		// this logic is a bit scruffy
+		while (true)
 		{
-			configFileOK = false;
 			InputStream	is = null;
 			
 			try
@@ -363,18 +362,32 @@ public class ControlWindow
 				DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder ();
 				configDocument = documentBuilder.parse (is);
 				
-				configFileOK = true;
+				return configDocument;
 			}
 			catch (Throwable inThrowable)
 			{
-				ControlWindow.showErrorDialog ("Error", inThrowable);
-				ControlWindow.showErrorDialog ("Error", "Using default config file.");
-				
 				// default to the jar file copy
-				inConfigFileURL = getResource ("prophetvs_ui.xml");
-				
-				// and blow away the preference
-				sPrefs.remove ("configFilePath");
+				URL	configFileURL = getResource ("prophetvs_ui.xml");
+			
+				// hey WERE we using the default one?
+				if (configFileURL.equals (inConfigFileURL))
+				{
+					// we failed with the regular config file
+					// can't recover from here
+					ControlWindow.showErrorDialog ("Error", inThrowable);
+					ControlWindow.showErrorDialog ("Error", "Can't use default config file (panic).");
+					System.exit (1);
+				}
+				else
+				{
+					ControlWindow.showErrorDialog ("Error", inThrowable);
+					ControlWindow.showErrorDialog ("Error", "Using default config file.");
+			
+					// and blow away the preference
+					sPrefs.remove ("configFilePath");
+					
+					inConfigFileURL = configFileURL;
+				}
 			}
 			finally
 			{
@@ -390,10 +403,6 @@ public class ControlWindow
 				}
 			}
 		}
-		while (!configFileOK);
-		
-				
-		return configDocument;
 	}
 	
 	public static int
