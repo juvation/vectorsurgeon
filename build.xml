@@ -112,75 +112,22 @@
 		depends="compile"
 		>
 		
-		<!-- GENERIC -->
+		<!-- config, actions, etc -->
 		
-		<copy
-			file="config/prophetvs_ui.xml"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="config/transforms.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="config/metaparameters.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-
-		<!-- actions -->
-
-		<copy
-			file="config/amp_adsr_mode_action.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-
-		<copy
-			file="config/amp_ahdsr_mode_action.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-
-		<copy
-			file="config/centre_mix_envelope_action.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-
-		<copy
-			file="config/filter_adsr_mode_action.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-
-		<copy
-			file="config/filter_ahdsr_mode_action.properties"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
+		<copy todir="${classes.dir}">
+			<fileset dir="config">
+				<include name="*" />
+			</fileset>
+		</copy>
 
 		<!-- graphics -->
 
-		<copy
-			file="images/vs_banner.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
+		<copy todir="${classes.dir}">
+			<fileset dir="images">
+				<include name="*" />
+			</fileset>
+		</copy>
 
-		<copy
-			file="images/vs_blue_button_off.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		<copy
-			file="images/vs_blue_button_on.gif"
-			todir="${classes.dir}"
-			verbose="true"
-		/>
-		
 		<jar destfile="vs.jar">
 			<fileset dir="${classes.dir}" />
 			<manifest>

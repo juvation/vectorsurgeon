@@ -21,7 +21,7 @@ implements ActionListener
 	GenericAction (String inCommand)
 	throws Exception
 	{
-		System.err.println ("GenericAction(" + inCommand + ")");
+		// System.err.println ("GenericAction(" + inCommand + ")");
 		
 		this.command = inCommand;
 		this.parameters = ControlWindow.getPropertiesResource (inCommand + ".properties");

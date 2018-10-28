@@ -1409,6 +1409,12 @@
 							</horizontalcenter>
 							<horizontalcenter>
 								<button
+									label="Detune Oscillators"
+									action="detune_oscillators_action"
+								/>
+							</horizontalcenter>
+							<horizontalcenter>
+								<button
 									label="Centre Mix Envelope"
 									action="centre_mix_envelope_action"
 								/>

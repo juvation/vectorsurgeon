@@ -8,12 +8,12 @@ refactor Machine calls into ControlWindow, making PatchWindow the same
 make generic + mac source bases
 actions should "dirty" the window
 name to component map is now a list
+generic actions based on a list of key value parameter pairs
 
 PENDING
 
 TODO
 
-generic actions based on a list of key value parameter pairs
 monosynth mode -- set all oscs, detune, filter & amp settings
 revisit how PatchWindow.setParameterValue() works
 write joystick test app to check we have it right

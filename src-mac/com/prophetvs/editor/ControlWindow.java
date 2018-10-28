@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -305,6 +306,12 @@ public class ControlWindow
 	throws Exception
 	{
 		URL	propertiesURL = ControlWindow.getResource (inResourceName);
+		
+		if (propertiesURL == null)
+		{
+			throw new FileNotFoundException (inResourceName);
+		}
+		
 		Properties	properties = new Properties ();
 
 		InputStream	uis = propertiesURL.openStream ();
