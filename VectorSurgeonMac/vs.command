@@ -8,7 +8,9 @@ then
 	DIR=.
 fi
 
-exec java -cp $DIR/vs.jar com.prophetvs.editor.ControlWindow
+cd $DIR
+
+exec java -cp vs.jar:mmj.jar com.prophetvs.editor.ControlWindow
 
 
 
