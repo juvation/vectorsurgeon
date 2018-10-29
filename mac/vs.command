@@ -1,8 +1,14 @@
 #!/bin/sh
 
-DIR=`echo $0 | sed 's?\(.*/\).*?\1?'`
+# figure out where we are
+DIR=`dirname $0`
 
-exec java -jar $DIR/vs-mac.jar
+if [ -z "$DIR" ]
+then
+	DIR=.
+fi
+
+exec java -cp $DIR/vs.jar com.prophetvs.editor.ControlWindow
 
 
 

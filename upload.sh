@@ -7,31 +7,38 @@ if [ -z "$DIR" ]
 then
 	DIR=.
 else
-	echo cd $DIR
 	cd $DIR
 fi
+
+# copy jars into place
+
+cp vs-mac.jar mac/vs.jar
+cp vs.jar win
+cp vs.jar linux
+
+# Mac
+
+cd mac
+zip VectorSurgeonMac.zip vs.jar
+zip VectorSurgeonMac.zip vs.command
+
+# Win
+
+cd ../windows
+zip VectorSurgeonWindows.zip vs.jar
+zip VectorSurgeonWindows.zip vs.bat
+
+# Linux etc
+
+cd ../linux
+zip VectorSurgeonLinux.zip vs.jar
+zip VectorSurgeonLinux.zip vs.sh
+
+cd ..
 
 mac=$DIR/mac/VectorSurgeonMac.zip
 windows=$DIR/windows/VectorSurgeonWindows.zip
 linux=$DIR/linux/VectorSurgeonLinux.zip
-
-if test ! -f $mac
-then
-	echo $mac not found, please to fix
-	exit 1
-fi
-
-if test ! -f $windows
-then
-	echo $windows not found, please to fix
-	exit 1
-fi
-
-if test ! -f $linux
-then
-	echo $linux not found, please to fix
-	exit 1
-fi
 
 scp -i ~/ec2/Redfish.pem $mac $windows $linux ec2-user@redfish.net:prophetvs.com/editor/
 

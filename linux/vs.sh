@@ -1,16 +1,14 @@
 #!/bin/sh
 
-DIR=`echo $0 | sed 's?\(.*/\).*?\1?'`
+# figure out where we are
+DIR=`dirname $0`
 
-if test ${DIR} = $0
+if [ -z "$DIR" ]
 then
 	DIR=.
 fi
 
-CLASSPATH=${DIR}/vs.jar:${DIR}/lib-mmj/mmj.jar
-export CLASSPATH
-
-exec java com.prophetvs.editor.ControlWindow
+exec java -cp $DIR/vs.jar com.prophetvs.editor.ControlWindow
 
 
 

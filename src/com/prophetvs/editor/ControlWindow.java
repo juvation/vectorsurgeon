@@ -1023,7 +1023,8 @@ public class ControlWindow
 
 		JLabel	buttonLabel = new JLabel (inLabel);
 		buttonLabelPanel.add (buttonLabel);
-		buttonLabel.setForeground (Color.white);
+		buttonLabel.setForeground (Color.WHITE);
+		buttonLabelPanel.setBackground (Color.BLACK);
 		buttonLabel.setFont (this.labelFont);
 	}
 	

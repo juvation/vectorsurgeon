@@ -16,6 +16,21 @@
 		name="build"
 		depends="jar"
 		>
+		<copy
+			file="vs-mac.jar"
+			tofile="mac/vs.jar"
+			verbose="true"
+		/>
+		<copy
+			file="vs.jar"
+			tofile="linux/vs.jar"
+			verbose="true"
+		/>
+		<copy
+			file="vs.jar"
+			tofile="windows/vs.jar"
+			verbose="true"
+		/>
 	</target>
 	
 	<target
