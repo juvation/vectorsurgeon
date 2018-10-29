@@ -126,53 +126,13 @@ public class MixEnvelopeControl
 			}
 		}
 		
-		repaint ();
-	}
-	
-	public void
-	updateFromPatch ()
-	{
-		Patch	patch = this.patchWindow.getPatch ();
+		// HACK send the MIDI packet here
+		// otherwise we have to go through PatchWindow.setPatchParameterValue()
+		// from the change listener and implement a list in componentToNameMap too
+		// le fucking sigh
+		this.patchWindow.setPatchParameterValue (inParameterName, inParameterValue);
 		
-		try
-		{
-			this.xValue = patch.getParameterValue (this.xParameterName);
-
-			if (this.xValue > 63)
-			{
-				this.xValue = 63;
-			}
-			else
-			if (this.xValue < -63)
-			{
-				this.xValue = -63;
-			}
-		}
-		catch (VSException inException)
-		{
-			// huh? we were fed bad parameter names?
-		}
-
-		try
-		{
-			this.yValue = patch.getParameterValue (this.yParameterName);
-
-			if (this.yValue > 63)
-			{
-				this.yValue = 63;
-			}
-			else
-			if (this.yValue < -63)
-			{
-				this.yValue = -63;
-			}
-
-			repaint ();
-		}
-		catch (VSException inException)
-		{
-			// huh? we were fed bad parameter names?
-		}
+		repaint ();
 	}
 	
 	// MOUSELISTENER IMPLEMENTATION

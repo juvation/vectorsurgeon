@@ -6,7 +6,12 @@ package com.prophetvs.editor;
 
 // IMPORTS
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JComponent;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.w3c.dom.Node;
 
@@ -15,6 +20,8 @@ import org.w3c.dom.Node;
 public abstract class CustomControl
 	extends JComponent
 {
+	// PUBLIC ABSTRACT METHODS
+	
 	public abstract String[]
 	getParameterNames ();
 	
@@ -25,8 +32,37 @@ public abstract class CustomControl
 	public abstract void
 	setParameterValue (String inParameterName, int inParameterValue);
 	
-	public abstract void
-	updateFromPatch ();
+	// PUBLIC METHODS
+	
+	public void
+	addChangeListener (ChangeListener inChangeListener)
+	{
+		this.changeListeners.add (inChangeListener);
+	}
+	
+	public void
+	removeChangeListener (ChangeListener inChangeListener)
+	{
+		this.changeListeners.remove (inChangeListener);
+	}
+
+	// PROTECTED METHODS
+	
+	protected void
+	fireChangeEvent ()
+	{
+		ChangeEvent	changeEvent = new ChangeEvent (this);
+		
+		for (ChangeListener changeListener : this.changeListeners)
+		{
+			changeListener.stateChanged (changeEvent);
+		}
+	}
+				
+	// PRIVATE DATA
+	
+	private List<ChangeListener>
+	changeListeners = new ArrayList<ChangeListener> ();
 	
 }
 

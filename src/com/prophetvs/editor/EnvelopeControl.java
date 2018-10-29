@@ -140,43 +140,12 @@ public class EnvelopeControl
 				}
 			}
 		}
-		
-		repaint ();
-	}
-	
-	public void
-	updateFromPatch ()
-	{
-		Patch	patch = this.patchWindow.getPatch ();
-		
-		for (int i = 0; i < 5; i++)
-		{
-			try
-			{
-				// there ain't no rate parameter 0
-				if (i > 0)
-				{
-					this.rates [i] = patch.getParameterValue (this.rateParameterNames [i]);
-				}
-			}
-			catch (VSException inException)
-			{
-				// huh? we were fed bad parameter names?
-			}
-			
-			// there ain't no level parameter 4 for amp env
-			if (i < 4 || this.allowLevel4)
-			{
-				try
-				{
-					this.levels [i] = patch.getParameterValue (this.levelParameterNames [i]);
-				}
-				catch (VSException inException)
-				{
-					// huh? we were fed bad parameter names?
-				}
-			}
-		}
+
+		// HACK send the MIDI packet here
+		// otherwise we have to go through PatchWindow.setPatchParameterValue()
+		// from the change listener and implement a list in componentToNameMap too
+		// le fucking sigh
+		this.patchWindow.setPatchParameterValue (inParameterName, inParameterValue);
 
 		repaint ();
 	}

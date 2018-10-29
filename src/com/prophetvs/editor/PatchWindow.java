@@ -913,7 +913,7 @@ System.err.println (inException);
 				if (outControl instanceof CustomControl)
 				{
 					CustomControl	customControl = (CustomControl) outControl;
-					customControl.updateFromPatch ();
+					customControl.setParameterValue (inParameterName, value);
 				}
 			}
 			catch (VSException inException)
