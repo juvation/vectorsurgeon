@@ -15,6 +15,7 @@ PENDING
 
 TODO
 
+something is dirtying patch windows off the bat
 changing patch window values doesn't update other controls ARRGH
 should be able to vary the patch being edited
 revisit how PatchWindow.setParameterValue() works
