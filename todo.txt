@@ -15,6 +15,8 @@ PENDING
 
 TODO
 
+changing patch window values doesn't update other controls ARRGH
+should be able to vary the patch being edited
 revisit how PatchWindow.setParameterValue() works
 write joystick test app to check we have it right
 
