@@ -11,6 +11,8 @@ name to component map is now a list
 generic actions based on a list of key value parameter pairs
 monosynth mode -- set all oscs, detune, filter & amp settings
 envelope controls are dirtying patches unnecessarily
+update duplicate controls on parameter change
+reset pan to zero action/meta
 
 PENDING
 
@@ -18,8 +20,6 @@ TODO
 
 revisit parameter change scenarios
 	revisit how PatchWindow.setParameterValue() works
-	changing patch window values doesn't update other controls ARRGH
-reset pan to zero action/meta
 should be able to vary the patch being edited
 write joystick test app to check we have it right
 

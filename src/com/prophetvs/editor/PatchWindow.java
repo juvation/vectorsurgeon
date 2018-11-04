@@ -320,6 +320,9 @@ public class PatchWindow
 // System.err.println ("set popup " + parameterName + " to value " + value);
 
 			setPatchParameterValue (parameterName, value);
+
+			// now update any duplicates of those controls sigh
+			updateDuplicateControls (parameterName, value, popup);
 		}
 		else
 		if (actionCommand.equalsIgnoreCase ("KEYBOARD_CLOSE_ACTION"))
@@ -431,11 +434,14 @@ public class PatchWindow
 
 		// System.err.println ("stateChanged(" + source.getClass ().getName () + ")");
 		
+		String	parameterName = null;
+		int	parameterValue = 0;
+		
 		if (source instanceof JSlider)
 		{
 			JSlider	slider = (JSlider) source;
-			String	parameterName = this.componentToNameMap.get (slider);
-			int	value = slider.getValue ();
+			parameterName = this.componentToNameMap.get (slider);
+			parameterValue = slider.getValue ();
 			
 // System.err.println ("set slider " + parameterName + " to value " + value);
 
@@ -443,23 +449,23 @@ public class PatchWindow
 			
 			if (valueLabel != null)
 			{
-				valueLabel.setText (Integer.toString (value));
+				valueLabel.setText (Integer.toString (parameterValue));
 			}
 			
-			setPatchParameterValue (parameterName, value);
+			setPatchParameterValue (parameterName, parameterValue);
 		}
 		else
 		if (source instanceof JCheckBox)
 		{
 			JCheckBox	checkBox = (JCheckBox) source;
-			String	parameterName = this.componentToNameMap.get (checkBox);
+			parameterName = this.componentToNameMap.get (checkBox);
 			boolean	selected = checkBox.isSelected ();
 			
 // System.err.println ("set checkbox " + parameterName + " to value " + selected);
 
-			int	value = selected ? 1 : 0;
+			parameterValue = selected ? 1 : 0;
 			
-			setPatchParameterValue (parameterName, value);
+			setPatchParameterValue (parameterName, parameterValue);
 		}
 		else
 		if (source instanceof CustomControl)
@@ -472,6 +478,11 @@ public class PatchWindow
 			setPatchParameterValue (event.getParameterName (), event.getParameterValue ());
 		}
 		
+		if (parameterName != null)
+		{
+			updateDuplicateControls (parameterName, parameterValue, source);
+		}
+			
 	}
 	
 	// CLIPBOARD OWNER IMPLEMENTATION
@@ -1410,6 +1421,70 @@ System.err.println (inException);
 					}
 					
 					break;
+				}
+			}
+		}
+	}
+	
+	// copies a value to other controls off that name
+	// with listening turned off of course
+	private void
+	updateDuplicateControls (String inParameterName, int inParameterValue, JComponent inControl)
+	{
+		// now update any duplicates of those controls sigh
+		// this needs to be refactored btw
+		List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+		
+		// if there's only one, we already got it :-)
+		if (controls.size () > 1)
+		{
+			for (JComponent control : controls)
+			{
+				if (inControl != control)
+				{
+					// figure out what kind of jcomponent we have
+					// note JComboBox has an action listener not a change listener
+					// so that's handled in actionListener
+					// BUT we have one here just in case
+					
+					if (control instanceof JCheckBox)
+					{
+						JCheckBox	checkBox = (JCheckBox) control;
+						checkBox.removeChangeListener (this);
+						checkBox.setSelected (inParameterValue != 0);
+						checkBox.addChangeListener (this);
+					}
+					else
+					if (control instanceof JComboBox)
+					{
+						JComboBox	popup = (JComboBox) control;
+						popup.removeActionListener (this);
+						popup.setSelectedIndex (inParameterValue);
+						popup.addActionListener (this);
+					}
+					else
+					if (control instanceof JSlider)
+					{
+						JSlider	slider = (JSlider) control;
+						slider.removeChangeListener (this);
+						slider.setValue (inParameterValue);
+						slider.addChangeListener (this);
+					
+						JLabel	valueLabel = this.componentToLabelMap.get (slider);
+					
+						if (valueLabel != null)
+						{
+							valueLabel.setText (Integer.toString (inParameterValue));
+						}
+					}
+					else
+					if (control instanceof CustomControl)
+					{
+						CustomControl	customControl = (CustomControl) control;
+						customControl.removeChangeListener (this);
+						customControl.setParameterValue (inParameterName, inParameterValue);
+						customControl.addChangeListener (this);
+					}
 				}
 			}
 		}
