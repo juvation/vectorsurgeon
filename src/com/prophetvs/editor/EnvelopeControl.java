@@ -141,11 +141,7 @@ public class EnvelopeControl
 			}
 		}
 
-		// HACK send the MIDI packet here
-		// otherwise we have to go through PatchWindow.setPatchParameterValue()
-		// from the change listener and implement a list in componentToNameMap too
-		// le fucking sigh
-		this.patchWindow.setPatchParameterValue (inParameterName, inParameterValue);
+		fireChangeEvent (inParameterName, inParameterValue);
 
 		repaint ();
 	}

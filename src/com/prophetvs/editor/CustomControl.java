@@ -49,9 +49,10 @@ public abstract class CustomControl
 	// PROTECTED METHODS
 	
 	protected void
-	fireChangeEvent ()
+	fireChangeEvent (String inParameterName, int inParameterValue)
 	{
-		ChangeEvent	changeEvent = new ChangeEvent (this);
+		ChangeEvent	changeEvent
+			= new CustomControlChangeEvent (this, inParameterName, inParameterValue);
 		
 		for (ChangeListener changeListener : this.changeListeners)
 		{

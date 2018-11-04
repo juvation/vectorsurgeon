@@ -1162,6 +1162,12 @@
 				<horizontalbox
 					name="Pan"
 					>
+					<verticalcenter>
+						<button
+							label="Centre Voices"
+							action="centre_voice_pan_action"
+						/>
+					</verticalcenter>
 					<slider
 						label="Voice 1"
 						parameter="Voice1Pan"

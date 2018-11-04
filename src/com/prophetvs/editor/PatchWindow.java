@@ -428,6 +428,8 @@ public class PatchWindow
 	stateChanged (ChangeEvent inEvent)
 	{
 		JComponent	source = (JComponent) inEvent.getSource ();
+
+		// System.err.println ("stateChanged(" + source.getClass ().getName () + ")");
 		
 		if (source instanceof JSlider)
 		{
@@ -459,6 +461,17 @@ public class PatchWindow
 			
 			setPatchParameterValue (parameterName, value);
 		}
+		else
+		if (source instanceof CustomControl)
+		{
+			// a special subclass of ChangeEvent 
+			// so we don't send ALL the parameters for an envelope
+			// when someone changes one parameter
+			CustomControlChangeEvent	event = (CustomControlChangeEvent) inEvent;
+			
+			setPatchParameterValue (event.getParameterName (), event.getParameterValue ());
+		}
+		
 	}
 	
 	// CLIPBOARD OWNER IMPLEMENTATION
@@ -730,7 +743,9 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 						if (control instanceof CustomControl)
 						{
 							CustomControl	customControl = (CustomControl) control;
+							customControl.removeChangeListener (this);
 							customControl.setParameterValue (parameterName, parameterValue);
+							customControl.addChangeListener (this);
 						}
 						
 						// make the change in our patch
@@ -838,7 +853,8 @@ System.err.println (inException);
 			else
 			if (control instanceof CustomControl)
 			{
-				// nothing to do for custom controls
+				CustomControl	customControl = (CustomControl) control;
+				customControl.addChangeListener (this);
 			}
 		}
 	}
@@ -1377,8 +1393,7 @@ System.err.println (inException);
 
 						// give the user some nice visual feedback that the window has changed
 						// (most likely Mac only)
-						getRootPane ().putClientProperty ("windowModified", Boolean.TRUE);
-						getRootPane ().putClientProperty ("Window.documentModified", Boolean.TRUE);
+						setPatchModified (true);
 
 						// and set the window title!
 						// ...with the sanitised version of the name back from the patch

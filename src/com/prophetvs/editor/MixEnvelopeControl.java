@@ -96,6 +96,11 @@ public class MixEnvelopeControl
 	public void
 	setParameterValue (String inParameterName, int inParameterValue)
 	{
+		/*
+		System.err.println
+			("MixEnvelopeControl.setParameterValue(" + inParameterName + "," + inParameterValue + ")");
+		*/
+		
 		if (inParameterName.equals (this.xParameterName))
 		{
 			this.xValue = inParameterValue;
@@ -126,12 +131,8 @@ public class MixEnvelopeControl
 			}
 		}
 		
-		// HACK send the MIDI packet here
-		// otherwise we have to go through PatchWindow.setPatchParameterValue()
-		// from the change listener and implement a list in componentToNameMap too
-		// le fucking sigh
-		this.patchWindow.setPatchParameterValue (inParameterName, inParameterValue);
-		
+		fireChangeEvent (inParameterName, inParameterValue);
+				
 		repaint ();
 	}
 	

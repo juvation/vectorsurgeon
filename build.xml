@@ -111,7 +111,7 @@
 		<javac
 			srcdir="${macsource.dir}"
 			destdir="${macclasses.dir}"
-			classpath="${classes.dir}"
+			classpath="${classes.dir}:VectorSurgeonMac/mmj.jar"
 			debug="on"
 			source="1.5"
 			target="1.5"
@@ -150,6 +150,16 @@
 			</manifest>
 		</jar>
 		
+		<copy
+			file="vs.jar"
+			tofile="VectorSurgeonWindows/vs.jar"
+		/>
+
+		<copy
+			file="vs.jar"
+			tofile="VectorSurgeonLinux/vs.jar"
+		/>
+
 		<!-- remake the jar with the Mac specific files excluded -->
 		<!-- because Ant WILL NOT update files in a jar for some reason -->
 		<!-- le fucking sigh -->
@@ -168,6 +178,11 @@
 			</manifest>
 		</jar>
 		
+		<copy
+			file="vs-mac.jar"
+			tofile="VectorSurgeonMac/vs.jar"
+		/>
+
 	</target>
 
 	<target name="javadoc">
