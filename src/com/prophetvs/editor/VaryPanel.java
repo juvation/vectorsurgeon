@@ -241,7 +241,13 @@ inThrowable.printStackTrace (System.err);
 		{
 			if (parent instanceof Window)
 			{
-				((Window) parent).pack ();
+				Window	parentWindow = (Window) parent;
+
+				// why do we need this?
+				parentWindow.pack ();
+
+				// re-centre the window
+				parentWindow.setLocationRelativeTo (null);
 				break;
 			}
 		}

@@ -201,6 +201,11 @@ public class PatchWindow
 		sendButton.addActionListener (this);
 		buttonBar.add (sendButton);
 
+		JButton	varyButton = new JButton ("Vary Patch...");
+		varyButton.setActionCommand ("VARY");
+		varyButton.addActionListener (this);
+		buttonBar.add (varyButton);
+		
 		JButton	copyButton = new JButton ("Copy Patch");
 		copyButton.setActionCommand ("COPY");
 		copyButton.addActionListener (this);
@@ -398,6 +403,13 @@ public class PatchWindow
 					ControlWindow.getInstance ().showErrorDialog ("Error", inException);
 				}
 			}
+		}
+		else
+		if (actionCommand.equalsIgnoreCase ("VARY"))
+		{
+			VaryWindow	varyWindow = new VaryWindow (this.patch);
+			varyWindow.setLocationRelativeTo (null);
+			varyWindow.setVisible (true);
 		}
 		else
 		if (actionCommand.equalsIgnoreCase ("COPY"))

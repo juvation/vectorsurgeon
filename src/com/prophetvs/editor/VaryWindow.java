@@ -145,6 +145,9 @@ public class VaryWindow
 			
 			// why do we need this?
 			pack ();
+			
+			// re-centre the window
+			setLocationRelativeTo (null);
 		}
 		else
 		if (actionCommand.equalsIgnoreCase ("GENERATE"))

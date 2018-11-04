@@ -14,15 +14,17 @@ envelope controls are dirtying patches unnecessarily
 update duplicate controls on parameter change
 reset pan to zero action/meta
 set params from midi only selects the first tab
+re-centre vary window when things are selected
+should be able to vary the patch being edited
 
 PENDING
 
 TODO
 
+bank window cells are sized according to names! wtf? they should be static
 split simple synth into proper panes
 	add "set all oscs" action
 revisit parameter change scenarios
 	revisit how PatchWindow.setParameterValue() works
-should be able to vary the patch being edited
 write joystick test app to check we have it right
 
