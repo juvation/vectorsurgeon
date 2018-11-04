@@ -13,6 +13,7 @@ monosynth mode -- set all oscs, detune, filter & amp settings
 envelope controls are dirtying patches unnecessarily
 update duplicate controls on parameter change
 reset pan to zero action/meta
+set params from midi only selects the first tab
 
 PENDING
 

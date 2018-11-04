@@ -652,120 +652,121 @@ System.err.println ("no parameter name for parameter number " + inParameterNumbe
 			}
 			else
 			{
+				// note we only switch to the first tab found
+				// in the case of duplicates
+				int	componentTabIndex = -1;
+				
 				// now look up the component for our parameter
 				List<JComponent>	controls = nameToComponentMap.get (parameterName);
 				
 				for (JComponent control : controls)
 				{
-					int	componentTabIndex = -1;
-					
-					// look up which tab it's in
-					// btw, indexOfComponent() won't do the job here
-					for (int i = 0; i < this.tabbedPane.getTabCount (); i++)
+					if (componentTabIndex == -1)
 					{
-						Component	component = this.tabbedPane.getComponentAt (i);
-						
-						if (component instanceof Container)
+						// look up which tab it's in
+						// btw, indexOfComponent() won't do the job here
+						for (int i = 0; i < this.tabbedPane.getTabCount (); i++)
 						{
-							Container	container = (Container) component;
+							Component	component = this.tabbedPane.getComponentAt (i);
 							
-							// now traverse the jcomponent's parents
-							// if we find container, it's in this tab (sigh)
-							for (Container	parent = control.getParent ();
-								parent != null;
-								parent = parent.getParent ())
+							if (component instanceof Container)
 							{
-								if (parent == container)
+								Container	container = (Container) component;
+								
+								// now traverse the jcomponent's parents
+								// if we find container, it's in this tab (sigh)
+								for (Container	parent = control.getParent ();
+									parent != null;
+									parent = parent.getParent ())
 								{
-									componentTabIndex = i;
-									break;
+									if (parent == container)
+									{
+										componentTabIndex = i;
+										break;
+									}
 								}
 							}
 						}
+						
+						if (componentTabIndex >= 0)
+						{
+							this.tabbedPane.setSelectedIndex (componentTabIndex);
+						}
 					}
 					
-					if (componentTabIndex == -1)
+					// scale incoming value
+					Patch.ParameterSpec	spec = Patch.getParameterSpec (parameterName);
+					
+					// get some more resolution
+					double	doubleValue = (double) inParameterValue;
+					
+					// convert to 8 bit based units
+					doubleValue /= 256;
+					
+					// scale up to range based units
+					doubleValue *= spec.range;
+					
+					// and now back to integerland
+					// TODO is floor() or ceil() best here? ceil() seems to give arg+1
+					int	parameterValue = (int) Math.floor (doubleValue);
+
+					// apply hacks to take care of the signedness
+					if (spec.size == 8 && spec.range == 199)
 					{
-	System.err.println ("no tab index for parameter name " + parameterName);
+						parameterValue -= 99;
 					}
 					else
+					if (spec.size == 7 && spec.range == 127)
 					{
-						this.tabbedPane.setSelectedIndex (componentTabIndex);
-						
-						// scale incoming value
-						Patch.ParameterSpec	spec = Patch.getParameterSpec (parameterName);
-						
-						// get some more resolution
-						double	doubleValue = (double) inParameterValue;
-						
-						// convert to 8 bit based units
-						doubleValue /= 256;
-						
-						// scale up to range based units
-						doubleValue *= spec.range;
-						
-						// and now back to integerland
-						// TODO is floor() or ceil() best here? ceil() seems to give arg+1
-						int	parameterValue = (int) Math.floor (doubleValue);
-
-						// apply hacks to take care of the signedness
-						if (spec.size == 8 && spec.range == 199)
-						{
-							parameterValue -= 99;
-						}
-						else
-						if (spec.size == 7 && spec.range == 127)
-						{
-							parameterValue -= 63;
-						}
-						
-						// figure out what kind of jcomponent we have
-						if (control instanceof JCheckBox)
-						{
-							JCheckBox	checkBox = (JCheckBox) control;
-							checkBox.removeChangeListener (this);
-							checkBox.setSelected (parameterValue != 0);
-							checkBox.addChangeListener (this);
-						}
-						else
-						if (control instanceof JComboBox)
-						{
-							JComboBox	popup = (JComboBox) control;
-							popup.removeActionListener (this);
-							popup.setSelectedIndex (parameterValue);
-							popup.addActionListener (this);
-						}
-						else
-						if (control instanceof JSlider)
-						{
-							JSlider	slider = (JSlider) control;
-							slider.removeChangeListener (this);
-							slider.setValue (parameterValue);
-							slider.addChangeListener (this);
-							
-							JLabel	valueLabel = this.componentToLabelMap.get (slider);
-							
-							if (valueLabel != null)
-							{
-								valueLabel.setText (Integer.toString (parameterValue));
-							}
-						}
-						else
-						if (control instanceof CustomControl)
-						{
-							CustomControl	customControl = (CustomControl) control;
-							customControl.removeChangeListener (this);
-							customControl.setParameterValue (parameterName, parameterValue);
-							customControl.addChangeListener (this);
-						}
-						
-						// make the change in our patch
-						this.patch.setParameterValue (parameterName, parameterValue);
-						
-						// give the user some nice visual feedback that the window has changed
-						// (most likely Mac only)
-						setPatchModified (true);
+						parameterValue -= 63;
 					}
+					
+					// figure out what kind of jcomponent we have
+					if (control instanceof JCheckBox)
+					{
+						JCheckBox	checkBox = (JCheckBox) control;
+						checkBox.removeChangeListener (this);
+						checkBox.setSelected (parameterValue != 0);
+						checkBox.addChangeListener (this);
+					}
+					else
+					if (control instanceof JComboBox)
+					{
+						JComboBox	popup = (JComboBox) control;
+						popup.removeActionListener (this);
+						popup.setSelectedIndex (parameterValue);
+						popup.addActionListener (this);
+					}
+					else
+					if (control instanceof JSlider)
+					{
+						JSlider	slider = (JSlider) control;
+						slider.removeChangeListener (this);
+						slider.setValue (parameterValue);
+						slider.addChangeListener (this);
+						
+						JLabel	valueLabel = this.componentToLabelMap.get (slider);
+						
+						if (valueLabel != null)
+						{
+							valueLabel.setText (Integer.toString (parameterValue));
+						}
+					}
+					else
+					if (control instanceof CustomControl)
+					{
+						CustomControl	customControl = (CustomControl) control;
+						customControl.removeChangeListener (this);
+						customControl.setParameterValue (parameterName, parameterValue);
+						customControl.addChangeListener (this);
+					}
+					
+					// make the change in our patch
+					this.patch.setParameterValue (parameterName, parameterValue);
+					
+					// give the user some nice visual feedback that the window has changed
+					// (most likely Mac only)
+					setPatchModified (true);
 				}
 			}
 		}
