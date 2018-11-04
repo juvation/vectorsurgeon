@@ -224,170 +224,180 @@
 				<horizontalbox
 					name="Mix Envelope"
 					>
-					<custom
-						class="com.prophetvs.editor.MixEnvelopeControl"
-						label="Initial"
-						size="150"
-						xparametername="MixEnvXLevel0"
-						yparametername="MixEnvYLevel0"
-					/>
-					<!--
-					<slider
-						label="Initial X"
-						parameter="MixEnvXLevel0"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Initial Y"
-						parameter="MixEnvYLevel0"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<slider
-						label="Attack"
-						parameter="MixEnvRate1"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<custom
-						class="com.prophetvs.editor.MixEnvelopeControl"
-						label="Post-Attack"
-						size="150"
-						xparametername="MixEnvXLevel1"
-						yparametername="MixEnvYLevel1"
-					/>
-					<!--
-					<slider
-						label="Post-Attack X"
-						parameter="MixEnvXLevel1"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Post-Attack Y"
-						parameter="MixEnvYLevel1"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<slider
-						label="Hold"
-						parameter="MixEnvRate2"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<custom
-						class="com.prophetvs.editor.MixEnvelopeControl"
-						label="Post-Hold"
-						size="150"
-						xparametername="MixEnvXLevel2"
-						yparametername="MixEnvYLevel2"
-					/>
-					<!--
-					<slider
-						label="Post-Hold X"
-						parameter="MixEnvXLevel2"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Post-Hold Y"
-						parameter="MixEnvYLevel2"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<slider
-						label="Decay"
-						parameter="MixEnvRate3"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<custom
-						class="com.prophetvs.editor.MixEnvelopeControl"
-						label="Sustain"
-						size="150"
-						xparametername="MixEnvXLevel3"
-						yparametername="MixEnvYLevel3"
-					/>
-					<!--
-					<slider
-						label="Sustain X"
-						parameter="MixEnvXLevel3"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Sustain Y"
-						parameter="MixEnvYLevel3"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<slider
-						label="Release"
-						parameter="MixEnvRate4"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Pedal Release"
-						parameter="MixEnvRate4A"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<custom
-						class="com.prophetvs.editor.MixEnvelopeControl"
-						label="Post-Release"
-						size="150"
-						xparametername="MixEnvXLevel4"
-						yparametername="MixEnvYLevel4"
-					/>
-					<!--
-					<slider
-						label="Post-Release X"
-						parameter="MixEnvXLevel4"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					<slider
-						label="Post-Release Y"
-						parameter="MixEnvYLevel4"
-						min="0"
-						max="99"
-						majortick="10"
-					/>
-					-->
-					<verticalcenter>
-						<verticalbox>
-							<popup
-								label="Loop"
-								parameter="MixEnvLoop"
-								valueref="envelope_loop_names"
+					<verticalbox>
+						<horizontalcenter>
+							<custom
+								class="com.prophetvs.editor.MixEnvelopeControl"
+								label="Initial"
+								size="150"
+								xparametername="MixEnvXLevel0"
+								yparametername="MixEnvYLevel0"
 							/>
-							<popup
-								label="Repeats"
-								parameter="MixEnvRepeat"
-								valueref="envelope_loop_iterations"
+							<!--
+							<slider
+								label="Initial X"
+								parameter="MixEnvXLevel0"
+								min="0"
+								max="99"
+								majortick="10"
 							/>
-						</verticalbox>
-					</verticalcenter>
+							<slider
+								label="Initial Y"
+								parameter="MixEnvYLevel0"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							-->
+							<slider
+								label="Attack"
+								parameter="MixEnvRate1"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<custom
+								class="com.prophetvs.editor.MixEnvelopeControl"
+								label="Post-Attack"
+								size="150"
+								xparametername="MixEnvXLevel1"
+								yparametername="MixEnvYLevel1"
+							/>
+							<!--
+							<slider
+								label="Post-Attack X"
+								parameter="MixEnvXLevel1"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<slider
+								label="Post-Attack Y"
+								parameter="MixEnvYLevel1"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							-->
+							<slider
+								label="Hold"
+								parameter="MixEnvRate2"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<custom
+								class="com.prophetvs.editor.MixEnvelopeControl"
+								label="Post-Hold"
+								size="150"
+								xparametername="MixEnvXLevel2"
+								yparametername="MixEnvYLevel2"
+							/>
+							<!--
+							<slider
+								label="Post-Hold X"
+								parameter="MixEnvXLevel2"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<slider
+								label="Post-Hold Y"
+								parameter="MixEnvYLevel2"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							-->
+							<slider
+								label="Decay"
+								parameter="MixEnvRate3"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<custom
+								class="com.prophetvs.editor.MixEnvelopeControl"
+								label="Sustain"
+								size="150"
+								xparametername="MixEnvXLevel3"
+								yparametername="MixEnvYLevel3"
+							/>
+							<!--
+							<slider
+								label="Sustain X"
+								parameter="MixEnvXLevel3"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<slider
+								label="Sustain Y"
+								parameter="MixEnvYLevel3"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							-->
+							<slider
+								label="Release"
+								parameter="MixEnvRate4"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<slider
+								label="Pedal Release"
+								parameter="MixEnvRate4A"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<custom
+								class="com.prophetvs.editor.MixEnvelopeControl"
+								label="Post-Release"
+								size="150"
+								xparametername="MixEnvXLevel4"
+								yparametername="MixEnvYLevel4"
+							/>
+							<!--
+							<slider
+								label="Post-Release X"
+								parameter="MixEnvXLevel4"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							<slider
+								label="Post-Release Y"
+								parameter="MixEnvYLevel4"
+								min="0"
+								max="99"
+								majortick="10"
+							/>
+							-->
+							<verticalcenter>
+								<verticalbox>
+									<popup
+										label="Loop"
+										parameter="MixEnvLoop"
+										valueref="envelope_loop_names"
+									/>
+									<popup
+										label="Repeats"
+										parameter="MixEnvRepeat"
+										valueref="envelope_loop_iterations"
+									/>
+								</verticalbox>
+							</verticalcenter>
+						</horizontalcenter>
+						<horizontalcenter>
+							<button
+								label="Centre Mix Envelope"
+								action="centre_mix_envelope_action"
+							/>
+						</horizontalcenter>
+					</verticalbox>
 				</horizontalbox>
 			</horizontalcenter>
 		</horizontalbox>
@@ -1387,6 +1397,13 @@
 						<verticalbox>
 							<horizontalcenter>
 								<popup
+									label="Wave"
+									parameter="WaveNumber"
+									valueref="oscillator_wave_names"
+								/>
+							</horizontalcenter>
+							<horizontalcenter>
+								<popup
 									label="Wave A"
 									parameter="WaveNumberA"
 									valueref="oscillator_wave_names"
@@ -1419,12 +1436,6 @@
 									action="detune_oscillators_action"
 								/>
 							</horizontalcenter>
-							<horizontalcenter>
-								<button
-									label="Centre Mix Envelope"
-									action="centre_mix_envelope_action"
-								/>
-							</horizontalcenter>
 						</verticalbox>
 					</horizontalcenter>
 				</horizontalbox>
@@ -1454,6 +1465,14 @@
 								max="99"
 								majortick="10"
 							/>
+						</horizontalbox>
+					</verticalbox>
+				</horizontalbox>
+				<horizontalbox
+					name="Filter Envelope"
+					>
+					<verticalbox>
+						<horizontalbox>
 							<slider
 								label="Attack"
 								parameter="FilterEnvRate1"
@@ -1494,7 +1513,7 @@
 					</verticalbox>
 				</horizontalbox>
 				<horizontalbox
-					name="Amplifier"
+					name="Amplifier Envelope"
 					>
 					<verticalbox>
 						<horizontalbox>
