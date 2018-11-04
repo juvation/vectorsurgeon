@@ -18,17 +18,17 @@
 		>
 		<copy
 			file="vs-mac.jar"
-			tofile="mac/vs.jar"
+			tofile="VectorSurgeonMac/vs.jar"
 			verbose="true"
 		/>
 		<copy
 			file="vs.jar"
-			tofile="linux/vs.jar"
+			tofile="VectorSurgeonLinux/vs.jar"
 			verbose="true"
 		/>
 		<copy
 			file="vs.jar"
-			tofile="windows/vs.jar"
+			tofile="VectorSurgeonWindows/vs.jar"
 			verbose="true"
 		/>
 	</target>
@@ -150,16 +150,6 @@
 			</manifest>
 		</jar>
 		
-		<copy
-			file="vs.jar"
-			tofile="VectorSurgeonWindows/vs.jar"
-		/>
-
-		<copy
-			file="vs.jar"
-			tofile="VectorSurgeonLinux/vs.jar"
-		/>
-
 		<!-- remake the jar with the Mac specific files excluded -->
 		<!-- because Ant WILL NOT update files in a jar for some reason -->
 		<!-- le fucking sigh -->
@@ -178,11 +168,6 @@
 			</manifest>
 		</jar>
 		
-		<copy
-			file="vs-mac.jar"
-			tofile="VectorSurgeonMac/vs.jar"
-		/>
-
 	</target>
 
 	<target name="javadoc">

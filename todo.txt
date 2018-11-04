@@ -18,6 +18,8 @@ PENDING
 
 TODO
 
+split simple synth into proper panes
+	add "set all oscs" action
 revisit parameter change scenarios
 	revisit how PatchWindow.setParameterValue() works
 should be able to vary the patch being edited
