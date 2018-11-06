@@ -443,6 +443,8 @@ public class ControlWindow
 		
 		openMidi ();
 		
+		loadDefaultPatch ();
+		
 		// WINDOW CONFIG
 		
 		setDefaultCloseOperation (DO_NOTHING_ON_CLOSE);
@@ -949,6 +951,45 @@ public class ControlWindow
 	}
 	
 	// PRIVATE METHODS
+	
+	private void
+	loadDefaultPatch ()
+	{
+		URL	propertiesURL = ControlWindow.getResource ("init-patch.syx");
+		
+		if (propertiesURL == null)
+		{
+			ControlWindow.showErrorDialog ("Error", "can't find default patch");
+			return;
+		}
+		
+		InputStream	uis = null;
+		
+		try
+		{
+			uis = propertiesURL.openStream ();
+
+			// oooh Patch does this for us, niiiiice Patch
+			this.defaultPatch = new Patch (uis);
+		}
+		catch (Exception inException)
+		{
+			ControlWindow.showErrorDialog ("Error", inException);
+		}
+		finally
+		{
+			if (uis != null)
+			{
+				try
+				{
+					uis.close ();
+				}
+				catch (Exception inException)
+				{
+				}
+			}
+		}
+	}
 	
 	private void
 	closeMidi ()
@@ -1692,6 +1733,9 @@ System.err.println (inThrowable);
 	
 	private Map<JButton, Boolean>
 	buttonClicked = new HashMap<JButton, Boolean> ();
+	
+	private Patch
+	defaultPatch = null;
 	
 	// ControlWindow keeps track of the 3 pseudo-modals
 	
