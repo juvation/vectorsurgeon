@@ -18,6 +18,8 @@ import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -72,7 +74,7 @@ import org.w3c.dom.NodeList;
 
 public class PatchWindow
 	extends JFrame
-	implements ActionListener, ChangeListener, ClipboardOwner, DocumentListener, WindowListener
+	implements ActionListener, ChangeListener, ClipboardOwner, DocumentListener, MouseListener, WindowListener
 {
 	// CONSTRUCTOR
 	
@@ -505,7 +507,7 @@ public class PatchWindow
 		// like we care
 	}
 	
-	// DOCUMENTLISTENER
+	// DOCUMENTLISTENER IMPLEMENTATION
 	
 	// these correspond to the patch name field only - currently
 	
@@ -526,6 +528,68 @@ public class PatchWindow
 	{
 		trackTextFieldChange (inEvent);
 	}
+
+	// MOUSELISTENER IMPLEMENTATION
+	
+  public void
+  mouseClicked (MouseEvent inEvent)
+  {
+  	Object	source = inEvent.getSource ();
+  	
+  	if (source instanceof JLabel)
+  	{
+  		JLabel	label = (JLabel) source;
+  		JComponent	component = this.labelToComponentMap.get (label);
+  		
+  		if (component == null)
+  		{
+  			System.err.println ("no component for label: " + label.getText ());
+  		}
+  		else
+  		{
+  			String	parameterName = this.componentToNameMap.get (component);
+  			
+  			if (parameterName == null)
+  			{
+  				System.err.println ("no name for component!");
+  			}
+  			else
+  			{
+  				Patch	initPatch = ControlWindow.getInstance ().getInitPatch ();
+  				
+  				try
+  				{
+						int	initValue = initPatch.getParameterValue (parameterName);
+						setParameterValue (parameterName, initValue);
+					}
+					catch (VSException inException)
+					{
+						ControlWindow.showErrorDialog ("Error", inException);
+					}
+  			}
+  		}
+  	}
+  }
+  
+  public void
+  mousePressed(MouseEvent inEvent)
+  {
+  }
+  
+  public void
+  mouseReleased (MouseEvent inEvent)
+  {
+  }
+  
+  public void
+  mouseEntered (MouseEvent inEvent)
+  {
+  }
+
+  public void
+  mouseExited (MouseEvent inEvent)
+  {
+  }
 
 	// WINDOWLISTENER IMPLEMENTATION
 	
@@ -1246,6 +1310,7 @@ System.err.println (inException);
 		componentPanel.add (popupPanel);
 		
 		JLabel	label = new JLabel (labelNode.getValue ());
+		label.addMouseListener (this);
 		popupPanel.add (label);
 		
 		String[]	popupValues = null;
@@ -1272,6 +1337,8 @@ System.err.println (inException);
 		popup.setActionCommand ("PARAMETER_POPUP");
 		popup.setMaximumRowCount (20);
 		popupPanel.add (popup);
+
+		this.labelToComponentMap.put (label, popup);
 		
 		// update the maps
 		String	parameterName = parameterNode.getValue ();
@@ -1339,6 +1406,8 @@ System.err.println (inException);
 		labelPanel.setLayout (new FlowLayout (FlowLayout.CENTER));
 		
 		JLabel	label = new JLabel (labelNode.getValue ());
+		label.addMouseListener (this);
+		this.labelToComponentMap.put (label, slider);
 		labelPanel.add (label);
 		componentPanel.add (labelPanel);
 	}
@@ -1516,6 +1585,9 @@ System.err.println (inException);
 	
 	private Map<JComponent, JLabel>
 	componentToLabelMap = new HashMap<JComponent, JLabel> ();
+	
+	private Map<JLabel, JComponent>
+	labelToComponentMap = new HashMap<JLabel, JComponent> ();
 	
 	private Map<String, List<JComponent>>
 	nameToComponentMap = new HashMap<String, List<JComponent>> ();

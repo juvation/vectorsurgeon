@@ -439,7 +439,7 @@ public class ControlWindow
 		
 		openMidi ();
 
-		loadDefaultPatch ();
+		loadInitPatch ();
 		
 		// WINDOW CONFIG
 		
@@ -822,6 +822,12 @@ public class ControlWindow
 		return bankWindow;
 	}
 	
+	public Patch
+	getInitPatch ()
+	{
+		return this.initPatch;
+	}
+	
 	public Document
 	getDocument ()
 	{
@@ -901,13 +907,13 @@ public class ControlWindow
 	// PRIVATE METHODS
 	
 	private void
-	loadDefaultPatch ()
+	loadInitPatch ()
 	{
 		URL	propertiesURL = ControlWindow.getResource ("init-patch.syx");
 		
 		if (propertiesURL == null)
 		{
-			ControlWindow.showErrorDialog ("Error", "can't find default patch");
+			ControlWindow.showErrorDialog ("Error", "can't find init-patch.syx");
 			return;
 		}
 		
@@ -918,10 +924,11 @@ public class ControlWindow
 			uis = propertiesURL.openStream ();
 
 			// oooh Patch does this for us, niiiiice Patch
-			this.defaultPatch = new Patch (uis);
+			this.initPatch = new Patch (uis);
 		}
 		catch (Exception inException)
 		{
+			ControlWindow.showErrorDialog ("Error", "can't load init-patch.syx");
 			ControlWindow.showErrorDialog ("Error", inException);
 		}
 		finally
@@ -1589,7 +1596,7 @@ System.err.println (inThrowable);
 	buttonClicked = new HashMap<JButton, Boolean> ();
 	
 	private Patch
-	defaultPatch = null;
+	initPatch = null;
 	
 	// ControlWindow keeps track of the 3 pseudo-modals
 	
