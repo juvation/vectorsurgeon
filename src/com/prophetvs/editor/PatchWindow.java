@@ -6,6 +6,7 @@ package com.prophetvs.editor;
 // IMPORTS
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -572,13 +573,29 @@ public class PatchWindow
   }
   
   public void
-  mousePressed(MouseEvent inEvent)
+  mousePressed (MouseEvent inEvent)
   {
+  	Object	source = inEvent.getSource ();
+  	
+  	if (source instanceof JLabel)
+  	{
+			JLabel	label = (JLabel) source;
+			label.setForeground (Color.WHITE);
+			label.setBackground (Color.BLACK);
+		}
   }
   
   public void
   mouseReleased (MouseEvent inEvent)
   {
+  	Object	source = inEvent.getSource ();
+  	
+  	if (source instanceof JLabel)
+  	{
+			JLabel	label = (JLabel) source;
+			label.setForeground (Color.BLACK);
+			label.setBackground (Color.WHITE);
+		}
   }
   
   public void
