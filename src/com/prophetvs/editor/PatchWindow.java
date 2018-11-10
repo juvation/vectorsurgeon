@@ -905,7 +905,7 @@ System.err.println (inException);
 
 					// the change handlers on the JComponents
 					// will update the patch (again) and send the parameter change messages
-					List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
+					List<JComponent>	controls = this.nameToComponentMap.get (patchParameterName);
 				
 					for (JComponent control : controls)
 					{
