@@ -257,13 +257,13 @@ public class MixEnvelopeControl
 			this.envelopeBounds.width, this.envelopeBounds.height);
 		
 		// convert our values to pixel coordinates
-		double	xDouble = (double) xValue;
+		double	xDouble = (double) this.xValue;
 		xDouble += 63;
 		xDouble /= 127;
 		xDouble *= this.envelopeBounds.width;
 		int	xCoordinate = (int) Math.floor (xDouble);
 
-		double	yDouble = (double) yValue;
+		double	yDouble = (double) this.yValue;
 		yDouble += 63;
 		yDouble /= 127;
 		yDouble *= this.envelopeBounds.height;

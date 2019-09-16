@@ -98,8 +98,8 @@
 			srcdir="${source.dir}"
 			destdir="${classes.dir}"
 			debug="on"
-			source="1.5"
-			target="1.5"
+			source="1.8"
+			target="1.8"
 			deprecation="on"
 			includeantruntime="false"
 			>
@@ -113,8 +113,8 @@
 			destdir="${macclasses.dir}"
 			classpath="${classes.dir}:VectorSurgeonMac/mmj.jar"
 			debug="on"
-			source="1.5"
-			target="1.5"
+			source="1.8"
+			target="1.8"
 			deprecation="on"
 			includeantruntime="false"
 			>

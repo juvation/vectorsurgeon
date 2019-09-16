@@ -422,6 +422,8 @@ public class ControlWindow
 	public static void
 	showErrorDialog (String inTitle, Throwable inThrowable)
 	{
+		inThrowable.printStackTrace (System.err);
+		
 		showErrorDialog (inTitle, inThrowable.toString ());
 	}
 	

@@ -64,18 +64,22 @@ public class EnvelopeControl
 	public String[]
 	getParameterNames ()
 	{
-		String[]	names = new String [9];
-		
-		for (int i = 0; i < 9; i++)
+		String[]	names = new String [this.allowLevel4 ? 9 : 8];
+
+		// there ain't no rate 0
+		names [0] = this.rateParameterNames [1];
+		names [1] = this.rateParameterNames [2];
+		names [2] = this.rateParameterNames [3];
+		names [3] = this.rateParameterNames [4];
+
+		names [4] = this.levelParameterNames [0];
+		names [5] = this.levelParameterNames [1];
+		names [6] = this.levelParameterNames [2];
+		names [7] = this.levelParameterNames [3];
+
+		if (this.allowLevel4)
 		{
-			if (i < 4)
-			{
-				names [i] = this.rateParameterNames [i + 1];
-			}
-			else
-			{
-				names [i] = this.levelParameterNames [i - 4];
-			}
+			names [8] = this.levelParameterNames [4];
 		}
 		
 		return names;

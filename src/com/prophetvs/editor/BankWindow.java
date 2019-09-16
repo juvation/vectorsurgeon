@@ -602,6 +602,7 @@ System.err.println (inException);
 	
 	// MOUSE LISTENER IMPLEMENTATION
 
+	@Override
 	public void
 	mouseClicked (MouseEvent inEvent)
 	{

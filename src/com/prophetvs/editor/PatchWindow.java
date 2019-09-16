@@ -967,6 +967,12 @@ System.err.println (inException);
 	private void
 	addToNameToComponentMap (String inParameterName, JComponent inControl)
 	{
+		if (inParameterName == null || inParameterName.length () == 0)
+		{
+			System.err.println ("addToNameToComponentMap() with null or empty parameter name");
+			new Exception ().printStackTrace (System.err);
+		}
+		
 		List<JComponent>	controls = this.nameToComponentMap.get (inParameterName);
 
 		if (controls == null)
@@ -1044,8 +1050,57 @@ System.err.println (inException);
 		}
 	}
 	
+	// note, the componentToNameMap is incompatible with custom controls
+	// as custom controls have multiple parameter names (or *can*)
+	// should be JComponent->List<String>
+	// but the only problem is how we use it here
+	// so we use nameToComponentMap instead!
+	
 	private void
 	copyPatchToControls ()
+	{
+		for (String parameterName : this.nameToComponentMap.keySet ())
+		{
+			if (parameterName == null)
+			{
+				System.err.println ("null parameter name in name to component map!");
+				continue;
+			}
+			
+			List<JComponent>	controls = this.nameToComponentMap.get (parameterName);
+
+			if (controls == null)
+			{
+				System.err.println ("found null controls for parameter " + parameterName);
+				continue;
+			}
+			
+			// check for meta parameter!
+			MetaParameters	mp = MetaParameters.getInstance ();
+			
+			List<String>	patchParameterNames = mp.get (parameterName);
+			
+			for (JComponent control : controls)
+			{
+				if (patchParameterNames == null)
+				{
+					copyParameterToControl (parameterName, control);
+				}
+				else
+				{
+					// remember only do the first value
+					// as the list of parameters might/will have different values
+					if (patchParameterNames.size () > 0)
+					{
+						copyParameterToControl (patchParameterNames.get (0), control);
+					}
+				}
+			}
+		}
+	}
+
+	private void
+	copyPatchToControlsOld ()
 	{
 		Iterator<JComponent>	controls = this.componentToNameMap.keySet ().iterator ();
 		
@@ -1053,6 +1108,8 @@ System.err.println (inException);
 		{
 			JComponent	control = controls.next ();
 			String	parameterName = this.componentToNameMap.get (control);
+			
+			System.err.println ("copyPatchToControls() is copying " + parameterName);
 			
 			// check for meta parameter!
 			MetaParameters	mp = MetaParameters.getInstance ();

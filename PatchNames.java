@@ -30,9 +30,9 @@ public class PatchNames
 					
 					String[]	names = bank.getPatchNames ();
 					
-					for (String name : names)
+					for (int j = 0; j < names.length; j++)
 					{
-						System.out.println (fileName + " -- " + name);
+						System.out.println (fileName + " - " + j + " - " + names [j]);
 					}
 				}
 				else
