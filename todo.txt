@@ -19,6 +19,7 @@ should be able to vary the patch being edited
 split simple synth into proper panes
 	add "set all oscs" action
 setting meta parameters doesn't set their discrete param controls SIGH
+copyPatchToControls() should use the correct parameter map
 
 PENDING
 

@@ -22,7 +22,7 @@ public class ROMPatchNumberTransform
 	}
 	
 	public int
-	transformParameter (String inParameterName, List<String> inTransformParameters,
+	transformParameter (Patch inPatch, String inParameterName, List<String> inTransformParameters,
 		int inPatchNumber, int inParameterSize)
 		throws VSException
 	{

@@ -18,14 +18,13 @@ public class SetTransform
 	getTransformParameterNames ()
 	{
 		String[]	names = new String [1];
-		
 		names [0] = "Value";
 		
 		return names;
 	}
 	
 	public int
-	transformParameter (String inParameterName, List<String> inTransformParameters,
+	transformParameter (Patch inPatch, String inParameterName, List<String> inTransformParameters,
 		int inPatchNumber, int inParameterSize)
 		throws VSException
 	{

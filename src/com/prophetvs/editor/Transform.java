@@ -16,7 +16,7 @@ public interface Transform
 	getTransformParameterNames ();
 	
 	public abstract int
-	transformParameter (String inParameter, List<String> inParameters,
+	transformParameter (Patch inPatch, String inParameter, List<String> inParameters,
 		int inPatchNumber, int inParameterSize)
 		throws VSException;
 

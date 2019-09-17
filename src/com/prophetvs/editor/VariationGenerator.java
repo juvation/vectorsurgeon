@@ -144,7 +144,7 @@ public class VariationGenerator
 				}
 				
 				// apply the transform
-				int	newParameterValue = transform.transformParameter (patchParameterName,
+				int	newParameterValue = transform.transformParameter (ioPatch, patchParameterName,
 					transformOperation.getTransformParameters (), inPatchNumber, parameterSpec.size);
 					
 				ioPatch.setParameterValue (patchParameterName, newParameterValue);
