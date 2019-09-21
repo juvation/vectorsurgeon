@@ -501,7 +501,7 @@ public class ControlWindow
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
-			("Version 1.1.8 - Copyright 2019 Jason Proctor <jason@redfish.net>");
+			("Version 1.1.9 - Copyright 2019 Jason Proctor <jason@redfish.net>");
 		blurbLabel.setForeground (Color.WHITE);
 		blurbLabel.setBackground (Color.BLACK);
 		blurbLabel.setFont (this.labelFont);
@@ -1264,14 +1264,30 @@ public class ControlWindow
 	private void
 	openMidi ()
 	{
-System.err.println ("using JavaMIDI for MIDI");
+		MidiDevice.Info[]	deviceInfoArray = null;
 
 		// get a list of MIDI devices
-		// MidiDevice.Info[]	deviceInfoArray = MidiSystem.getMidiDeviceInfo ();
-		MidiDevice.Info[]	deviceInfoArray = CoreMidiDeviceProvider.getMidiDeviceInfo ();
+		// on Mac we use CoreMIDI4J
+		// everywhere else, regular JavaMIDI actually works so we use that
+		try
+		{
+			Class	cm4jclass = Class.forName
+				("uk.co.xfactorylibrarians.coremidi4j.CoreMidiDeviceProvider");
+		
+System.err.println ("using CoreMIDI4J for MIDI");
 
+			deviceInfoArray = CoreMidiDeviceProvider.getMidiDeviceInfo ();
+		}
+		catch (ClassNotFoundException inException)
+		{
+System.err.println ("using JavaMIDI for MIDI");
+
+			deviceInfoArray = MidiSystem.getMidiDeviceInfo ();
+		}
+		
 		if (deviceInfoArray == null || deviceInfoArray.length == 0)
 		{
+			System.err.println ("no MIDI devices found");
 			return;
 		}
 		

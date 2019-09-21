@@ -12,7 +12,7 @@ fi
 
 # copy jars into place
 
-cp vs-mac.jar VectorSurgeonMac/vs.jar
+cp vs.jar VectorSurgeonMac/vs.jar
 cp vs.jar VectorSurgeonWindows
 cp vs.jar VectorSurgeonLinux
 

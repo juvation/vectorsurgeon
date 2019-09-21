@@ -493,7 +493,7 @@ public class ControlWindow
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
-			("Version 1.1.8 - Copyright 2019 Jason Proctor <jason@redfish.net>");
+			("Version 1.1.9 - Copyright 2019 Jason Proctor <jason@redfish.net>");
 		blurbLabel.setForeground (Color.WHITE);
 		blurbLabel.setBackground (Color.BLACK);
 		blurbLabel.setFont (this.labelFont);

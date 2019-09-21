@@ -110,6 +110,7 @@
 		<!-- compile the Mac later so our class files are newer -->
 		<!-- ensure to include the generic class dir in the path sigh -->
 		
+		<!--
 		<javac
 			srcdir="${macsource.dir}"
 			destdir="${macclasses.dir}"
@@ -121,6 +122,7 @@
 			includeantruntime="false"
 			>
 		</javac>
+		-->
 
 	</target>
 

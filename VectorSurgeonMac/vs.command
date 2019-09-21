@@ -10,7 +10,7 @@ fi
 
 cd $DIR
 
-exec java -cp vs.jar:mmj.jar com.prophetvs.editor.ControlWindow
+exec java -cp vs.jar:coremidi4j-1.2.jar com.prophetvs.editor.ControlWindow
 
 
 
