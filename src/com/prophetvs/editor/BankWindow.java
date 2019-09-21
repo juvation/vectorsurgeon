@@ -942,8 +942,6 @@ inException.printStackTrace (System.err);
 		public void
 		actionPerformed (ActionEvent inEvent)
 		{
-			System.err.println ("EnterAction.actionPerformed()");
-			
 			ControlWindow	controlWindow = ControlWindow.getInstance ();
 
 			if (controlWindow.getPatchWindow () != null)

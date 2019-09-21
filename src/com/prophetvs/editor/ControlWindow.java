@@ -71,6 +71,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 
+import uk.co.xfactorylibrarians.coremidi4j.CoreMidiDeviceProvider;
+
 // CLASS
 
 public class ControlWindow
@@ -1265,7 +1267,8 @@ public class ControlWindow
 System.err.println ("using JavaMIDI for MIDI");
 
 		// get a list of MIDI devices
-		MidiDevice.Info[]	deviceInfoArray = MidiSystem.getMidiDeviceInfo ();
+		// MidiDevice.Info[]	deviceInfoArray = MidiSystem.getMidiDeviceInfo ();
+		MidiDevice.Info[]	deviceInfoArray = CoreMidiDeviceProvider.getMidiDeviceInfo ();
 
 		if (deviceInfoArray == null || deviceInfoArray.length == 0)
 		{

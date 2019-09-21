@@ -2,4 +2,5 @@ Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.9.4
 Created-By: 1.8.0_45-b14 (Oracle Corporation)
 Main-Class: com.prophetvs.editor.ControlWindow
+Class-Path: coremidi4j-1.2.jar
 

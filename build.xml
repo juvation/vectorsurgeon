@@ -7,6 +7,7 @@
 	<property name="build.dir"  value="build"/>
 	
 	<property name="classes.dir"  value="${build.dir}/classes"/>
+	<property name="lib.dir"  value="lib"/>
 	<property name="source.dir"  value="src"/>
 
 	<property name="macclasses.dir"  value="${build.dir}/classes-mac"/>
@@ -97,6 +98,7 @@
 		<javac
 			srcdir="${source.dir}"
 			destdir="${classes.dir}"
+			classpath="${classes.dir}:${lib.dir}/coremidi4j-1.2.jar"
 			debug="on"
 			source="1.8"
 			target="1.8"
@@ -147,6 +149,7 @@
 			<fileset dir="${classes.dir}" />
 			<manifest>
 				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+				<attribute name="Class-Path" value="coremidi4j-1.2.jar" />
 			</manifest>
 		</jar>
 		

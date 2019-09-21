@@ -88,7 +88,7 @@ public class PatchWindow
 		
 		// CONFIGURATION
 		
-		setTitle (this.patch.getName ());
+		setWindowTitle ();
 		
 		setResizable (false);
 		setDefaultCloseOperation (DO_NOTHING_ON_CLOSE);
@@ -1533,6 +1533,12 @@ System.err.println (inException);
 	}
 	
 	private void
+	setWindowTitle ()
+	{
+		setTitle (this.patch.getPatchNumber () + " - " + this.patch.getName ());
+	}
+	
+	private void
 	trackTextFieldChange (DocumentEvent inEvent)
 	{
 		Iterator<JComponent>	controls = this.componentToNameMap.keySet ().iterator ();
@@ -1564,7 +1570,7 @@ System.err.println (inException);
 
 						// and set the window title!
 						// ...with the sanitised version of the name back from the patch
-						setTitle (this.patch.getName ());
+						setWindowTitle ();
 						
 						try
 						{
