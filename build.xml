@@ -10,15 +10,12 @@
 	<property name="lib.dir"  value="lib"/>
 	<property name="source.dir"  value="src"/>
 
-	<property name="macclasses.dir"  value="${build.dir}/classes-mac"/>
-	<property name="macsource.dir"  value="src-mac"/>
-
 	<target
 		name="build"
 		depends="jar"
 		>
 		<copy
-			file="vs-mac.jar"
+			file="vs.jar"
 			tofile="VectorSurgeonMac/vs.jar"
 			verbose="true"
 		/>
@@ -37,17 +34,6 @@
 	<target
 		name="clean"
 		>
-		<!-- Mac -->
-
-		<delete
-			dir="${macclasses.dir}"
-		/>
-		<delete
-			file="vs-mac.jar"
-		/>
-		
-		<!-- Win/Linux -->
-		
 		<delete
 			dir="${classes.dir}"
 		/>
@@ -63,18 +49,6 @@
 		<mkdir
 			dir="${build.dir}"
 		/>
-		
-		<!-- Mac -->
-
-		<mkdir
-			dir="${macclasses.dir}"
-		/>
-		<mkdir
-			dir="${macclasses.dir}/META-INF"
-		/>
-		
-		<!-- Win/Linux -->
-		
 		<mkdir
 			dir="${classes.dir}"
 		/>
@@ -93,8 +67,6 @@
 		depends="init"
 		>
 		
-		<!-- Win/Linux -->
-		
 		<javac
 			srcdir="${source.dir}"
 			destdir="${classes.dir}"
@@ -106,23 +78,6 @@
 			includeantruntime="false"
 			>
 		</javac>
-
-		<!-- compile the Mac later so our class files are newer -->
-		<!-- ensure to include the generic class dir in the path sigh -->
-		
-		<!--
-		<javac
-			srcdir="${macsource.dir}"
-			destdir="${macclasses.dir}"
-			classpath="${classes.dir}:VectorSurgeonMac/mmj.jar"
-			debug="on"
-			source="1.8"
-			target="1.8"
-			deprecation="on"
-			includeantruntime="false"
-			>
-		</javac>
-		-->
 
 	</target>
 
@@ -152,24 +107,7 @@
 			<manifest>
 				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
 				<attribute name="Class-Path" value="coremidi4j-1.2.jar" />
-			</manifest>
-		</jar>
-		
-		<!-- remake the jar with the Mac specific files excluded -->
-		<!-- because Ant WILL NOT update files in a jar for some reason -->
-		<!-- le fucking sigh -->
-		
-		<jar destfile="vs-mac.jar">
-			<fileset dir="${classes.dir}" excludesfile="mac-excludes.txt"/>
-			<manifest>
-				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
-			</manifest>
-		</jar>
-		
-		<jar destfile="vs-mac.jar" update="true">
-			<fileset dir="${macclasses.dir}" />
-			<manifest>
-				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
+				<attribute name="Application-Name" value="Vector Surgeon" />
 			</manifest>
 		</jar>
 		
