@@ -10,7 +10,7 @@ fi
 
 cd $DIR/VectorSurgeonMac
 
-exec java -cp vs.jar:mmj.jar com.prophetvs.editor.ControlWindow
+exec java -cp vs.jar com.prophetvs.editor.ControlWindow
 
 
 

@@ -190,45 +190,107 @@ inThrowable.printStackTrace (System.err);
 	private void
 	handleControlChange (ShortMessage inMessage)
 	{
+	  // see which mode we're in
+	  int nrpnMode = ControlWindow.getInstance ().getNRPNMode ();
+	  
 		// see what we're doing here
 		int	controlNumber = inMessage.getData1 ();
 		
 		if (controlNumber == 0x62)
 		{
-			// the shortly-to-arrive MSB will make this a full parameter number
-			// for now, it's just the LSB
-			this.parameterNumber = inMessage.getData2 ();
+		  // parameter number LSB
+		  
+		  if (nrpnMode == ControlWindow.NRPN_MODE_STOCK)
+		  {
+        // the shortly-to-arrive MSB will make this a full parameter number
+        // for now, it's just the LSB
+        this.parameterNumber = inMessage.getData2 ();
+      }
+      else
+      {
+        this.parameterNumber |= inMessage.getData2 ();
+      
+        // now we wait for data entry controller values
+      }
 		}
 		else
 		if (controlNumber == 0x63)
 		{
-			// combine with previously cached parameter number LSB
-			this.parameterNumber |= inMessage.getData2 () << 8;
-			
-			// now we wait for data entry controller values
+		  // parameter number MSB
+		  
+		  if (nrpnMode == ControlWindow.NRPN_MODE_STOCK)
+		  {
+        // combine with previously cached parameter number LSB
+        this.parameterNumber |= inMessage.getData2 () << 8;
+      
+        // now we wait for data entry controller values
+      }
+      else
+      {
+        // the shortly-to-arrive LSB will make this a full parameter number
+        // for now, it's just the MSB
+        this.parameterNumber = inMessage.getData2 () << 8;
+      }
 		}
 		else
 		if (controlNumber == 0x26)
 		{
-			this.parameterValueLSB = inMessage.getData2 ();
+		  // parameter value LSB
+
+		  if (nrpnMode == ControlWindow.NRPN_MODE_STOCK)
+		  {
+		    // we just cache the LSB and wait for MSB
+    		this.parameterValueLSB = inMessage.getData2 ();
+  		}
+  		else
+  		{
+    		this.parameterValueLSB = inMessage.getData2 ();
+
+  		  int parameterValue = this.parameterValueMSB;
+  		  
+        // and the MSB is either 0 or 0x40 
+        // depending on whether that last bit is 1 or not
+        if (this.parameterValueLSB != 0)
+        {
+          parameterValue |= 0x01;
+        }
+
+        this.midiHost.setParameterValueFromMIDI (this.parameterNumber, parameterValue);
+      
+        // wipe the cached LSB
+        this.parameterValueLSB = 0;
+  		}
 		}
 		else
 		if (controlNumber == 0x06)
 		{
-			// the MSB is bits 8:1
-			int	parameterValue = inMessage.getData2 () << 1;
-			
-			// and the MSB is either 0 or 0x40 
-			// depending on whether that last bit is 1 or not
-			if (this.parameterValueLSB != 0)
-			{
-				parameterValue |= 0x01;
-			}
+		  // parameter value MSB
+		  
+		  if (nrpnMode == ControlWindow.NRPN_MODE_STOCK)
+		  {
+        // the MSB is bits 8:1
+        int	parameterValue = inMessage.getData2 () << 1;
+      
+        // and the MSB is either 0 or 0x40 
+        // depending on whether that last bit is 1 or not
+        if (this.parameterValueLSB != 0)
+        {
+          parameterValue |= 0x01;
+        }
 
-			this.midiHost.setParameterValueFromMIDI (this.parameterNumber, parameterValue);
-			
-			// wipe the cached LSB
-			this.parameterValueLSB = 0;
+        this.midiHost.setParameterValueFromMIDI (this.parameterNumber, parameterValue);
+      
+        // wipe the cached LSB
+        this.parameterValueLSB = 0;
+      }
+      else
+      {
+		    // we just cache the MSB and wait for LSB
+        // note this MSB is good for any number of subsequent LSBs
+        
+        // the MSB is bits 8:1
+        this.parameterValueMSB = inMessage.getData2 () << 1;
+      }
 		}
 		else
 		{
@@ -291,6 +353,9 @@ inThrowable.printStackTrace (System.err);
 	
 	private int
 	parameterValueLSB = 0;
+	
+	private int
+	parameterValueMSB = 0;
 	
 	private MidiDevice
 	device = null;

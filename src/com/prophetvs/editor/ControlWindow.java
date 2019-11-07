@@ -86,9 +86,16 @@ public class ControlWindow
 		throws Exception
 	{
 		UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
-			
-		sPrefs = Preferences.userRoot ().node (kPreferencesPath);
 		
+		// OK so the mystery is somewhat solved
+		// userRoot() on Mac seems to return the prefs domain of the app package
+		// and not the actual user root
+		// so storing prefs actually stoes off com.prophetvs.editor/kPreferencesPath
+		// but it would be dangerous to make cross-platform assumptions
+		// so I am going to leave this as-is
+		
+		sPrefs = Preferences.userRoot ().node (kPreferencesPath);
+
 		String	configFilePath = sPrefs.get ("configFilePath", null);
 		
 		URL	configFileURL = null;
@@ -200,6 +207,8 @@ public class ControlWindow
 		return selectedFile;
 	}
 	
+	// PUBLIC STATIC METHODS
+	
 	public static File
 	getFileForSave (Object inOwner, String inTitle, String inSelectedFileName)
 	{
@@ -296,18 +305,6 @@ public class ControlWindow
 		
 		return selectedFile;
 	}
-	
-	// SINGLETON ACCESS POINT
-	
-	public static ControlWindow
-	getInstance ()
-	{
-		// the mainline constructs us
-		// therefore no need to check here
-		return sInstance;
-	}
-	
-	// PUBLIC STATIC METHODS
 	
 	public static Properties
 	getPropertiesResource (String inResourceName)
@@ -429,6 +426,16 @@ public class ControlWindow
 		showErrorDialog (inTitle, inThrowable.toString ());
 	}
 	
+	// SINGLETON ACCESS POINT
+	
+	public static ControlWindow
+	getInstance ()
+	{
+		// the mainline constructs us
+		// therefore no need to check here
+		return sInstance;
+	}
+	
 	// PUBLIC CONSTRUCTOR
 	
 	public
@@ -501,7 +508,7 @@ public class ControlWindow
 		getContentPane ().add (blurbPanel);
 		
 		JLabel	blurbLabel = new JLabel
-			("Version 1.1.9 - Copyright 2019 Jason Proctor <jason@redfish.net>");
+			("Version 1.1.10 - Copyright 2019 Jason Proctor <jason@redfish.net>");
 		blurbLabel.setForeground (Color.WHITE);
 		blurbLabel.setBackground (Color.BLACK);
 		blurbLabel.setFont (this.labelFont);
@@ -747,6 +754,11 @@ public class ControlWindow
 			saveMidiThruDevicePreference ();
 		}
 		else
+		if (actionCommand.equals ("NRPN_MODE_POPUP"))
+		{
+			saveNRPNModePreference ();
+		}
+		else
 		if (actionCommand.equals ("MIDI_CHANNEL_POPUP"))
 		{
 			sendMidiAllNotesOff ();
@@ -869,7 +881,13 @@ public class ControlWindow
 		return this.midiInputDeviceList.get (this.midiThruDeviceIndex);
 	}
 
-	// transmitters are lazily instantiated to speed up startup time
+	public int
+	getNRPNMode ()
+	{
+	  return this.nrpnModePopup.getSelectedIndex ();
+	}
+	
+	// receivers are lazily instantiated to speed up startup time
 	public Receiver
 	getMidiReceiver (int inDeviceIndex)
 		throws MidiUnavailableException
@@ -891,7 +909,7 @@ public class ControlWindow
 		return receiver;
 	}
 
-	// receivers are lazily instantiated to speed up startup time
+	// transmitters are lazily instantiated to speed up startup time
 	public Transmitter
 	getMidiTransmitter (int inDeviceIndex)
 		throws MidiUnavailableException
@@ -960,47 +978,221 @@ public class ControlWindow
 		waveBankWindow.setVisible (true);
 	}
 	
-	// PRIVATE METHODS
-	
-	private void
-	loadInitPatch ()
+	public void
+	sendBankDumpMessage (Bank inBank)
+	throws Exception
 	{
-		URL	propertiesURL = ControlWindow.getResource ("init-patch.syx");
-		
-		if (propertiesURL == null)
+		sendMidiMessage (Machine.makeBankDumpMessage (inBank));
+	}
+	
+	public void
+	sendEnableParametersMessage ()
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeEnableParametersMessage ());
+	}
+	
+	public void
+	sendMidiAllNotesOff ()
+	{
+		for (int i = 0; i < this.midiHeldNotes.length; i++)
 		{
-			ControlWindow.showErrorDialog ("Error", "can't find init-patch.syx");
-			return;
-		}
-		
-		InputStream	uis = null;
-		
-		try
-		{
-			uis = propertiesURL.openStream ();
-
-			// oooh Patch does this for us, niiiiice Patch
-			this.initPatch = new Patch (uis);
-		}
-		catch (Exception inException)
-		{
-			ControlWindow.showErrorDialog ("Error", "can't load init-patch.syx");
-			ControlWindow.showErrorDialog ("Error", inException);
-		}
-		finally
-		{
-			if (uis != null)
+			if (this.midiHeldNotes [i])
 			{
-				try
-				{
-					uis.close ();
-				}
-				catch (Exception inException)
-				{
-				}
+				sendMidiNoteOff (i);
 			}
 		}
 	}
+	
+	public void
+	sendMidiChannelPressure (int inPressure)
+	{
+		try
+		{
+			ShortMessage	message = new ShortMessage ();
+			message.setMessage (ShortMessage.CONTROL_CHANGE, this.midiChannel0, inPressure, 0);
+			
+			sendMidiMessage (message);
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+	
+	public void
+	sendMidiControlChange (int inControlNumber, int inControlValue)
+	{
+		try
+		{
+			ShortMessage	message = new ShortMessage ();
+			message.setMessage (ShortMessage.CONTROL_CHANGE,
+				this.midiChannel0, inControlNumber, inControlValue);
+			
+			sendMidiMessage (message);
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+	
+	public void
+	sendMidiMessage (MidiMessage inMessage)
+		throws MidiUnavailableException
+	{
+		if (this.midiOutputDeviceIndex >= 0
+			&& this.midiOutputDeviceIndex < this.midiOutputDeviceList.size ())
+		{
+			Receiver	receiver = getMidiReceiver (this.midiOutputDeviceIndex);
+			receiver.send (inMessage, 0);
+		}
+	}
+	
+	public void
+	sendMidiMessages (MidiMessage[] inMessages)
+		throws MidiUnavailableException
+	{
+		for (int i = 0; i < inMessages.length; i++)
+		{
+			try
+			{
+				sendMidiMessage (inMessages [i]);
+			}
+			catch (Throwable inThrowable)
+			{
+System.err.println (inThrowable);
+			}
+		}
+	}
+	
+	public void
+	sendMidiPitchBend (int inLSB, int inMSB)
+	{
+		try
+		{
+			ShortMessage	message = new ShortMessage ();
+			message.setMessage (ShortMessage.PROGRAM_CHANGE, this.midiChannel0, inLSB, inMSB);
+			
+			sendMidiMessage (message);
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+	
+	public void
+	sendMidiProgramChange (int inPatchNumber)
+	{
+		try
+		{
+			ShortMessage	message = new ShortMessage ();
+			message.setMessage (ShortMessage.PROGRAM_CHANGE, this.midiChannel0, inPatchNumber, 0);
+			
+			sendMidiMessage (message);
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+	
+	public void
+	sendMidiNoteOff (int inNoteNumber)
+	{
+		try
+		{
+			// the person responsible for the velocity=0 note off
+			// should be eviscerated with a blunt spoon
+			sendMidiNoteOn (inNoteNumber, 0);
+
+			this.midiHeldNotes [inNoteNumber] = false;
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+
+	public void
+	sendMidiNoteOn (int inNoteNumber, int inVelocity)
+	{
+		try
+		{
+			ShortMessage	message = new ShortMessage ();
+			message.setMessage (ShortMessage.NOTE_ON, this.midiChannel0, inNoteNumber, inVelocity);
+			
+			sendMidiMessage (message);
+			
+			this.midiHeldNotes [inNoteNumber] = true;
+		}
+		catch (Throwable inThrowable)
+		{
+System.err.println (inThrowable);
+		}
+	}
+	
+	public void
+	sendParameterChangeMessage (String inName, int inValue)
+	throws Exception
+	{
+		sendMidiMessages (Machine.makeParameterChangeMessage (this.midiChannel0, inName, inValue));
+	}
+	
+	public void
+	sendPatchDumpMessage (Patch inPatch)
+	throws Exception
+	{
+		sendMidiMessage (Machine.makePatchDumpMessage (inPatch));
+	}
+	
+	public void
+	sendPatchNameChangeMessage (String inPatchName)
+	throws Exception
+	{
+		sendMidiMessages (Machine.makePatchNameChangeMessage (this.midiChannel0, inPatchName));
+	}
+
+	public void
+	sendWaveBankDumpMessage (WaveBank inWaveBank)
+	throws Exception
+	{
+		sendMidiMessage (Machine.makeWaveBankDumpMessage (inWaveBank));
+	}
+
+	public void
+	setKeyboardWindow (KeyboardWindow inKeyboardWindow)
+	{
+		this.keyboardWindow = inKeyboardWindow;
+	}
+	
+	public void
+	setParameterValueFromMIDI (int inParameterNumber, int inParameterValue)
+	{
+		if (this.patchWindow == null)
+		{
+// System.err.println ("ControlWindow.setParameterValue() with no patch window");
+		}
+		else
+		{
+			this.patchWindow.setParameterValueFromMIDI (inParameterNumber, inParameterValue);
+		}
+	}
+	
+	public void
+	setPatchWindow (PatchWindow inPatchWindow)
+	{
+		this.patchWindow = inPatchWindow;
+	}
+	
+	public void
+	setWaveWindow (WaveWindow inWaveWindow)
+	{
+		this.waveWindow = inWaveWindow;
+	}
+	
+	// PRIVATE METHODS
 	
 	private void
 	closeMidi ()
@@ -1078,6 +1270,46 @@ public class ControlWindow
 		buttonLabel.setForeground (Color.WHITE);
 		buttonLabelPanel.setBackground (Color.BLACK);
 		buttonLabel.setFont (this.labelFont);
+	}
+	
+	private void
+	loadInitPatch ()
+	{
+		URL	propertiesURL = ControlWindow.getResource ("init-patch.syx");
+		
+		if (propertiesURL == null)
+		{
+			ControlWindow.showErrorDialog ("Error", "can't find init-patch.syx");
+			return;
+		}
+		
+		InputStream	uis = null;
+		
+		try
+		{
+			uis = propertiesURL.openStream ();
+
+			// oooh Patch does this for us, niiiiice Patch
+			this.initPatch = new Patch (uis);
+		}
+		catch (Exception inException)
+		{
+			ControlWindow.showErrorDialog ("Error", "can't load init-patch.syx");
+			ControlWindow.showErrorDialog ("Error", inException);
+		}
+		finally
+		{
+			if (uis != null)
+			{
+				try
+				{
+					uis.close ();
+				}
+				catch (Exception inException)
+				{
+				}
+			}
+		}
 	}
 	
 	private void
@@ -1162,6 +1394,18 @@ public class ControlWindow
 			this.midiOutputDevicePopup.setSelectedIndex (selectedIndex);
 		}
 
+	}
+	
+	private void
+	loadNRPNModePreference ()
+	{
+		Preferences	prefs = Preferences.userRoot ().node (kPreferencesPath);
+
+    // 0 = stock VS messages
+    // 1 = NRPN messages		
+		int	nrpnMode = prefs.getInt ("nrpnMode", 0);
+
+		this.nrpnModePopup.setSelectedIndex (nrpnMode);
 	}
 	
 	private JPanel
@@ -1257,6 +1501,25 @@ public class ControlWindow
 		panel.add (this.midiChannelPopup);
 		
 		loadMidiChannelPreference ();
+		
+		// NRPN ORDER CHECKBOX
+		
+		label = new JLabel ("NRPN Mode:");
+		panel.add (label);
+		label.setForeground (Color.white);
+		label.setBackground (Color.black);
+		label.setFont (this.labelFont);
+
+		String[]	nrpnModes = new String [2];
+		nrpnModes [0] = "Stock VS";
+		nrpnModes [1] = "NRPN";
+		
+		this.nrpnModePopup = new JComboBox (nrpnModes);
+		this.nrpnModePopup.setActionCommand ("NRPN_MODE_POPUP");
+		this.nrpnModePopup.addActionListener (this);
+		panel.add (this.nrpnModePopup);
+		
+		loadNRPNModePreference ();
 		
 		return panel;
 	}
@@ -1476,219 +1739,21 @@ System.err.println (inThrowable);
 		}
 	}
 	
-	public void
-	sendBankDumpMessage (Bank inBank)
-	throws Exception
+	private void
+	saveNRPNModePreference ()
 	{
-		sendMidiMessage (Machine.makeBankDumpMessage (inBank));
+		Preferences	prefs = Preferences.userRoot ().node (kPreferencesPath);
+		
+    prefs.putInt ("nrpnMode", this.nrpnModePopup.getSelectedIndex ());
 	}
 	
-	public void
-	sendEnableParametersMessage ()
-	throws Exception
-	{
-		sendMidiMessage (Machine.makeEnableParametersMessage ());
-	}
+	// PUBLIC STATIC EQUATES
 	
-	public void
-	sendMidiAllNotesOff ()
-	{
-		for (int i = 0; i < this.midiHeldNotes.length; i++)
-		{
-			if (this.midiHeldNotes [i])
-			{
-				sendMidiNoteOff (i);
-			}
-		}
-	}
+	public static final int
+	NRPN_MODE_STOCK = 0;
 	
-	public void
-	sendMidiChannelPressure (int inPressure)
-	{
-		try
-		{
-			ShortMessage	message = new ShortMessage ();
-			message.setMessage (ShortMessage.CONTROL_CHANGE, this.midiChannel0, inPressure, 0);
-			
-			sendMidiMessage (message);
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-	
-	public void
-	sendMidiControlChange (int inControlNumber, int inControlValue)
-	{
-		try
-		{
-			ShortMessage	message = new ShortMessage ();
-			message.setMessage (ShortMessage.CONTROL_CHANGE,
-				this.midiChannel0, inControlNumber, inControlValue);
-			
-			sendMidiMessage (message);
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-	
-	public void
-	sendMidiMessage (MidiMessage inMessage)
-		throws MidiUnavailableException
-	{
-		if (this.midiOutputDeviceIndex >= 0
-			&& this.midiOutputDeviceIndex < this.midiOutputDeviceList.size ())
-		{
-			Receiver	receiver = getMidiReceiver (this.midiOutputDeviceIndex);
-			receiver.send (inMessage, 0);
-		}
-	}
-	
-	public void
-	sendMidiMessages (MidiMessage[] inMessages)
-		throws MidiUnavailableException
-	{
-		for (int i = 0; i < inMessages.length; i++)
-		{
-			try
-			{
-				sendMidiMessage (inMessages [i]);
-			}
-			catch (Throwable inThrowable)
-			{
-System.err.println (inThrowable);
-			}
-		}
-	}
-	
-	public void
-	sendMidiPitchBend (int inLSB, int inMSB)
-	{
-		try
-		{
-			ShortMessage	message = new ShortMessage ();
-			message.setMessage (ShortMessage.PROGRAM_CHANGE, this.midiChannel0, inLSB, inMSB);
-			
-			sendMidiMessage (message);
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-	
-	public void
-	sendMidiProgramChange (int inPatchNumber)
-	{
-		try
-		{
-			ShortMessage	message = new ShortMessage ();
-			message.setMessage (ShortMessage.PROGRAM_CHANGE, this.midiChannel0, inPatchNumber, 0);
-			
-			sendMidiMessage (message);
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-	
-	public void
-	sendMidiNoteOff (int inNoteNumber)
-	{
-		try
-		{
-			// the person responsible for the velocity=0 note off
-			// should be eviscerated with a blunt spoon
-			sendMidiNoteOn (inNoteNumber, 0);
-
-			this.midiHeldNotes [inNoteNumber] = false;
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-
-	public void
-	sendMidiNoteOn (int inNoteNumber, int inVelocity)
-	{
-		try
-		{
-			ShortMessage	message = new ShortMessage ();
-			message.setMessage (ShortMessage.NOTE_ON, this.midiChannel0, inNoteNumber, inVelocity);
-			
-			sendMidiMessage (message);
-			
-			this.midiHeldNotes [inNoteNumber] = true;
-		}
-		catch (Throwable inThrowable)
-		{
-System.err.println (inThrowable);
-		}
-	}
-	
-	public void
-	sendParameterChangeMessage (String inName, int inValue)
-	throws Exception
-	{
-		sendMidiMessages (Machine.makeParameterChangeMessage (this.midiChannel0, inName, inValue));
-	}
-	
-	public void
-	sendPatchDumpMessage (Patch inPatch)
-	throws Exception
-	{
-		sendMidiMessage (Machine.makePatchDumpMessage (inPatch));
-	}
-	
-	public void
-	sendPatchNameChangeMessage (String inPatchName)
-	throws Exception
-	{
-		sendMidiMessages (Machine.makePatchNameChangeMessage (this.midiChannel0, inPatchName));
-	}
-
-	public void
-	sendWaveBankDumpMessage (WaveBank inWaveBank)
-	throws Exception
-	{
-		sendMidiMessage (Machine.makeWaveBankDumpMessage (inWaveBank));
-	}
-
-	public void
-	setKeyboardWindow (KeyboardWindow inKeyboardWindow)
-	{
-		this.keyboardWindow = inKeyboardWindow;
-	}
-	
-	public void
-	setParameterValueFromMIDI (int inParameterNumber, int inParameterValue)
-	{
-		if (this.patchWindow == null)
-		{
-// System.err.println ("ControlWindow.setParameterValue() with no patch window");
-		}
-		else
-		{
-			this.patchWindow.setParameterValueFromMIDI (inParameterNumber, inParameterValue);
-		}
-	}
-	
-	public void
-	setPatchWindow (PatchWindow inPatchWindow)
-	{
-		this.patchWindow = inPatchWindow;
-	}
-	
-	public void
-	setWaveWindow (WaveWindow inWaveWindow)
-	{
-		this.waveWindow = inWaveWindow;
-	}
+	public static final int
+	NRPN_MODE_NRPN = 1;
 	
 	// STATIC PRIVATE FINAL DATA
 	
@@ -1734,6 +1799,9 @@ System.err.println (inThrowable);
 
 	private ImageIcon
 	onIcon = new ImageIcon ("vs_blue_button_on.gif");
+
+	private JComboBox
+	nrpnModePopup = null;
 
 	private JComboBox
 	midiChannelPopup = null;

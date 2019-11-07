@@ -117,11 +117,23 @@ public class Machine
 // System.err.println ("transmitting parameter MSB 0x" + Integer.toHexString (parameterMSB));
 // System.err.println ("transmitting parameter LSB 0x" + Integer.toHexString (parameterLSB));
 
-		// parameter select LSB
-		messages [0] = new ShortMessage ();
-		messages [0].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x62, parameterLSB);
-		messages [1] = new ShortMessage ();
-		messages [1].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x63, parameterMSB);
+    messages [0] = new ShortMessage ();
+    messages [1] = new ShortMessage ();
+
+    if (ControlWindow.getInstance ().getNRPNMode () == ControlWindow.NRPN_MODE_STOCK)
+    {
+      // stock VS mode - little endian
+
+      messages [0].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x62, parameterLSB);
+      messages [1].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x63, parameterMSB);
+		}
+		else
+		{
+		  // NRPN mode - big endian
+		  
+      messages [0].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x63, parameterMSB);
+      messages [1].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x62, parameterLSB);
+		}
 		
 		// ok now the data entry slider bit
 		// this has a resolution of 8 bits
@@ -162,10 +174,23 @@ public class Machine
 // System.err.println ("transmitting data LSB " + valueLSB);
 
 		messages [2] = new ShortMessage ();
-		messages [2].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x26, valueLSB);
 		messages [3] = new ShortMessage ();
-		messages [3].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x06, valueMSB);
-		
+
+    if (ControlWindow.getInstance ().getNRPNMode () == ControlWindow.NRPN_MODE_STOCK)
+    {
+      // stock VS mode - little endian
+
+      messages [2].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x26, valueLSB);
+      messages [3].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x06, valueMSB);
+    }
+    else
+    {
+		  // NRPN mode - big endian
+
+      messages [2].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x06, valueMSB);
+      messages [3].setMessage (ShortMessage.CONTROL_CHANGE, inMidiChannel0, 0x26, valueLSB);
+    }
+    		
 		return messages;
 	}
 	
