@@ -42,6 +42,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -99,6 +100,11 @@ public class WaveWindow
 		saveButton.setActionCommand ("SAVE_TO_WAVE_BANK");
 		saveButton.addActionListener (this);
 		buttonPanel.add (saveButton);
+		
+		JButton	exportButton = new JButton ("Export Wave...");
+		exportButton.setActionCommand ("EXPORT");
+		exportButton.addActionListener (this);
+		buttonPanel.add (exportButton);
 		
 		JButton	copyButton = new JButton ("Copy Wave");
 		copyButton.setActionCommand ("COPY");
@@ -217,6 +223,23 @@ public class WaveWindow
 			{
 				this.waveBankWindow.setWave (this.wave);
 				setWaveModified (false);
+			}
+		}
+		else
+		if (actionCommand.equalsIgnoreCase ("EXPORT"))
+		{
+			File	file = ControlWindow.getFileForSave (this, "Save", "wave.wav");
+			
+			if (file != null)
+			{
+				try
+				{
+					WaveFile.export (this.wave, file);
+				}
+				catch (Exception inException)
+				{
+					ControlWindow.getInstance ().showErrorDialog ("Error", inException);
+				}
 			}
 		}
 		else

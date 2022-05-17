@@ -9,13 +9,77 @@ package com.prophetvs.editor;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WaveFile
 {
+	// STATIC METHODS
+	
+	public static void
+	export (Wave inWave, File outFile)
+		throws Exception
+	{
+		FileOutputStream	fos = new FileOutputStream (outFile);
+		
+		try
+		{
+			// RIFF magic
+			write4ByteLiteral ("RIFF", fos);
+		
+			// RIFF chunk size
+			// 44 (RIFF chunk + fmt chunk)
+			// -8 (exclude RIFF magic and RIFF size)
+			// +384 VS wave data
+			// = 420 :-)
+			write4ByteLittleEndianInteger (420, fos);
+		
+			// WAVE magic
+			write4ByteLiteral ("WAVE", fos);
+
+			// fmt magic
+			write4ByteLiteral ("fmt ", fos);
+
+			// size of fmt chunk
+			write4ByteLittleEndianInteger (16, fos);
+		
+			// data format - PCM
+			write2ByteLittleEndianInteger (1, fos);
+		
+			// channel count
+			write2ByteLittleEndianInteger (1, fos);
+
+			// sample rate - er what
+			write4ByteLittleEndianInteger (44100, fos);
+		
+			// (sample Rate * bitsPerSample * channels) / 8
+			write4ByteLittleEndianInteger (44100, fos);
+		
+			// (bits per sample * channels) / 8
+			write2ByteLittleEndianInteger (1, fos);
+
+			// bits per sample
+			write2ByteLittleEndianInteger (8, fos);
+
+			// data magic
+			write4ByteLiteral ("data", fos);
+
+			// data size
+			write4ByteLittleEndianInteger (384, fos);
+		
+			// wave data
+			inWave.writeWaveBuffer (fos);
+		}
+		finally
+		{
+			fos.close ();
+		}
+	}
+	
 	// CONSTRUCTOR
 	
 	public
@@ -210,6 +274,36 @@ public class WaveFile
 		}
 	}
 	
+	private static void
+	write4ByteLiteral (String inLiteral, OutputStream outStream)
+		throws IOException
+	{
+		byte[]	bytes = inLiteral.getBytes();
+		
+		outStream.write (bytes [0]);
+		outStream.write (bytes [1]);
+		outStream.write (bytes [2]);
+		outStream.write (bytes [3]);
+	}
+	
+	private static void
+	write2ByteLittleEndianInteger (int inInteger, OutputStream outStream)
+		throws IOException
+	{
+		outStream.write (inInteger & 0xff);
+		outStream.write ((inInteger >> 8) & 0xff);
+	}
+
+	private static void
+	write4ByteLittleEndianInteger (int inInteger, OutputStream outStream)
+		throws IOException
+	{
+		outStream.write (inInteger & 0xff);
+		outStream.write ((inInteger >> 8) & 0xff);
+		outStream.write ((inInteger >> 16) & 0xff);
+		outStream.write ((inInteger >> 24) & 0xff);
+	}
+
 	// PRIVATE DATA
 
 	private int

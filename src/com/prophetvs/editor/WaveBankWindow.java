@@ -185,6 +185,11 @@ public class WaveBankWindow
 		importButton.addActionListener (this);
 		buttonBar.add (importButton);
 		
+		JButton	exportButton = new JButton ("Export Wave...");
+		exportButton.setActionCommand ("EXPORT");
+		exportButton.addActionListener (this);
+		buttonBar.add (exportButton);
+		
 		JButton	copyButton = new JButton ("Copy Wave");
 		copyButton.setActionCommand ("COPY");
 		copyButton.addActionListener (this);
@@ -395,6 +400,37 @@ public class WaveBankWindow
 			}
 		}
 		else
+		if (actionCommand.equalsIgnoreCase ("EXPORT"))
+		{
+			int row = this.table.getSelectedRow ();
+			int column = this.table.getSelectedColumn ();
+
+			if (row == -1 || column == -1)
+			{
+				ControlWindow.getInstance ().showErrorDialog
+					("Error", "Please select a wave location to export.");
+			}
+			else
+			{
+				int	waveNumber = (row * kTableColumnCount) + column;
+				Wave	wave = this.waveBank.getWave (waveNumber);
+
+				File	file = ControlWindow.getFileForSave (this, "Save", "wave" + waveNumber + ".wav");
+				
+				if (file != null)
+				{
+					try
+					{
+						WaveFile.export (wave, file);
+					}
+					catch (Exception inException)
+					{
+						ControlWindow.getInstance ().showErrorDialog ("Error", inException);
+					}
+				}
+			}
+		}
+		else
 		if (actionCommand.equalsIgnoreCase ("COPY"))
 		{
 			int row = this.table.getSelectedRow ();
@@ -505,6 +541,10 @@ System.err.println (inException);
 					}
 				}
 			}
+		}
+		else
+		{
+			System.err.println ("unknown action command " + actionCommand);
 		}
 	}
 	
