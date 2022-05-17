@@ -1,7 +1,7 @@
 //
 //	EnvelopeControl.java
 //
-//	Copyright 2008 ArmoredMail, Inc.
+//	Copyright 2019 Jason Proctor
 //
 //	$Author$
 //	$Date$
