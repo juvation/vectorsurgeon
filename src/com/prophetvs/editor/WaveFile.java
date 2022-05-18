@@ -34,9 +34,8 @@ public class WaveFile
 			// RIFF chunk size
 			// 44 (RIFF chunk + fmt chunk)
 			// -8 (exclude RIFF magic and RIFF size)
-			// +384 VS wave data
-			// = 420 :-)
-			write4ByteLittleEndianInteger (420, fos);
+			// +256 VS wave data converted to 16-bit
+			write4ByteLittleEndianInteger (44 - 8 + 256, fos);
 		
 			// WAVE magic
 			write4ByteLiteral ("WAVE", fos);
@@ -57,22 +56,33 @@ public class WaveFile
 			write4ByteLittleEndianInteger (44100, fos);
 		
 			// (sample Rate * bitsPerSample * channels) / 8
-			write4ByteLittleEndianInteger (44100, fos);
+			write4ByteLittleEndianInteger (88200, fos);
 		
 			// (bits per sample * channels) / 8
-			write2ByteLittleEndianInteger (1, fos);
+			write2ByteLittleEndianInteger (2, fos);
 
 			// bits per sample
-			write2ByteLittleEndianInteger (8, fos);
+			write2ByteLittleEndianInteger (16, fos);
 
 			// data magic
 			write4ByteLiteral ("data", fos);
 
 			// data size
-			write4ByteLittleEndianInteger (384, fos);
+			write4ByteLittleEndianInteger (256, fos);
 		
 			// wave data
-			inWave.writeWaveBuffer (fos);
+			// WAVE files don't support 12 bits
+			// so we convert to 16-bit
+			
+			for (int i = 0; i < 128; i++)
+			{
+				double	sample = (double) inWave.getSample (i);
+
+				sample /= 4096;
+				sample *= 65536;
+				
+				write2ByteLittleEndianInteger ((int) sample, fos);
+			}
 		}
 		finally
 		{
