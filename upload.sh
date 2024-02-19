@@ -24,6 +24,6 @@ mac=VectorSurgeonMac.zip
 windows=VectorSurgeonWindows.zip
 linux=VectorSurgeonLinux.zip
 
-scp -i ~/ec2/Redfish.pem $mac $windows $linux ec2-user@redfish.net:prophetvs.com/editor/
+scp -i ~/ec2/Redfish.pem $mac $windows $linux jason@redfish.net:/var/www/virtual/prophetvs.com/html/editor/
 
 

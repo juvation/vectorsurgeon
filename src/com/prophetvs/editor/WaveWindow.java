@@ -228,7 +228,7 @@ public class WaveWindow
 		else
 		if (actionCommand.equalsIgnoreCase ("EXPORT"))
 		{
-			File	file = ControlWindow.getFileForSave (this, "Save", "wave.wav");
+			File	file = ControlWindow.getFileForSave (this, "Save", "wave" + this.wave.getWaveNumber() + ".wav");
 			
 			if (file != null)
 			{
