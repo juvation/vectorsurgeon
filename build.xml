@@ -70,7 +70,7 @@
 		<javac
 			srcdir="${source.dir}"
 			destdir="${classes.dir}"
-			classpath="${classes.dir}:${lib.dir}/coremidi4j-1.2.jar"
+			classpath="${classes.dir}:${lib.dir}/coremidi4j-1.6.jar"
 			debug="on"
 			source="1.8"
 			target="1.8"
@@ -106,7 +106,7 @@
 			<fileset dir="${classes.dir}" />
 			<manifest>
 				<attribute name="Main-Class" value="com.prophetvs.editor.ControlWindow" />
-				<attribute name="Class-Path" value="coremidi4j-1.2.jar" />
+				<attribute name="Class-Path" value="coremidi4j-1.6.jar" />
 				<attribute name="Application-Name" value="Vector Surgeon" />
 			</manifest>
 		</jar>
